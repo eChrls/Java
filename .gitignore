@@ -10,3 +10,20 @@ nbproject/private/
 out/
 *.log
 *.class
+# Java
+*.class
+*.jar
+*.war
+*.ear
+*.iml
+
+# NetBeans
+/nbproject/private/
+/build/
+/dist/
+/nbbuild/
+/nbdist/
+
+# IDEs
+.idea/
+.vscode/
