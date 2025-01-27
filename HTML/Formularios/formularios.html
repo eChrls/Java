@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Primer Formulario</title>
+    <link rel="shorcut icon" href="images/favicon.png">
+</head>
+
+<body>
+    <h1>Mi primer formulario</h1>
+    <form action="ejercicioTablas2.html.html" method="get" enctype="multipart/form-data"><!--get visible|post invisible + enctype (método para poder adjuntar imagenes)-->
+        <fieldset><!-- no entra, adorno, hace un cuadro dentro del form-->
+            <legend>Datos personales</legend><!--no entra, adorno para el form, un titulo combinado con fieldset-->
+        
+        <p>
+            <label>Usuario: </label><!--Label es un elemento de línea-->
+            <input type="text" id= "usuario" maxlength="8" placeholder="Teclee un usuario" required name="usuario"/>
+        </p>
+        <p>
+        <label for="clave">Clave: </label>
+        <input type="password" name="clave" required id="clave">
+        <!--Al ser Get se ve la contraseña en la url al enviar, hay que pasarlo a post-->
+        </p>
+        <p>
+            <label>Sexo:</label>
+            <input type="radio" name="Sexo" id="hombre" checked value="H"><label for="hombre">Hombre</label>
+            <input type="radio" name="Sexo" id="mujer" value="M"><label for="mujer">Mujer</label>
+        </p>   
+        <p> 
+            <label>Aficiones:</label>
+            <input type="checkbox" name="deporte" id="deporte" checked value="D"><label for="deporte">Deporte</label>
+            <input type="checkbox" name="lectura" id="lectura" value="L"><label for="lectura">lectura</label>
+            <input type="checkbox" name="otros" id="otros" value="O"><label for="otros">otros</label>
+        </p>
+        <p>
+            <label for="archivo">Seleccione un archivo imagen para su perfil:</label>
+            <input type="file" id=”archivo” name=”foto” accept=”image”><!--Adjuntar archivo tipo imagen-->
+            >
+        </p>
+        <p>
+            <label for="comentario">Escriba un comentario:</label>
+            <textarea id="comentario" name="comentario" placeholder="Escriba aquí" cols="40" rows="8"></textarea><!--YA NO ES INPUT-->
+        </p>
+        <p>
+            <label for="provincia">Elija una provincia:</label>
+            <select name = "provincia" id = "provincia" size="3" multiple> <!-- size 3 haría que se vieran 3 opciones y multiple para elegir más de una opción-->
+            <optgroup label="Oriental"><!-- no entra en el examen sirve para agrupar-->
+                <option selected value="Málaga">Málaga</option><!--selected: para marcar esta por predeterminada-->
+                <option value="Granada">Granada</option>
+                <option value="Cádiz">Cádiz</option>
+            </optgroup>
+            <optgroup label="Occidental">   
+                <option value="Córdoba">Córdoba</option>
+                <option value="Almería">Almería</option>
+                <option value="Sevilla">Sevilla</option>
+            </optgroup>
+            </select>
+        </p>                 
+        <p> 
+            <input type="submit" value="Enviar"/>
+            <input type="reset" value="Borrar campos"/><!--resetear formulario al recargar-->
+        </p>
+        <input type="hidden" name="oculto" value="Un valor"/><!--name y value para referencia propia como programador-->
+    </fieldset>
+    </form>
+</body>
+</html>
+<!--ETIQUETA FORM
+La primera etiqueta en un formulario es form
+y tiene que empezar y acabar donde haya datos para enviar. 
+La acción del formulario es enviar datos y que el servidor
+determine si me devuelve una página nueva o me retorna.
+El atributo para esa acción es action. Y el método de envío es method.
+Ej. usuario y contraseña de inicio de sesión-->
+
+<!--METODOS: GET Y POST:
+Para practicar ponemos un enlace hacia nosotros mismos pero podría
+ser cualquier página. Hay 2 métodos, visibles GET o invisible POST. 
+Eso significa que eres capaz o no de ver como cambia la url al clicar.-->
+
+<!--El input es un elemento vacío. Entre input y fin de input no hay nada
+Eso permite que tenga muchos atributos.El name explicado abajo*-->
+
+<!-- NAME (necesarios dentro del input) *Las url requieren 3 variables U, N y P, esas variables las buscarán
+en las etiquetas. Los cambios en la input se ven la URL.-->
+
+<!-- El input para pulsar el login y provocar el envío de datos 
+es de tipo submit-->
+
+<!-- Etiquetas vacías que vamos a ver: br, img, hr, meta, link y input-->
+
+<!-- EL ORDEN DE LOS ATRIBUTOS NO IMPORTA-->
+
+<!-- LABEL FOR cuando pulsas usuario se mete en usuario-->
+
+<!-- La id de una página es un valor único, no puede repetirse.-->
+
+<!-- REQUIRED te obliga a rellenar el input. 
+Da igual donde lo pongas, pertenece a los atributos.-->
+
+<!-- RADIO boton para elegir una opcion o otro, no te deja elegir dos
+Para ello TODO DEBE TENER EL MISMO NAME
+Ademas tiene la cualidad que si NO MARCAS una opción NO SE ENVIA
+Es fundamental ponerle el name del mismo nombre y el valor VALUE para saber que opción se marcó-->
+
+<!-- CHECKED para que te salga por defecto el RADIO que quieras marcado-->
+
+<!-- CHECKBOX botones que dejan elegir varias opciones-->
+
+<!-- HIDDEN campo oculto para mandar datos que no es necesario que el usuario lo vea-->
+
+<!--TEXT AREA (no input) para poner cuadro de texto o comentarios- cols y rows para fijar un tamaño-->
+
+<!--SELECT con name y id, y luego option con value y entre option y option el valor -->
+

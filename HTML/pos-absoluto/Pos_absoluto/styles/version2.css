@@ -1,0 +1,48 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: 0;
+}
+
+.cajaAzul{
+    border: 3px solid blue;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+
+.cajaAzul p{
+    padding-right: 1em;
+    padding-bottom: 1em;
+}
+
+.cajaVerde{
+    border: 3px solid green;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 3.5em;
+}
+
+h3{
+    text-align: right;
+    margin-top: 1em;
+    font-weight: lighter;
+}
+
+.t2{
+    text-align: center;
+    margin-top: 1em;
+    font-weight: lighter;
+
+}
+
+.cajaVerde2{
+    border: 3px solid greenyellow;
+    position: absolute;
+    top: 70px;
+    left: 100px;
+    width: 3.5em;
+    height: 4em;
+}

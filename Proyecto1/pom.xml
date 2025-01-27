@@ -11,7 +11,7 @@
 	<groupId>es.pildoras.proyecto1</groupId>
 	<artifactId>Proyecto1</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Proyecto1</name>
+	<name>ProyectoPildoras</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>

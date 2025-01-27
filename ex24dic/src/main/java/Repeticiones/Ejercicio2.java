@@ -11,8 +11,54 @@ En una nueva clase Programa, con el main, prueba el método sobre array de ejemp
 package Repeticiones;
 
 import Apartados.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Ejercicio2 {
     
-      
+    private static ArrayList<Integer> listaVocales (String[] array){
+        ArrayList<Integer> listaVocales = new ArrayList<>();
+        
+        for (int i = 0; i < array.length; i++) {
+            int num = Ejercicio2.VocalesSeguidas(array[i]);    
+            listaVocales.add(num);
+        }
+        
+        return listaVocales;
+    }
+    
+    private static boolean esVocal (char letra){
+           
+        char[] vocales = {'a', 'e', 'i', 'o', 'u'};
+        for (int i = 0; i < vocales.length; i++) {
+            if (vocales[i] == letra){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    private static int VocalesSeguidas (String palabra){
+        
+        int vocalesSeguidas = 0;
+        int contador = 0;
+        
+        for(char c : palabra.toLowerCase().toCharArray()){
+            if(esVocal(c)){
+                contador++;
+                vocalesSeguidas = Math.max(contador, vocalesSeguidas);
+            }else{
+                contador = 0;
+            }
+        }
+
+        return vocalesSeguidas;
+    }
+    public static void main(String[] args) {
+        
+        String array[]= {"Mesa", "Bueno", "MiauMi", "Rtddr", "Medioeuropeo"};
+        
+        System.out.println(Ejercicio2.listaVocales(array));
+        
+    }
 }
