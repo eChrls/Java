@@ -1,0 +1,26 @@
+
+html{
+  box-sizing:border-box;
+}
+div{
+border:3px black solid;
+height:30px;
+margin:2em;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:inherit;
+  }
+#d_1{
+background-color:lightgrey;
+}
+#p_2{
+float:right;
+}
+#p_1{
+float:left;
+}
+
+

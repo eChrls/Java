@@ -16,7 +16,110 @@ Este método devuelve true si se borra correctamente,false, en otro caso.
 package Repeticiones;
 
 import Apartados.*;
+import static com.sun.tools.attach.VirtualMachine.list;
+import java.lang.reflect.Array;
+import static java.nio.file.Files.list;
+import static java.rmi.Naming.list;
+import java.util.ArrayList;
+import java.util.Arrays;
+import static java.util.Collections.list;
+import java.util.List;
 
 public class Ejercicio1 {
+
+    private static String[] Crear(int longitud) {
+        String vacio = "";
+        String[] array = new String[longitud];
+        for (int i = 0; i < array.length; i++) {
+            array[i] = vacio;
+
+        }
+
+        return array;
+    }
+
+    private static void Mostrar(String[] array) {
+        System.out.print("{");
+        boolean primero  = true; 
+        for (String palabra : array) {
+            if (!primero){
+                System.out.print(" - ");
+            }
+            System.out.print(palabra);
+            primero = false; 
+
+        }
+        System.out.print(" }");
+    }
+
+    private static boolean Meter(String[] array, int posicion, String valor) {
+
+        for (int i = posicion; i < array.length; i++) {
+            if (array[i] != "") {
+
+            } else {
+                array[i] = valor;
+                return true;
+            }
+        }
+
+        for (int j = 0; j < posicion; j++) {
+            if (array[j] != "") {
+
+            } else {
+                array[j] = valor;
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private static boolean Borrar(String[] array, int posicion) {
+        
+        
+        
+        if(!array[posicion].isBlank()){
+            
+            List<String> lista = new ArrayList<>(Arrays.asList(array));
+            
+            lista.remove(posicion);
+            lista.add("");
+            lista.toArray(array);
+            return true;
+        }
+        
+            
+        return false; 
+    }
+    
+    
+        
+    public static void main(String[] args) {
+
+        String[] array = new String[4];
+
+        array = Ejercicio1.Crear(4);
+        Ejercicio1.Mostrar(array);
+
+        Ejercicio1.Meter(array, 1, "Hola");
+        Ejercicio1.Mostrar(array);
+
+        Ejercicio1.Meter(array, 2, "Adios");
+        Ejercicio1.Mostrar(array);
+
+        Ejercicio1.Meter(array, 2, "Buenos días");
+        Ejercicio1.Mostrar(array);
+        
+        Ejercicio1.Meter(array, 2, "Buenas noches");
+        Ejercicio1.Mostrar(array);
+       
+        Ejercicio1.Borrar(array, 1);
+        Ejercicio1.Mostrar(array);
+        
+        Ejercicio1.Borrar(array, 0);
+        Ejercicio1.Mostrar(array);
+
+    }
 
 }

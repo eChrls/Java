@@ -1,0 +1,64 @@
+/* Colores usados: #FDDBBD, #F2D0AB, #C9A568, #B0B0B0, #C9A568 y #DDDDDD 
+Propiedades de Texto necesarias:
+	font-family: sans-serif; 
+  	text-align: justify, center,....;
+	font-size: 150%,300%,....; 
+  	font-style: normal,oblique,....;
+	text-transform: uppercase,lowercase,....; 
+
+ */
+
+ * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+ }
+ body {
+  background-color: #FDDBBD;
+  padding-left: 1rem;
+ }
+
+h1 {
+  text-align: center;
+  color: #B0B0B0;
+  font-size: 300%;
+  text-transform: uppercase;
+  font-style: oblique;
+}
+
+.container {
+  position:relative;
+  width: fit-content;
+  margin-bottom: 20px;
+}
+
+
+
+h2 {
+  background-color: #C9A568;
+  color: #DDDDDD;
+  position: absolute;
+  top: -15px;
+  left: 10%;
+  width: 150px;
+  margin: 0;
+  padding-left: 10px;
+  font-style: oblique;
+}
+
+p {
+  width: 220px;
+  background-color: #F2D0AB;
+  border: 2px dashed #C9A568;
+  padding: 1rem;
+  padding-bottom: 3rem;
+  text-align: justify;
+  line-height: 1.5;
+}
+
+p:first-letter { 
+  color: #C9A568; 
+  font-size: 300%; 
+  font-style: normal;
+  line-height: 1;
+}
