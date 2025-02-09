@@ -56,9 +56,9 @@ public class Ejercicio2 {
     }
     public static void main(String[] args) {
         
-        String array[]= {"Mesa", "Bueno", "MiauMi", "Rtddr", "Medioeuropeo"};
+        String array[]= {"Meeeeeeesa", "Bueno", "MiauMi", "Rtddr", "Medioeuropeo"};
+        
         
         System.out.println(Ejercicio2.listaVocales(array));
-        
     }
 }
