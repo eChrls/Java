@@ -1,8 +1,11 @@
 package utilidades;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+
 import javax.swing.JOptionPane;
 
 public class Utilidades {
@@ -247,5 +250,22 @@ public class Utilidades {
             }
             System.out.println("");
         }
+    }
+    
+      /**
+     * Genera los primeros n números de la serie de Fibonacci.
+     * @param n cantidad de términos a generar
+     * @return lista con los primeros n términos de Fibonacci
+     */
+    public static List<Integer> generarFibonacci(int n) {
+        List<Integer> fibonacci = new ArrayList<>();
+        if (n <= 0) return fibonacci;
+        fibonacci.add(0);
+        if (n == 1) return fibonacci;
+        fibonacci.add(1);
+        for (int i = 2; i < n; i++) {
+            fibonacci.add(fibonacci.get(i - 1) + fibonacci.get(i - 2));
+        }
+        return fibonacci;
     }
 }
