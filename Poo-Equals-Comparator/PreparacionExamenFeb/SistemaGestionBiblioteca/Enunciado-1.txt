@@ -1,0 +1,25 @@
+ENUNCIADO EJERCICIO 1 - Sistema de Gestión de Biblioteca
+Desarrollar un sistema de gestión de biblioteca que maneje libros. Cada libro tendrá:
+
+ID único
+Título
+Autor
+Fecha de publicación
+Precio
+Número de páginas
+
+Requisitos:
+
+Crear la clase Libro que implemente las interfaces Comparable<Libro> y Comparator<Libro>
+Implementar equals() y hashCode()
+Implementar compareTo() para ordenar por ID
+Crear clase ComparadorPrecio que implemente Comparator<Libro>
+Crear una clase Biblioteca que contenga una lista de libros y métodos para:
+
+Agregar libros
+Mostrar todos los libros usando forEach
+Ordenar libros por precio
+Buscar un libro por ID usando búsqueda binaria
+
+
+Calcular antigüedad de los libros usando LocalDate y ChronoUnit

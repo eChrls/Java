@@ -157,7 +157,7 @@ public ResponseEntity<String> getMovimientos(){
     }
 
 
-    public ResponseEntity<String> updateComposicion (Long id, ComposicionesEntity composicion){
+    public ResponseEntity<String> updateComposicion(Long id, ComposicionesEntity composicion){
 
         try{
             if(composicionesRepository.findById(id).isPresent()){

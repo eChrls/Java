@@ -123,17 +123,17 @@ public class CrudController {
 
     }
 
-    @PutMapping("/updateComposiciones/{id}")
-    public ResponseEntity updateComposicion (@PathVariable Long Id, @RequestBody movimientoDto composicion) {
+    // @PutMapping("/updateComposicion/{id}")
+    // public ResponseEntity updateComposicion (@PathVariable Long Id, @RequestBody movimientoDto composicion) {
         
-        return crudService.updateComposicion(Id, composicion);
+    //     return crudService.updateComposicion(Id, composicion);
 
-    }
+    // }
 
     @PutMapping("/updateMusicos/{id}")
     public ResponseEntity updateMusico (@PathVariable Long Id, @RequestBody MusicosEntity musico) {
         
-        return crudService.updateMusico(Id, musico);
+        return crudService.updateMusicos(Id, musico);
 
     }
         

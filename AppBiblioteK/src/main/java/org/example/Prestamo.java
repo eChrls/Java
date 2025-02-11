@@ -1,8 +1,9 @@
 package org.example;
 
-import java.time.*;
-import java.time.temporal.*;
-import java.util.*;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Prestamo {
     int idPrestamo;
@@ -37,15 +38,15 @@ public class Prestamo {
         long diff = ChronoUnit.DAYS.between(fechaPrestamo, hoy);
         return (int) diff;
 
-
-
-
-    public void devolverLibro(Prestamo prestamo) {
-        libro.isPrestado(false);
-        prestamo.devuelto = true;
-        usuario.removeLibrosPrestados();
-        this.fechaDevolucion = prestamo.setFechaDevolucion(LocalDate.now());
     }
+
+
+    // public void devolverLibro(Prestamo prestamo) {
+    //     libro.isPrestado(false);
+    //     prestamo.devuelto = true;
+    //     usuario.removeLibrosPrestados();
+    //     this.fechaDevolucion = prestamo.setFechaDevolucion(LocalDate.now());
+    // }
 
 
     public int getIdPrestamo() {
@@ -107,14 +108,14 @@ public class Prestamo {
         this.fechaDevolucion = fechaDevolucion;
     }
 
-    public LocalDate fechaDevolucion() {
-        if (devuelto) {
-            return fechaDevolucion;
-            LocalDate hoy = LocalDate.now();
-            return hoy;
-        }
-        return null;
-    }
+    // public LocalDate fechaDevolucion() {
+    //     if (devuelto) {
+    //         return fechaDevolucion;
+    //         LocalDate hoy = LocalDate.now();
+    //         return hoy;
+    //     }
+    //     return null;
+    // }
 
     public void mostrarLibrosPorUsuario(Usuario usuario) {
         List<Prestamo> prestamos = new ArrayList<>();
@@ -137,10 +138,10 @@ public class Prestamo {
 
     }
 
-}
 
-        private LocalDate setFechaDevolucion(LocalDate now) {
-        LocalDate hoy = LocalDate.now();
-        return hoy;
-        }
-    }
+
+        // private LocalDate setFechaDevolucion(LocalDate now) {
+        // LocalDate hoy = LocalDate.now();
+        // return hoy;
+        // }
+}
