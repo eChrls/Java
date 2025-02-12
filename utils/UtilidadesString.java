@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 /**
  * Indice:
+ * -> Reemplazos y conversiones
  * 1. Comparadores de Strings
  * 2. Ordenacion alfabetica
  * 3. Ordenacion por longitud
@@ -19,6 +20,33 @@ import java.util.stream.Collectors;
  * 1. Contar letras
  */
 public class UtilidadesString {
+
+
+    public static void ejemplosString() {
+        // Reemplazos
+        String texto = "ejemplo texto texto";
+        String reemplazado = texto.replace("texto", "palabra");
+        String reemplazadoTodo = texto.replaceAll("\\s+", "-");
+        
+        // Primitivos a String
+        String strFromInt = String.valueOf(42);
+        String strFromDouble = String.valueOf(3.14);
+        String strFromBoolean = String.valueOf(true);
+
+        // String a Primitivos
+        int intFromStr = Integer.parseInt("42");
+        double doubleFromStr = Double.parseDouble("3.14");
+        boolean boolFromStr = Boolean.parseBoolean("true");
+        
+        // Conversiones String-Char
+        char caracter = "texto".charAt(0);
+        char[] arrayChars = "texto".toCharArray();
+        String strFromChar = String.valueOf('c');
+        String strFromChar2 = Character.toString('c');
+
+        char[] chars = { 'h', 'o', 'l', 'a' };
+        String strFromCharArray = new String(chars);
+    }
 
     /**
      * Comparador para ordenar strings por orden alfabético ignorando

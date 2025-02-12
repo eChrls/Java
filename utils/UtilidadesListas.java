@@ -1,5 +1,6 @@
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedHashSet;
@@ -12,6 +13,7 @@ import java.util.stream.Collectors;
 
 /**
  * Indice:
+ * ->   Conversiones
  * 1. Mas frecuente
  * 2. Eliminar duplicados
  * 3. k Mayores
@@ -39,8 +41,36 @@ import java.util.stream.Collectors;
  * 4. Contar y añadir vocales
  */
 public class UtilidadesListas {
+public void ejemplosConversion() {
+        // Array a ArrayList (Método 1 - Arrays.asList)
+        String[] array = { "a", "b", "c" };
+        ArrayList<String> arrayList1 = new ArrayList<>(Arrays.asList(array));
 
-    /**
+        // Array a ArrayList (Método 2 - Collections.addAll)
+        ArrayList<String> arrayList2 = new ArrayList<>();
+        Collections.addAll(arrayList2, array);
+
+        // ArrayList a Array (Método 1 - toArray)
+        String[] arrayFromList1 = arrayList1.toArray(new String[0]);
+
+        // ArrayList a Array (Método 2 - manual)
+        String[] arrayFromList2 = new String[arrayList1.size()];
+        for (int i = 0; i < arrayList1.size(); i++) {
+            arrayFromList2[i] = arrayList1.get(i);
+        }
+    }
+
+    // Método genérico para convertir Array a ArrayList
+    public static <T> ArrayList<T> arrayToArrayList(T[] array) {
+        return new ArrayList<>(Arrays.asList(array));
+    }
+
+    // Método genérico para convertir ArrayList a Array
+    public static <T> T[] arrayListToArray(ArrayList<T> lista, T[] array) {
+        return lista.toArray(array);
+
+
+    }    /**
      * Encuentra el valor más frecuente en una lista de elementos.
      *
      * @param <T>   tipo de los elementos

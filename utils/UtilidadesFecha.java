@@ -1,6 +1,8 @@
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -9,6 +11,7 @@ import java.util.Locale;
 
 /**
  * Indice:
+ * -> Inicialización, incremento, decremento, comparación, formateo
  * 1. Calculo de edad
  * 2. Calculo de meses entre fechas
  * 3. Conversion de dias a unidades de tiempo
@@ -19,6 +22,34 @@ import java.util.Locale;
  */
 public class UtilidadesFecha {
 
+     public static void ejemplosFechas() {
+            // Inicialización
+            LocalDate fechaHoy = LocalDate.now();
+            LocalDateTime fechaHoraAhora = LocalDateTime.now();
+            LocalTime horaAhora = LocalTime.now();
+            
+            // Manipulación
+            LocalDate manana = fechaHoy.plusDays(1);
+            LocalDate ayerSemana = fechaHoy.minusWeeks(1);
+            LocalDateTime dosPlusHoras = fechaHoraAhora.plusHours(2);
+            
+            // Comparación
+            LocalDate fecha1 = LocalDate.of(2024, 1, 1);
+            LocalDate fecha2 = LocalDate.of(2024, 1, 2);
+            boolean esAntes = fecha1.isBefore(fecha2);
+            boolean esDespues = fecha1.isAfter(fecha2);
+            boolean esIgual = fecha1.isEqual(fecha2);
+            
+            // Formateo
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            String fechaFormateada = fechaHoy.format(formatter);
+            System.out.println(fechaFormateada);
+            
+            // Cálculo de edad
+            LocalDate fechaNacimiento = LocalDate.of(1990, 1, 1);
+            Period edad = Period.between(fechaNacimiento, LocalDate.now());
+            int anos = edad.getYears();
+        }
     /**
      * Calcula la edad en años a partir de una fecha de nacimiento.
      *

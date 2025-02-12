@@ -1,10 +1,20 @@
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 import java.util.function.Function;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Indice:
+ * -> Excepciones
+ * -> Bucles (for each y tradicional y iterator)
+ * -> Comparaciones (pattern y matcher)
  * 1. Comparaciones Basicas
  * 2. Utilidades HashCode
  * 3. Comparadores Numericos
@@ -14,6 +24,101 @@ import java.util.function.Function;
  * 2. HashCode Complejo
  */
 public class UtilidadesBasicas {
+
+    public static void ejemplosExcepciones() {
+        // Try-catch simple
+        try {
+            int numero = Integer.parseInt("abc");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        // 3. Try-catch con un tipo específico de excepción
+        // ejemploDivision
+        try {
+            int resultado = 10 / 0; // División por cero
+        } catch (ArithmeticException e) {
+            System.out.println("No se puede dividir por cero!");
+        }
+
+        // 4. Try-catch con múltiples excepciones
+        // ejemploMultiplesErrores
+        try {
+            String texto = null;
+            texto.length(); // Esto dará NullPointerException
+            int numero = Integer.parseInt("abc"); // Esto daría NumberFormatException
+        } catch (NullPointerException e) {
+            System.out.println("El texto es null!");
+        } catch (NumberFormatException e) {
+            System.out.println("No es un número válido!");
+        }
+        // 5. Try-catch con finally (para liberar recursos)
+        try {
+            int resultado = 10 / 0; // División por cero
+        } catch (ArithmeticException e) {
+            System.out.println("No se puede dividir por cero!");
+        } finally {
+            System.out.println("Esto siempre se ejecuta");
+        }
+
+        // Try-catch múltiple
+        try {
+            FileReader fr = new FileReader("archivo.txt");
+            int numero = Integer.parseInt("abc");
+        } catch (NumberFormatException e) {
+            System.err.println("Error de formato: " + e.getMessage());
+        } catch (IOException e) {
+            System.err.println("Error de IO: " + e.getMessage());
+        } finally {
+            System.out.println("Esto siempre se ejecuta");
+        }
+
+        // Try-with-resources (autocierre de recursos)
+        try (BufferedReader br = new BufferedReader(new FileReader("archivo.txt"))) {
+            String linea = br.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Ejemplos de diferentes tipos de bucles
+    public static void ejemplosBucles() {
+        List<String> lista = new ArrayList<>();
+        lista.add("ejemplo");
+        lista.add("texto");
+
+        // For-each (solo lectura)
+        for (String elemento : lista) {
+            System.out.println(elemento);
+        }
+
+        // For tradicional (acceso por índice)
+        for (int i = 0; i < lista.size(); i++) {
+            String elemento = lista.get(i);
+            lista.set(i, elemento.toUpperCase());
+        }
+
+        // Iterator (para eliminar elementos)
+        Iterator<String> iterator = lista.iterator();
+        while (iterator.hasNext()) {
+            String elemento = iterator.next();
+            if (elemento.equals("a")) {
+                iterator.remove(); // Seguro para eliminar durante iteración
+            }
+        }
+    }
+
+    public static void ejemplosRegex() {
+        Pattern pattern = Pattern.compile("\\b\\w+@\\w+\\.\\w+\\b");
+        Matcher matcher = pattern.matcher("ejemplo@correo.com");
+
+        if (matcher.matches()) {
+            System.out.println("Coincide con el patrón");
+        }
+
+        while (matcher.find()) {
+            System.out.println("Encontrado: " + matcher.group());
+        }
+    }
 
     /**
      * Implementación básica de equals para cualquier clase con un ID.

@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 /**
  * Indice:
+ * -> Conversiones
  * 1. Agrupar colecciones
  * 2. Elementos comunes
  * 3. Rotar lista
