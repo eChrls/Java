@@ -33,7 +33,7 @@ public class UtilidadesBasicas {
             e.printStackTrace();
         }
         // 3. Try-catch con un tipo específico de excepción
-        // ejemploDivision
+        // En operaciones matemáticas incorrectas
         try {
             int resultado = 10 / 0; // División por cero
         } catch (ArithmeticException e) {
@@ -41,7 +41,9 @@ public class UtilidadesBasicas {
         }
 
         // 4. Try-catch con múltiples excepciones
-        // ejemploMultiplesErrores
+        // ejemploMultiplesErrores 
+        // Al usar un objeto que es null    
+        // Al convertir texto a número con formato incorrecto (por ejemplo, "abc" a int)
         try {
             String texto = null;
             texto.length(); // Esto dará NullPointerException
@@ -52,6 +54,8 @@ public class UtilidadesBasicas {
             System.out.println("No es un número válido!");
         }
         // 5. Try-catch con finally (para liberar recursos)
+        // Al usar un archivo que no existe (por ejemplo, FileReader) 
+        //y al cerrar un archivo después de usarlo (por ejemplo, FileWriter) - en este caso, el finally se usa para cerrar el archivo después de usarlo.    
         try {
             int resultado = 10 / 0; // División por cero
         } catch (ArithmeticException e) {
@@ -73,6 +77,7 @@ public class UtilidadesBasicas {
         }
 
         // Try-with-resources (autocierre de recursos)
+        //    - En este caso, el archivo se cierra automáticamente después de usarlo.
         try (BufferedReader br = new BufferedReader(new FileReader("archivo.txt"))) {
             String linea = br.readLine();
         } catch (IOException e) {
@@ -106,7 +111,13 @@ public class UtilidadesBasicas {
             }
         }
     }
-
+    // Ejemplos de uso de expresiones regulares
+    // \b: límite de palabra (espacio, inicio o fin de línea)
+    // \w: carácter de palabra (letra, dígito, guión bajo)
+    // +: uno o más de la expresión anterior
+    // .: cualquier carácter excepto nueva línea
+    // \.: punto literal
+    // \b\w+@\w+\.\w+\b: patrón para validar un correo electrónico
     public static void ejemplosRegex() {
         Pattern pattern = Pattern.compile("\\b\\w+@\\w+\\.\\w+\\b");
         Matcher matcher = pattern.matcher("ejemplo@correo.com");
