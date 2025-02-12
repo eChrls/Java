@@ -21,5 +21,4 @@ Mostrar todos los libros usando forEach
 Ordenar libros por precio
 Buscar un libro por ID usando búsqueda binaria
 
-
 Calcular antigüedad de los libros usando LocalDate y ChronoUnit

@@ -15,21 +15,16 @@ public class UtilidadesComparacion<T> {
 
     /**
      * Crea un comparador que puede manejar valores null.
-     *
+     * 
      * @param <T>        tipo de los elementos
      * @param comparador comparador base
-     * @return nuevo comparador que maneja null
      */
-    public static <T> Comparator<T> comparadorConNull(Comparator<T> comparador) {
-        return (a, b) -> {
-            if (a == null && b == null)
-                return 0;
-            if (a == null)
-                return -1;
-            if (b == null)
-                return 1;
-            return comparador.compare(a, b);
-        };
+    public interface Comparable<T> {
+        int compareTo(T other);
+    }
+
+    public interface Comparator<T> {
+        int compare(T o1, T o2);
     }
 
     /**
