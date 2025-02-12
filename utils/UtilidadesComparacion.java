@@ -2,6 +2,7 @@
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Indice:
@@ -13,6 +14,41 @@ import java.util.List;
  */
 public class UtilidadesComparacion<T> {
 
+    public class Libro extends EntidadComparable<Libro> {
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null || getClass() != obj.getClass())
+            return false;
+
+        Libro other = (Libro) obj;
+        return this.id == other.id;
+    }
+
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public int compareTo(Libro otro) {
+        return Integer.compare(this.id, otro.id);
+    }
+
+    public static class ComparadorPorPrecio implements Comparator<Libro> {
+        @Override
+        public int compare(Libro libro1, Libro libro2) {
+            return Double.compare(libro1.getPrecio(), libro2.getPrecio());
+        }
+    }
+
+    public static class ComparadorPorTitulo implements Comparator<Libro> {
+        @Override
+        public int compare(Libro libro1, Libro libro2) {
+            return libro1.getTitulo().compareTo(libro2.getTitulo());
+        }
+    }
+}
     /**
      * Crea un comparador que puede manejar valores null.
      * 

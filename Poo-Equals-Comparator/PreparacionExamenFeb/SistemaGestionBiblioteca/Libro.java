@@ -7,57 +7,52 @@ import java.util.Objects;
  * Clase que representa un libro en un sistema de biblioteca o librería.
  * Implementa Comparable para permitir el ordenamiento natural por ID.
  */
-public class Libro {
+public class Libro implements Comparable<Libro> {
+    // Declaramos los atributos como private para garantizar el encapsulamiento
+    // y proteger la integridad de los datos
+    private int id; // Identificador único del libro
+    private String titulo; // Título del libro
+    private String autor; // Autor del libro
+    private LocalDate fechaPublicacion; // Fecha de publicación usando LocalDate para mejor manejo de fechas
+    private double precio; // Precio del libro
+    private int numeroPaginas; // Número de páginas del libro
 
-    public class Libro implements Comparable<Libro> {
-        // Declaramos los atributos como private para garantizar el encapsulamiento
-        // y proteger la integridad de los datos
-        private int id; // Identificador único del libro
-        private String titulo; // Título del libro
-        private String autor; // Autor del libro
-        private LocalDate fechaPublicacion; // Fecha de publicación usando LocalDate para mejor manejo de fechas
-        private double precio; // Precio del libro
-        private int numeroPaginas; // Número de páginas del libro
+    public Libro(int id, String titulo, String autor, LocalDate fechaPublicacion,
+            double precio, int numeroPaginas) {
+        this.id = id;
+        this.titulo = titulo;
+        this.autor = autor;
+        this.fechaPublicacion = fechaPublicacion;
+        this.precio = precio;
+        this.numeroPaginas = numeroPaginas;
+    }
 
-        public Libro(int id, String titulo, String autor, LocalDate fechaPublicacion,
-                double precio, int numeroPaginas) {
-            this.id = id;
-            this.titulo = titulo;
-            this.autor = autor;
-            this.fechaPublicacion = fechaPublicacion;
-            this.precio = precio;
-            this.numeroPaginas = numeroPaginas;
-        }
+    // Métodos getter para acceder a los atributos privados
+    // No incluimos setters para mantener la inmutabilidad de los objetos
+    public int getId() {
+        return id;
+    }
 
-        // Métodos getter para acceder a los atributos privados
-        // No incluimos setters para mantener la inmutabilidad de los objetos
-        public int getId() {
-            return id;
-        }
+    public String getTitulo() {
+        return titulo;
+    }
 
-        public String getTitulo() {
-            return titulo;
-        }
+    public String getAutor() {
+        return autor;
+    }
 
-        public String getAutor() {
-            return autor;
-        }
+    public LocalDate getFechaPublicacion() {
+        return fechaPublicacion;
+    }
 
-        public LocalDate getFechaPublicacion() {
-            return fechaPublicacion;
-        }
+    public double getPrecio() {
+        return precio;
+    }
 
-        } 
-            
-                ic double ge
-            return precio;
-                
+    public int getNumeroPaginas() {
+        return numeroPaginas;
+    }
 
-            ic int getNumeroPaginas() 
-            return numeroPaginas;
-    
-        }
-    
     /**
      * Implementación del método equals para comparar libros.
      * Dos libros se consideran iguales si tienen el mismo ID,
@@ -123,6 +118,17 @@ public class Libro {
      * 
      * @return Una cadena con todos los atributos del libro en formato legible
      */
+    @Override
+    public String toString() {
+        return "Libro{" +
+                "id=" + id +
+                ", titulo='" + titulo + '\'' +
+                ", autor='" + autor + '\'' +
+                ", fechaPublicacion=" + fechaPublicacion +
+                ", precio=" + precio +
+                ", numeroPaginas=" + numeroPaginas +
+                '}';
+    }
 
     /**
      * Clase interna estática que implementa un comparador por precio.
@@ -147,7 +153,4 @@ public class Libro {
             return libro1.getTitulo().compareTo(libro2.getTitulo());
         }
     }
-
-    }
-
-    
+}
