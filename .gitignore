@@ -27,3 +27,4 @@ out/
 # IDEs
 .idea/
 .vscode/
+/utils/target/
