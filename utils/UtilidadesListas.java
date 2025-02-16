@@ -1,4 +1,5 @@
 
+import com.myprojects.utils.UtilidadesComparacion.Libro;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -13,7 +14,7 @@ import java.util.stream.Collectors;
 
 /**
  * Indice:
- * ->   Conversiones
+ * -> Conversiones
  * 1. Mas frecuente
  * 2. Eliminar duplicados
  * 3. k Mayores
@@ -41,7 +42,7 @@ import java.util.stream.Collectors;
  * 4. Contar y añadir vocales
  */
 public class UtilidadesListas {
-public void ejemplosConversion() {
+    public void ejemplosConversion() {
         // Array a ArrayList (Método 1 - Arrays.asList)
         String[] array = { "a", "b", "c" };
         ArrayList<String> arrayList1 = new ArrayList<>(Arrays.asList(array));
@@ -69,8 +70,20 @@ public void ejemplosConversion() {
     public static <T> T[] arrayListToArray(ArrayList<T> lista, T[] array) {
         return lista.toArray(array);
 
+    }
 
-    }    /**
+    /* Ejemplo de inicializacion de un objeto lista con su constructor, */
+    public class Biblioteca {
+        private List<Libro> libros;
+
+        // Constructor
+        public Biblioteca() {
+            // Inicializamos
+            this.libros = new ArrayList<>();
+        }
+    }
+
+    /**
      * Encuentra el valor más frecuente en una lista de elementos.
      *
      * @param <T>   tipo de los elementos

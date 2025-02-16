@@ -1,4 +1,5 @@
-
+// Clase: Main
+package com.myprojects.utils;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -14,54 +15,69 @@ import java.util.Objects;
  */
 public class UtilidadesComparacion<T> {
 
+    // Para hacer una public class Libro extends EntidadComparable, esta debe ser
+    // una clase dentro del paquete.
+    class EntidadComparable<T> {
+
+    }
+
     public class Libro extends EntidadComparable<Libro> {
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null || getClass() != obj.getClass())
-            return false;
 
-        Libro other = (Libro) obj;
-        return this.id == other.id;
-    }
+        private int id;
+        private double precio;
+        private String titulo;
 
-    public int hashCode() {
-        return Objects.hash(id);
-    }
+        public String getTitulo() {
+            return titulo;
+        }
 
-    @Override
-    public int compareTo(Libro otro) {
-        return Integer.compare(this.id, otro.id);
-    }
+        public double getPrecio() {
+            return precio;
+        }
 
-    public static class ComparadorPorPrecio implements Comparator<Libro> {
         @Override
-        public int compare(Libro libro1, Libro libro2) {
-            return Double.compare(libro1.getPrecio(), libro2.getPrecio());
+        public boolean equals(Object obj) {
+            if (this == obj)
+                return true;
+            if (obj == null || getClass() != obj.getClass())
+                return false;
+
+            Libro other = (Libro) obj;
+            return this.id == other.id;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(id);
+        }
+
+        public int compareTo(Libro otro) {
+            return Integer.compare(this.id, otro.id);
+        }
+
+        public class ComparadorPorPrecio implements Comparator<Libro> {
+            @Override
+            public int compare(Libro libro1, Libro libro2) {
+                return Double.compare(libro1.getPrecio(), libro2.getPrecio());
+                // return id - otro.id;
+            }
+        }
+
+        public class ComparadorPorTitulo implements Comparator<Libro> {
+
+            @Override
+            public int compare(Libro libro1, Libro libro2) {
+                return libro1.getTitulo().compareTo(libro2.getTitulo());
+            }
         }
     }
 
-    public static class ComparadorPorTitulo implements Comparator<Libro> {
-        @Override
-        public int compare(Libro libro1, Libro libro2) {
-            return libro1.getTitulo().compareTo(libro2.getTitulo());
-        }
-    }
-}
     /**
      * Crea un comparador que puede manejar valores null.
      * 
      * @param <T>        tipo de los elementos
      * @param comparador comparador base
      */
-    public interface Comparable<T> {
-        int compareTo(T other);
-    }
-
-    public interface Comparator<T> {
-        int compare(T o1, T o2);
-    }
 
     /**
      * Ordena una lista por múltiples criterios.
@@ -98,4 +114,48 @@ public class UtilidadesComparacion<T> {
                 .reduce(Comparator::thenComparing)
                 .orElse((a, b) -> 0); // Devuelve 0 si no hay comparadores.
     }
+
 }
+
+/*
+ * //COMPARABLE Se puede utilizar para comparar dos objetos de una clase. Es
+ * útil cuando se necesita un orden natural para los objetos de una clase.
+ * // * La interfaz Comparable tiene un solo método, compareTo, que toma un
+ * objeto de la misma clase y devuelve un entero.
+ * // * Si el objeto actual es menor que el objeto pasado, devuelve un número
+ * negativo.
+ * // * Si son iguales, devuelve 0.
+ * // * Si el objeto actual es mayor, devuelve un número positivo.
+ * // Requiere implementar el método compareTo en la clase. Por ejemplo, para
+ * una clase Libro:
+ * public class Libro implements Comparable<Libro> {
+ * private int id;
+ * // otros campos y métodos
+ * 
+ * @Override
+ * public int compareTo(Libro otro) {
+ * return Integer.compare(this.id, otro.id);
+ * }
+ * }
+ * 
+ * //COMPARATOR Se puede utilizar para comparar dos objetos de una clase,
+ * incluso si la clase no implementa Comparable.
+ * // * La interfaz Comparator tiene un solo método, compare, que toma dos
+ * objetos de la clase y devuelve un entero.
+ * // * Si el primer objeto es menor que el segundo, devuelve un número
+ * negativo.
+ * // * Si son iguales, devuelve 0.
+ * // * Si el primer objeto es mayor, devuelve un número positivo.
+ * // * Comparator es útil cuando se necesita un orden diferente al orden
+ * natural de los objetos de una clase.
+ * // * Por ejemplo, si queremos ordenar libros por precio en lugar de por id,
+ * podemos usar un Comparator.
+ * 
+ * public class ComparadorPorPrecio implements Comparator<Libro> {
+ * 
+ * @Override
+ * public int compare(Libro libro1, Libro libro2) {
+ * return Double.compare(libro1.getPrecio(), libro2.getPrecio());
+ * }
+ * }
+ */

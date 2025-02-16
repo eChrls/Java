@@ -1,10 +1,14 @@
 
+package utils;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.function.Function;
 import java.util.regex.Matcher;
@@ -29,8 +33,8 @@ public class UtilidadesBasicas {
         // Try-catch simple
         try {
             int numero = Integer.parseInt("abc");
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (NumberFormatException e) {
+            System.out.println(e);
         }
         // 3. Try-catch con un tipo específico de excepción
         // En operaciones matemáticas incorrectas
@@ -41,12 +45,12 @@ public class UtilidadesBasicas {
         }
 
         // 4. Try-catch con múltiples excepciones
-        // ejemploMultiplesErrores 
-        // Al usar un objeto que es null    
+        // ejemploMultiplesErrores
+        // Al usar un objeto que es null
         // Al convertir texto a número con formato incorrecto (por ejemplo, "abc" a int)
         try {
             String texto = null;
-            texto.length(); // Esto dará NullPointerException
+            // texto.length(); // Esto dará NullPointerException
             int numero = Integer.parseInt("abc"); // Esto daría NumberFormatException
         } catch (NullPointerException e) {
             System.out.println("El texto es null!");
@@ -54,8 +58,9 @@ public class UtilidadesBasicas {
             System.out.println("No es un número válido!");
         }
         // 5. Try-catch con finally (para liberar recursos)
-        // Al usar un archivo que no existe (por ejemplo, FileReader) 
-        //y al cerrar un archivo después de usarlo (por ejemplo, FileWriter) - en este caso, el finally se usa para cerrar el archivo después de usarlo.    
+        // Al usar un archivo que no existe (por ejemplo, FileReader)
+        // y al cerrar un archivo después de usarlo (por ejemplo, FileWriter) - en este
+        // caso, el finally se usa para cerrar el archivo después de usarlo.
         try {
             int resultado = 10 / 0; // División por cero
         } catch (ArithmeticException e) {
@@ -77,11 +82,11 @@ public class UtilidadesBasicas {
         }
 
         // Try-with-resources (autocierre de recursos)
-        //    - En este caso, el archivo se cierra automáticamente después de usarlo.
+        // - En este caso, el archivo se cierra automáticamente después de usarlo.
         try (BufferedReader br = new BufferedReader(new FileReader("archivo.txt"))) {
             String linea = br.readLine();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e);
         }
     }
 
@@ -111,6 +116,7 @@ public class UtilidadesBasicas {
             }
         }
     }
+
     // Ejemplos de uso de expresiones regulares
     // \b: límite de palabra (espacio, inicio o fin de línea)
     // \w: carácter de palabra (letra, dígito, guión bajo)
@@ -182,9 +188,9 @@ public class UtilidadesBasicas {
                 java.lang.reflect.Method method = objeto.getClass().getMethod("clone");
                 return (T) method.invoke(objeto);
             }
-        } catch (Exception e) {
+        } catch (IllegalAccessException | NoSuchMethodException | SecurityException | InvocationTargetException e) {
             // Manejar la excepción (log, lanzar una excepción personalizada, etc.)
-            e.printStackTrace();
+            System.out.println(e);
         }
         return null;
     }
