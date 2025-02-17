@@ -5,64 +5,56 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Comparator;
 import java.util.Objects;
-
+/*Crea una clase Libro que modele la información que se mantiene en una biblioteca sobre cada libro: 
+Título, Autor (crea una clase básica con los atributos que consideres), ISBN (trece dígitos), Nº páginas, 
+Nº edición, Editorial (crea un Enum) y fecha de edición (usa LocalDate). La clase debe proporcionar los 
+siguientes métodos: constructor con parámetros, sin parámetros y copia, getters, setters, toString, 
+equals y hashcode por ISBN.*/
 public class Libro {
-    //Atributos de la clase libro
-    private int ISBN; 
+ 
     private String titulo; 
-    private Autor autor; 
-    private LocalDate fechaEdicion; 
-    private final int numPag; 
+    private Autor autor;
+    private String isbn; 
+    private int numPaginas; 
     private int numEdicion; 
-    private Enum Editorial;
-   
+    private Editorial editorial; 
+    private LocalDate fechaEdicion; 
     
-    //Constructor
-    public Libro (int ISBN, String titulo, Autor autor, LocalDate fechaEdicion, Enum editorial, int numEdicion, int numPag){
-        this.ISBN = ISBN;
-        this.titulo=titulo;
-        this.autor=autor;
-        this.fechaEdicion=fechaEdicion;
-        this.Editorial=editorial;
-        this.numEdicion=numEdicion;
-        this.numPag=numPag;
+    //Constructor sin parámetros y valores por defecto
+    //Lo utilizaremos en el método solicitarDatos() para llenarlo de los datos del usuario
+    public Libro(){
+        
+        this.titulo="";
+        this.autor= new Autor("","");
+        this.isbn ="";
+        this.numPaginas= 0;
+        this.numEdicion=1;
+        this.editorial=Editorial.RA_MA;
+        this.fechaEdicion= LocalDate.now();
+    }    
+    //Constructor con parametros
+       public Libro(String titulo, Autor autor, String isbn, int numPaginas, 
+                int numEdicion, Editorial editorial, LocalDate fechaEdicion) {
+        this.titulo = titulo;
+        this.autor = autor;
+        this.isbn = isbn;
+        this.numPaginas = numPaginas;
+        this.numEdicion = numEdicion;
+        this.editorial = editorial;
+        this.fechaEdicion = fechaEdicion;
     }
-    //Años que lleva publicado el libro
-    public Long calcularAniosEdicion(){
-        return ChronoUnit.YEARS.between(fechaEdicion, LocalDate.now());
-    }
-    
-    
-    @Override
-    public int hashCode(){
-        return Objects.hash(ISBN);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Libro other = (Libro) obj;
-        if (this.ISBN != other.ISBN) {
-            return false;
-        }
-        return Objects.equals(this.titulo, other.titulo);
-    }
-
-    public int getISBN() {
-        return ISBN;
-    }
-
-    public void setISBN(int ISBN) {
-        this.ISBN = ISBN;
-    }
+       
+        //Constructor copia
+       //Lo utilizaré en el método copiar()
+       public Libro (Libro otro){
+           this.titulo= otro.titulo;
+           this.autor=new Autor(otro.autor.getNombre(), otro.autor.getApellidos());
+           this.isbn=otro.isbn;
+           this.numPaginas=otro.numPaginas;
+           this.numEdicion=otro.numEdicion;
+           this.editorial=otro.editorial;
+           this.fechaEdicion=otro.fechaEdicion;
+       }
 
     public String getTitulo() {
         return titulo;
@@ -80,12 +72,20 @@ public class Libro {
         this.autor = autor;
     }
 
-    public LocalDate getFechaEdicion() {
-        return fechaEdicion;
+    public String getIsbn() {
+        return isbn;
     }
 
-    public void setFechaEdicion(LocalDate fechaEdicion) {
-        this.fechaEdicion = fechaEdicion;
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    public int getNumPaginas() {
+        return numPaginas;
+    }
+
+    public void setNumPaginas(int numPaginas) {
+        this.numPaginas = numPaginas;
     }
 
     public int getNumEdicion() {
@@ -96,43 +96,53 @@ public class Libro {
         this.numEdicion = numEdicion;
     }
 
-    public Enum getEditorial() {
-        return Editorial;
+    public Editorial getEditorial() {
+        return editorial;
     }
 
-    public void setEditorial(Enum Editorial) {
-        this.Editorial = Editorial;
+    public void setEditorial(Editorial editorial) {
+        this.editorial = editorial;
     }
 
-    public int getNumPag() {
-        return numPag;
+    public LocalDate getFechaEdicion() {
+        return fechaEdicion;
     }
 
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
-        return super.clone(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
-    }
-
-
-
-   
-
-
-
-      // extra para comparar por titulo
-    public class ComparadorPorTitulo implements Comparator<Libro> {
-
-            @Override
-        public int compare(Libro libro1, Libro libro2) {
-            return libro1.getTitulo().compareTo(libro2.getTitulo());
-        }
+    public void setFechaEdicion(LocalDate fechaEdicion) {
+        this.fechaEdicion = fechaEdicion;
     }
 
     @Override
     public String toString() {
-        return "Libro{" + "ISBN=" + ISBN + ", titulo=" + titulo + ", autor=" + autor + ", fechaEdicion=" + fechaEdicion + ", numPag=" + numPag + ", numEdicion=" + numEdicion + ", Editorial=" + Editorial + '}';
+        return "Libro{" + "titulo=" + titulo +
+                ", autor=" + autor + ", isbn=" + isbn +
+                ", numPaginas=" +  numPaginas + ", numEdicion=" + numEdicion +
+                ", editorial=" + editorial + ", fechaEdicion=" + fechaEdicion + '}';
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 41 * hash + Objects.hashCode(this.isbn);
+        return hash;
+    }
 
-
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Libro other = (Libro) obj;
+        return Objects.equals(this.isbn, other.isbn);
+    }
+       
+       
+       
+       
 }

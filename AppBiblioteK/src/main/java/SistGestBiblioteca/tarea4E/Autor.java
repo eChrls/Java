@@ -9,39 +9,27 @@ package SistGestBiblioteca.tarea4E;
  * @author carlos
  */
 public class Autor {
-    private String nombreCompleto;
-    private String paisOrigen;
-    
-    
-    public Autor (String nombreCompleto){
-        this.nombreCompleto = nombreCompleto; 
+    private String nombre;
+    private String apellidos;
+   
 
-    }
-    
-    public Autor(){
-        
+    // Constructor
+    public Autor(String nombre, String apellidos) {
+        this.nombre = nombre;
+        this.apellidos = apellidos;
     }
 
-    public String getNombreCompleto() {
-        return nombreCompleto;
-    }
-
-    public void setNombreCompleto(String nombreCompleto) {
-        this.nombreCompleto = nombreCompleto;
-    }
-
-    public String getPaisOrigen() {
-        return paisOrigen;
-    }
-
-    public void setPaisOrigen(String paisOrigen) {
-        this.paisOrigen = paisOrigen;
-    }
+    // Getters y setters
+    public String getNombre() { return nombre; }
+    public void setNombre(String nombre) { this.nombre = nombre; }
+    public String getApellidos() { return apellidos; }
+    public void setApellidos(String apellidos) { this.apellidos = apellidos; }
 
     @Override
     public String toString() {
-        return "Autor{" + "nombreCompleto=" + nombreCompleto + ", paisOrigen=" + paisOrigen + '}';
+        return apellidos + ", " + nombre;
     }
-    
-    
 }
+    
+    
+    

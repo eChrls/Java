@@ -10,10 +10,10 @@ package SistGestBiblioteca.tarea4E;
  */
 public enum Editorial {
     
-    PRENTICEHALL("Prentice- Hall", "New Yersey", "USA"),
-    RAMA("Ra-ma ", "Madrid", "ESP"),
+    PRENTICE_HALL("Prentice- Hall", "New Yersey", "USA"),
+    RA_MA("Ra-ma ", "Madrid", "ESP"),
     MACMILLAN("Macmillan","Londres","UK"),
-    CIRCULOROJO("Círculo Rojo","Barcelona","ESP");
+    CIRCULO_ROJO("Círculo Rojo","Barcelona","ESP");
 
     private String nombre;
     private String ciudad; 
@@ -26,6 +26,35 @@ public enum Editorial {
     }
     
     private Editorial() {
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getCiudad() {
+        return ciudad;
+    }
+
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
+    }
+
+    public String getPais() {
+        return pais;
+    }
+
+    public void setPais(String pais) {
+        this.pais = pais;
+    }
+
+    @Override
+    public String toString() {
+        return nombre + ", " + ciudad + " (" + pais + ")";
     }
     
 }
