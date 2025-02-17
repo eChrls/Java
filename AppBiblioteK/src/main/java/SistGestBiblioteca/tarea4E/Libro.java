@@ -1,38 +1,41 @@
 
-package SistGestBiblioteca;
+package SistGestBiblioteca.tarea4E;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Comparator;
 import java.util.Objects;
 
-public class Libro implements Comparable<Libro> {
+public class Libro {
     //Atributos de la clase libro
-    private int id; 
+    private int ISBN; 
     private String titulo; 
-    private String autor; 
-    private LocalDate fechaPublicacion; 
-    private double precio; 
+    private Autor autor; 
+    private LocalDate fechaEdicion; 
     private final int numPag; 
+    private int numEdicion; 
+    private Enum Editorial;
+   
     
     //Constructor
-    public Libro (int id, String titulo, String autor, LocalDate fechaPublicacion, double precio, int numPag){
-        this.id = id;
+    public Libro (int ISBN, String titulo, Autor autor, LocalDate fechaEdicion, Enum editorial, int numEdicion, int numPag){
+        this.ISBN = ISBN;
         this.titulo=titulo;
         this.autor=autor;
-        this.fechaPublicacion=fechaPublicacion;
-        this.precio=precio;
+        this.fechaEdicion=fechaEdicion;
+        this.Editorial=editorial;
+        this.numEdicion=numEdicion;
         this.numPag=numPag;
     }
     //Años que lleva publicado el libro
-    public Long calcularAniosPublicado(){
-        return ChronoUnit.YEARS.between(fechaPublicacion, LocalDate.now());
+    public Long calcularAniosEdicion(){
+        return ChronoUnit.YEARS.between(fechaEdicion, LocalDate.now());
     }
     
     
     @Override
     public int hashCode(){
-        return Objects.hash(id);
+        return Objects.hash(ISBN);
     }
 
     @Override
@@ -47,18 +50,18 @@ public class Libro implements Comparable<Libro> {
             return false;
         }
         final Libro other = (Libro) obj;
-        if (this.id != other.id) {
+        if (this.ISBN != other.ISBN) {
             return false;
         }
         return Objects.equals(this.titulo, other.titulo);
     }
 
-    public int getId() {
-        return id;
+    public int getISBN() {
+        return ISBN;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setISBN(int ISBN) {
+        this.ISBN = ISBN;
     }
 
     public String getTitulo() {
@@ -69,36 +72,51 @@ public class Libro implements Comparable<Libro> {
         this.titulo = titulo;
     }
 
-    public String getAutor() {
+    public Autor getAutor() {
         return autor;
     }
 
-    public void setAutor(String autor) {
+    public void setAutor(Autor autor) {
         this.autor = autor;
     }
 
-    public LocalDate getFechaPublicacion() {
-        return fechaPublicacion;
+    public LocalDate getFechaEdicion() {
+        return fechaEdicion;
     }
 
-    public void setFechaPublicacion(LocalDate fechaPublicacion) {
-        this.fechaPublicacion = fechaPublicacion;
+    public void setFechaEdicion(LocalDate fechaEdicion) {
+        this.fechaEdicion = fechaEdicion;
     }
 
-    public double getPrecio() {
-        return precio;
+    public int getNumEdicion() {
+        return numEdicion;
     }
 
-    public void setPrecio(double precio) {
-        this.precio = precio;
+    public void setNumEdicion(int numEdicion) {
+        this.numEdicion = numEdicion;
     }
+
+    public Enum getEditorial() {
+        return Editorial;
+    }
+
+    public void setEditorial(Enum Editorial) {
+        this.Editorial = Editorial;
+    }
+
+    public int getNumPag() {
+        return numPag;
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    }
+
+
 
    
-    //COMPARE TO PARA ORDENAR POR ID
-    @Override
-       public int compareTo(Libro otro) {
-        return Integer.compare(this.id, otro.id);
-    }
+
 
 
       // extra para comparar por titulo
@@ -112,10 +130,9 @@ public class Libro implements Comparable<Libro> {
 
     @Override
     public String toString() {
-        return "Libro{" + "id=" + id + ", titulo=" + titulo + ", autor=" + autor + ", fechaPublicacion=" + fechaPublicacion + ", precio=" + precio + ", numPag=" + numPag + '}';
+        return "Libro{" + "ISBN=" + ISBN + ", titulo=" + titulo + ", autor=" + autor + ", fechaEdicion=" + fechaEdicion + ", numPag=" + numPag + ", numEdicion=" + numEdicion + ", Editorial=" + Editorial + '}';
     }
-    
 
-    
+
 
 }

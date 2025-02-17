@@ -1,5 +1,7 @@
-package SistGestBiblioteca;
+/*
+package SistGestBiblioteca.tarea4E;
 
+import SistGestBiblioteca.*;
 import java.time.LocalDate;
 
 public class main {
@@ -9,16 +11,12 @@ public class main {
         Libro libro1 = new Libro(1, "Don Quijote", "Cervantes",  LocalDate.of(1605, 1, 1), 29.99, 863);
         Libro libro2 = new Libro(2, "El Principito", "Saint-Exupéry", LocalDate.of(1943, 4, 6), 15.99, 96);
         Libro libro3 = new Libro(3, "1984", "Orwell", LocalDate.of(1949, 6, 8), 19.99, 328);
-        
+     
         biblioteca.AgregarLibros(libro3);
         biblioteca.AgregarLibros(libro2);
         biblioteca.AgregarLibros(libro1);
         
         System.out.println("Libros disponibles:");
-        biblioteca.MostrarLibros();
-        System.out.println("*************************************************************************************************");
-        System.out.println("Libros ordenados por precio:");
-        biblioteca.ordenarPorPrecio();
         biblioteca.MostrarLibros();
         System.out.println("*************************************************************************************************");
         System.out.println("Buscamos libro con id = 2");
@@ -36,3 +34,4 @@ public class main {
 }
     
 
+*/
