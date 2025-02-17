@@ -1,0 +1,10 @@
+OSCARWILDE POSICIONAMIENTO FLOTANTE
+
+	overflow: auto; /* Para que el texto no se salga del cuadro */
+	/*existe letter-spacing y word-spacing para dar espacio entre letras/palabras*/
+	/*text-decoration: underline; para subrayar*/
+	/*text-decoration: line-through; para tachar*/
+
+
+VERTICAL ALIGN (a la imagen para centrarla)
+vertical align: middle; 
