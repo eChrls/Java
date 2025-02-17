@@ -48,11 +48,15 @@ public class UtilidadesComparacion<T> {
     public int hashCode() {
         return Objects.hash(id);
     }
-
+    // COMPARABLE Se utiliza para comparar objetos de la misma clase.
+    //  * La interfaz Comparable tiene un solo método, compareTo, que toma un objeto de la misma clase y devuelve un entero.
+    //  * Si el objeto actual es menor que el objeto pasado, compareTo debe devolver un número negativo.
+    //  * Si el objeto actual es mayor que el objeto pasado, compareTo debe devolver un número positivo.
+    //  * Si los dos objetos son iguales, compareTo debe devolver 0.
     public int compareTo(Libro otro) {
         return Integer.compare(this.id, otro.id);
     }
-
+    // COMPARATOR Se puede utilizar para comparar dos objetos de una clase, incluso si la clase no implementa Comparable.
     public class ComparadorPorPrecio implements Comparator<Libro> {
         @Override
         public int compare(Libro libro1, Libro libro2) {
