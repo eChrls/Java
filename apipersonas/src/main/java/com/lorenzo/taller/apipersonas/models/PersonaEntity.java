@@ -1,6 +1,9 @@
 package com.lorenzo.taller.apipersonas.models;
 
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
+@Entity
 
 public class Persona {
 
