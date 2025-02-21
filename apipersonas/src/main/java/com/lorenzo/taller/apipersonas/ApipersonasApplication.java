@@ -1,4 +1,4 @@
-package com.tallerlorenzo.apipersonas;
+package com.lorenzo.taller.apipersonas;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
