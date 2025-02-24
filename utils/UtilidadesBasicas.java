@@ -1,6 +1,4 @@
-
-package utils;
-
+package com.myprojects.utils;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -16,6 +14,7 @@ import java.util.regex.Pattern;
 
 /**
  * Indice:
+ * ->Try Catchs y bucles
  * -> Excepciones
  * -> Bucles (for each y tradicional y iterator)
  * -> Comparaciones (pattern y matcher)
@@ -45,8 +44,8 @@ public class UtilidadesBasicas {
         }
 
         // 4. Try-catch con múltiples excepciones
-        // ejemploMultiplesErrores
-        // Al usar un objeto que es null
+        // ejemploMultiplesErrores 
+        // Al usar un objeto que es null    
         // Al convertir texto a número con formato incorrecto (por ejemplo, "abc" a int)
         try {
             String texto = null;
@@ -58,9 +57,8 @@ public class UtilidadesBasicas {
             System.out.println("No es un número válido!");
         }
         // 5. Try-catch con finally (para liberar recursos)
-        // Al usar un archivo que no existe (por ejemplo, FileReader)
-        // y al cerrar un archivo después de usarlo (por ejemplo, FileWriter) - en este
-        // caso, el finally se usa para cerrar el archivo después de usarlo.
+        // Al usar un archivo que no existe (por ejemplo, FileReader) 
+        //y al cerrar un archivo después de usarlo (por ejemplo, FileWriter) - en este caso, el finally se usa para cerrar el archivo después de usarlo.    
         try {
             int resultado = 10 / 0; // División por cero
         } catch (ArithmeticException e) {
@@ -82,7 +80,7 @@ public class UtilidadesBasicas {
         }
 
         // Try-with-resources (autocierre de recursos)
-        // - En este caso, el archivo se cierra automáticamente después de usarlo.
+        //    - En este caso, el archivo se cierra automáticamente después de usarlo.
         try (BufferedReader br = new BufferedReader(new FileReader("archivo.txt"))) {
             String linea = br.readLine();
         } catch (IOException e) {
@@ -116,7 +114,6 @@ public class UtilidadesBasicas {
             }
         }
     }
-
     // Ejemplos de uso de expresiones regulares
     // \b: límite de palabra (espacio, inicio o fin de línea)
     // \w: carácter de palabra (letra, dígito, guión bajo)

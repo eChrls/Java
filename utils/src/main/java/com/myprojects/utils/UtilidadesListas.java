@@ -80,6 +80,10 @@ public void ejemplosConversion() {
             public Biblioteca() {
             //Inicializamos
             this.libros= new ArrayList<>();
+            /*INICIALIZACION EN OBJETOS*
+            private int[] numero = {1,2,3,4,5,6,7,10,11,12};
+private ArrayList<Integer> numero = new ArrayList<>(Arrays.asList(1,2,3,4,5,6,7,10,11,12));
+*/
     }}
     /**
      * Encuentra el valor más frecuente en una lista de elementos.

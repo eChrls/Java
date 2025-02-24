@@ -1,3 +1,5 @@
+package com.myprojects.utils;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -19,8 +21,13 @@ import java.util.stream.Collectors;
  * 1. Ordenar array
  * 1. Ordenar array con comparador
  * 2. Ordenar array strings alfabeticamente
- * 
- */
+*/
+
+/*INICIALIZACION EN OBJETOS*
+private int[] numero = {1,2,3,4,5,6,7,10,11,12};
+private ArrayList<Integer> numero = new ArrayList<>(Arrays.asList(1,2,3,4,5,6,7,10,11,12));
+*/
+
 public class UtilidadesArrays {
 
     public void ejemplosConversion() {

@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 /**
  * Indice:
  * -> Reemplazos y conversiones
+ * -> ToString-Sb para arrays y editables
  * 1. Comparadores de Strings
  * 2. Ordenacion alfabetica
  * 3. Ordenacion por longitud
@@ -47,6 +48,36 @@ public static void main(String[]args){ejemplosString();}
         String strFromCharArray = new String(chars);
     }
 
+    /*String Builders
+    RECORRER UN ARRAY
+        @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < TOTAL; i++) {
+            if(cartas[i] != null){
+                sb.append(cartas[i].toString()).append("\n");
+            }
+        }
+        return sb.toString();
+    }
+
+    DAR FORMATO ESPECIFICO
+        @Override
+    public String toString(){
+        String numeroStr; 
+        numeroStr = switch (numero) {
+            case 8 -> "Sota";
+            case 9 -> "Caballo";
+            case 10 -> "Rey";
+            default -> numero.toString();
+        };
+        return numeroStr + "  de  " + palo ;
+        }
+    
+    
+    
+    */
+    
     /**
      * Comparador para ordenar strings por orden alfabético ignorando
      * mayúsculas/minúsculas.

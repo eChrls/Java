@@ -97,7 +97,7 @@ public class UtilidadesFecha {
         return new int[] { años, mesesRestantes };
     }
 
-    public class UtilidadesFecha {
+
 
         /**
          * Valida si una cadena tiene el formato de fecha especificado.
@@ -153,4 +153,4 @@ public class UtilidadesFecha {
             return fecha.getMonth().getDisplayName(java.time.format.TextStyle.FULL, locale);
         }
     }
-}
+

@@ -1,4 +1,4 @@
-
+package com.myprojects.utils;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 /**
  * Indice:
  * -> Reemplazos y conversiones
+ * -> ToString-Sb para arrays y editables
  * 1. Comparadores de Strings
  * 2. Ordenacion alfabetica
  * 3. Ordenacion por longitud
@@ -20,8 +21,7 @@ import java.util.stream.Collectors;
  * 1. Contar letras
  */
 public class UtilidadesString {
-
-
+public static void main(String[]args){ejemplosString();}
     public static void ejemplosString() {
         // Reemplazos
         String texto = "ejemplo texto texto";
@@ -39,8 +39,8 @@ public class UtilidadesString {
         boolean boolFromStr = Boolean.parseBoolean("true");
         
         // Conversiones String-Char
-        char caracter = "texto".charAt(0);
-        char[] arrayChars = "texto".toCharArray();
+        char caracter = texto.charAt(0);
+        char[] arrayChars = texto.toCharArray();
         String strFromChar = String.valueOf('c');
         String strFromChar2 = Character.toString('c');
 
@@ -48,6 +48,36 @@ public class UtilidadesString {
         String strFromCharArray = new String(chars);
     }
 
+    /*String Builders
+    RECORRER UN ARRAY
+        @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < TOTAL; i++) {
+            if(cartas[i] != null){
+                sb.append(cartas[i].toString()).append("\n");
+            }
+        }
+        return sb.toString();
+    }
+
+    DAR FORMATO ESPECIFICO
+        @Override
+    public String toString(){
+        String numeroStr; 
+        numeroStr = switch (numero) {
+            case 8 -> "Sota";
+            case 9 -> "Caballo";
+            case 10 -> "Rey";
+            default -> numero.toString();
+        };
+        return numeroStr + "  de  " + palo ;
+        }
+    
+    
+    
+    */
+    
     /**
      * Comparador para ordenar strings por orden alfabético ignorando
      * mayúsculas/minúsculas.
@@ -77,7 +107,7 @@ public class UtilidadesString {
         Collections.sort(lista, COMPARADOR_LONGITUD);
     }
 
-    public class UtilidadesString {
+
 
         /**
          * Valida si una cadena es una dirección de correo electrónico válida.
@@ -132,7 +162,7 @@ public class UtilidadesString {
         public static List<String> dividirEnPalabras(String cadena) {
             return Arrays.asList(cadena.split("\\s+"));
         }
-    }
+    
 
     /**
      * Cuenta la frecuencia de cada letra en una cadena.
@@ -152,5 +182,7 @@ public class UtilidadesString {
             }
         }
         return frecuencia;
+
     }
+
 }

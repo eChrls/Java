@@ -1,4 +1,4 @@
-
+package com.myprojects.utils;
 
 import java.util.List;
 import java.util.function.BiConsumer;
@@ -13,6 +13,13 @@ import java.util.function.Predicate;
  * 4. Iteracion condicional
  */
 public class UtilidadesIteracion {
+   
+    /*forEach básico para iterar en una lista*/
+    private List libros;
+        public void MostrarLibros(){
+        System.out.println("Lista de libros: ");
+        libros.forEach(libro -> System.out.println(libro));
+        }
 
     /**
      * Ejecuta una acción para cada par de elementos consecutivos en una lista.

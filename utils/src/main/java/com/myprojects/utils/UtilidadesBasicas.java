@@ -14,6 +14,7 @@ import java.util.regex.Pattern;
 
 /**
  * Indice:
+ * ->Try Catchs y bucles
  * -> Excepciones
  * -> Bucles (for each y tradicional y iterator)
  * -> Comparaciones (pattern y matcher)
