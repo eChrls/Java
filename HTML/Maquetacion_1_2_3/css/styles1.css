@@ -1,0 +1,58 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#cabecera{
+    background-color: green;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    width: 100%;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 12px;
+    float: top;
+    margin-bottom: 1em;
+}
+body{
+    background-color: rgb(240, 240, 212);
+#cuerpo{
+    background-color: rgb(240, 240, 212);
+    float: left;
+    width: 100%;
+}
+
+
+#izq{
+    margin-left: 2em;
+    margin-right: 0.5em;
+    float:left;
+    width: 300px;
+    font-style: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 10pt;
+    text-align: center;
+    background-color: red;
+    color: black;
+
+}
+
+#der{
+    margin-right: 2em;
+    margin-left: 1.5em;
+    display: inline-flexbox;
+    font-size: 12pt;
+    text-align: center;
+    background-color: rgb(207, 246, 207);
+    color: black;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#pie {
+    background-color: yellow;
+    color: black;
+    text-align: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 8pt;
+    margin-top: 2em;
+}
+}
