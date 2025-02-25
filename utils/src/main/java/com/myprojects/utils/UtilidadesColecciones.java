@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
  * 3. Rotar lista
  * 1. Submuestreo aleatorio
  * 2. Particion de listas
+ * busqueda binaria en listas
  */
 public class UtilidadesColecciones {
 

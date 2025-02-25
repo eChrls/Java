@@ -8,6 +8,7 @@ import java.util.Objects;
  * 1. Comparador con null
  * 2. Ordenar multiple
  * 1. Comparador encadenado
+ * ojo busqueda binaria en listas
  * 
  * @param <T>
  */

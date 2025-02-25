@@ -1,5 +1,5 @@
 package com.myprojects.utils;
-import com.myprojects.utils.UtilidadesComparacion.Libro;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -12,9 +12,11 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import com.myprojects.utils.UtilidadesComparacion.Libro;
+
 /**
  * Indice:
- * ->   Conversiones
+ * -> Conversiones
  * 1. Mas frecuente
  * 2. Eliminar duplicados
  * 3. k Mayores
@@ -42,7 +44,7 @@ import java.util.stream.Collectors;
  * 4. Contar y añadir vocales
  */
 public class UtilidadesListas {
-public void ejemplosConversion() {
+    public void ejemplosConversion() {
         // Array a ArrayList (Método 1 - Arrays.asList)
         String[] array = { "a", "b", "c" };
         ArrayList<String> arrayList1 = new ArrayList<>(Arrays.asList(array));
@@ -70,21 +72,25 @@ public void ejemplosConversion() {
     public static <T> T[] arrayListToArray(ArrayList<T> lista, T[] array) {
         return lista.toArray(array);
 
+    }
 
-    }  
-    
-    /*Ejemplo de inicializacion de un objeto lista con su constructor, */
+    /* Ejemplo de inicializacion de un objeto lista con su constructor, */
     public class Biblioteca {
-        private List<Libro> libros; 
-             //Constructor
-            public Biblioteca() {
-            //Inicializamos
-            this.libros= new ArrayList<>();
-            /*INICIALIZACION EN OBJETOS*
-            private int[] numero = {1,2,3,4,5,6,7,10,11,12};
-private ArrayList<Integer> numero = new ArrayList<>(Arrays.asList(1,2,3,4,5,6,7,10,11,12));
-*/
-    }}
+        private List<Libro> libros;
+
+        // Constructor
+        public Biblioteca() {
+            // Inicializamos
+            this.libros = new ArrayList<>();
+            /*
+             * INICIALIZACION EN OBJETOS*
+             * private int[] numero = {1,2,3,4,5,6,7,10,11,12};
+             * private ArrayList<Integer> numero = new
+             * ArrayList<>(Arrays.asList(1,2,3,4,5,6,7,10,11,12));
+             */
+        }
+    }
+
     /**
      * Encuentra el valor más frecuente en una lista de elementos.
      *
@@ -149,6 +155,37 @@ private ArrayList<Integer> numero = new ArrayList<>(Arrays.asList(1,2,3,4,5,6,7,
         return -1;
     }
 
+    /*
+     * ejemplo con ordenacion previa
+     * 
+     * //BUSQUEDA BINARIA
+     * public Participante
+     * busquedaBinariaPorDorsal(ArrayList<Participante>listaParticipantes, int
+     * dorsalBuscado){
+     * Collections.sort(listaParticipantes,
+     * Comparator.comparingInt(Participante::getDorsal));//ordenar la lista por
+     * dorsal
+     * int inicio = 0;
+     * int fin = listaParticipantes.size()-1;
+     * 
+     * while (inicio <= fin){
+     * int medio = inicio + (fin - inicio) / 2; //evita el desbordamiento
+     * Participante participanteMedio = listaParticipantes.get(medio);
+     * int dorsalMedio = participanteMedio.getDorsal();
+     * 
+     * if (dorsalMedio == dorsalBuscado){
+     * return participanteMedio; //se filtra por la mitad y se controla si aparece
+     * en esa posicion
+     * }else if (dorsalMedio < dorsalBuscado){
+     * inicio = medio + 1; // si es mas grande busca en la mitad derecha
+     * }else {
+     * fin = medio -1; //sino busca en la mitad izquierda
+     * }
+     * 
+     * }return null; //sino se encuentra
+     * }
+     * 
+     */
     /**
      * Filtra los elementos de una lista según un criterio dado.
      *
