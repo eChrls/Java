@@ -7,6 +7,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 
 public class Evento {
@@ -73,5 +75,29 @@ public class Evento {
        }
        return null;
    }
+ 
+   //BUSQUEDA BINARIA
+   public Participante busquedaBinariaPorDorsal(ArrayList<Participante>listaParticipantes, int dorsalBuscado){
+       Collections.sort(listaParticipantes, Comparator.comparingInt(Participante::getDorsal));//ordenar la lista por dorsal
+       int inicio = 0; 
+       int fin = listaParticipantes.size()-1; 
+       
+       while (inicio <= fin){
+           int medio = inicio + (fin - inicio) / 2; //evita el desbordamiento
+           Participante participanteMedio = listaParticipantes.get(medio);
+           int dorsalMedio = participanteMedio.getDorsal();
+           
+           if (dorsalMedio == dorsalBuscado){
+               return participanteMedio; //se filtra por la mitad y se controla si aparece en esa posicion
+           }else if (dorsalMedio < dorsalBuscado){
+               inicio = medio + 1; // si es mas grande busca en la mitad derecha
+           }else {
+               fin = medio -1; //sino busca en la mitad izquierda
+           }
+           
+       }return null; //sino se encuentra
+   }
+   
+ 
 
 }

@@ -169,4 +169,21 @@ public class UtilidadesComparacion<T> {
  * return Double.compare(libro1.getPrecio(), libro2.getPrecio());
  * }
  * }
+LA CUESTION ES QUE SI USAS COMPARABLE IMPLEMENTADO EN LA CLASE Y HACES UN COMPARE TO, 
+COLLECTIONS.SORT TE LO ORDENA AUTOMATICAMENTE. Y SI QUISIERAS ORDENAR POR ALGO MÁS SERÍA ASÍ: 
+    Ordenacion automatica con collections.sort debido a que la clase implementa Comparable y se ha hecho un CompareTo de tiempo
+    public void ordenarPorTiempo() {
+        Collections.sort(listaParticipantes);
+    }
+    Ahora queremos ordenar por fecha de nacimiento, dentro del mismo proyecto. Hay que implementar un comparator. 
+    public void ordenarPorFechaNacimiento() {
+        Collections.sort(listaParticipantes, new Comparator<Participante>() {
+            @Override
+            public int compare(Participante p1, Participante p2) {
+                return p1.getFechaNacimiento().compareTo(p2.getFechaNacimiento());
+            }
+        });
+    }
+}
+
  */
