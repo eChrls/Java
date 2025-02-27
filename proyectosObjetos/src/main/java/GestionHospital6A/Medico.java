@@ -12,7 +12,8 @@ import java.util.ArrayList;
  * @author Casa
  */
 public class Medico extends Empleado {
-    String especialidad; 
+
+    String especialidad;
     ArrayList<Paciente> pacientesAsignados;
     private Grupo grupoProf;
 
@@ -30,6 +31,14 @@ public class Medico extends Empleado {
         this.especialidad = especialidad;
     }
 
+    public Grupo getGrupoProf() {
+        return grupoProf;
+    }
+
+    public void setGrupoProf(Grupo grupoProf) {
+        this.grupoProf = grupoProf;
+    }
+
     public ArrayList<Paciente> getPacientesAsignados() {
         return pacientesAsignados;
     }
@@ -37,21 +46,19 @@ public class Medico extends Empleado {
     public void setPacientesAsignados(ArrayList<Paciente> pacientesAsignados) {
         this.pacientesAsignados = pacientesAsignados;
     }
-    
-    
+
     //Metodo para tratar paciente
-    public void tratarPaciente(Paciente paciente, String tratamiento){
+    public void tratarPaciente(Paciente paciente, String tratamiento) {
         /*Este metodo permite que un medico aplique un tratamiento a un paciente
         además, si el paciente no está en la lista lo añade (pacientesAsignados)
         Luego registra el tratamiento*/
-        if (!pacientesAsignados.contains(paciente)){
+        if (!pacientesAsignados.contains(paciente)) {
             pacientesAsignados.add(paciente);
         }
         //metodo de pacientes, lista de tratamientos.
         paciente.agregarTratamiento(tratamiento + " (recetado por Dr./Dra. " + this.nombreCompleto + " para el paciente " + paciente.getNombreCompleto());
     }
 
-    
     @Override
     public double calcularIRPF() {
         return salario * grupoProf.getPorcentajeIRPF();
@@ -59,9 +66,7 @@ public class Medico extends Empleado {
 
     @Override
     public String toString() {
-        return "Medico{" + super.toString() +  "especialidad=" + especialidad + ", pacientesAsignados=" + pacientesAsignados + ", grupoProf=" + grupoProf + '}';
+        return "Medico{" + super.toString() + "especialidad=" + especialidad + ", pacientesAsignados=" + pacientesAsignados + ", grupoProf=" + grupoProf + '}';
     }
 
-
-    
 }
