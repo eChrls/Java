@@ -11,21 +11,21 @@ import java.time.LocalDate;
  * @author Casa
  */
 public abstract class Empleado extends Persona {
-        double Salario;
-        LocalDate fechaCont;
+        protected double salario;
+        protected LocalDate fechaCont;
+        
+        
+        //metodo abstracto para las clases hijas
         abstract double calcularIRPF();
-    
-    
-    
     
 
     public Empleado(String nombreCompleto, NIF nif, LocalDate fechaNac) {
         super(nombreCompleto, nif, fechaNac);
     }
 
-    public Empleado(double Salario, LocalDate fechaCont, String nombreCompleto, NIF nif, LocalDate fechaNac) {
+    public Empleado(double salario, LocalDate fechaCont, String nombreCompleto, NIF nif, LocalDate fechaNac) {
         super(nombreCompleto, nif, fechaNac);
-        this.Salario = Salario;
+        this.salario = salario;
         this.fechaCont = fechaCont;
     }
 
@@ -33,11 +33,11 @@ public abstract class Empleado extends Persona {
     }
 
     public double getSalario() {
-        return Salario;
+        return salario;
     }
 
-    public void setSalario(double Salario) {
-        this.Salario = Salario;
+    public void setSalario(double salario) {
+        this.salario = salario;
     }
 
     public LocalDate getFechaCont() {
@@ -80,7 +80,7 @@ public abstract class Empleado extends Persona {
 
     @Override
     public String toString() {
-        return "Empleado{" + "Salario=" + Salario + ", fechaCont=" + fechaCont + '}';
+        return super.toString() + " - Salario : " + salario + " €. ";
     }
 
     

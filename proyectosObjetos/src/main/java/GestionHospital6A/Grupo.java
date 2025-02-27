@@ -9,7 +9,11 @@ package GestionHospital6A;
  * @author Casa
  */
 public enum Grupo {
-    A(0.28), B(0.25), C(0.23), D(0.20), E(0.15);
+    A(0.28),
+    B(0.25),
+    C(0.23),
+    D(0.20),
+    E(0.15);
 
     private final double porcentajeIRPF;
 
