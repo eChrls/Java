@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 /**
  * Indice:
  * -> Conversiones
+ * /*Ordenamiento simple. Burbuja
  * 1. Agrupar colecciones
  * 2. Elementos comunes
  * 3. Rotar lista
@@ -18,6 +19,22 @@ import java.util.stream.Collectors;
  * busqueda binaria en listas
  */
 public class UtilidadesColecciones {
+
+    /*Ordenamiento simple. Burbuja*/
+    public static void ordenar(int[] array) {
+        int longitud = array.length;
+
+        for (int i = 0; i < longitud - 1; i++) {
+            for (int j = 0; j < longitud - i - 1; j++) {
+                if (array[j] > array[j + 1]) {
+                    // Intercambiar elementos
+                    int temp = array[j];
+                    array[j] = array[j + 1];
+                    array[j + 1] = temp;
+                }
+            }
+        }
+    }
 
     /**
      * Divide una colección en grupos según un criterio.
