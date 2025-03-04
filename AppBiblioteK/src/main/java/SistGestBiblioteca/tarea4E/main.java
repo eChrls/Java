@@ -24,7 +24,7 @@ public class main {
         // Ordenar por Editorial
         libros.sort(Comparator.comparing(Libro::getEditorial));
         mostrarListaOrdenada("Libros ordenados por Editorial", libros);
-
+        
         // Ordenar por Título y, en caso de empate, por Número de Páginas
         libros.sort(Comparator.comparing(Libro::getTitulo).thenComparing(Libro::getNumPaginas));
         mostrarListaOrdenada("Libros ordenados por Título y Número de Páginas", libros);
@@ -60,7 +60,7 @@ public class main {
             JOptionPane.showMessageDialog(null, "Datos no válidos, el libro no se ha agregado.");
         }
     }
-
+    
     /**
      * Método auxiliar para mostrar la lista de libros ordenada en una sola ventana.
      */
