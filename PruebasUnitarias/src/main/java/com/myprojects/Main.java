@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
 
-package com.myprojects.pruebasunitarias;
+package com.myprojects;
 
+import com.myprojects.Metodos;
 import java.util.Scanner;
 
 /**
