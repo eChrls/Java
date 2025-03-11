@@ -47,8 +47,7 @@ public class UtilidadesColecciones {
      * @return mapa con los elementos agrupados
      */
     public static <T, K> Map<K, List<T>> agrupar(Collection<T> coleccion, Function<T, K> criterio) {
-        return coleccion.stream()
-                .collect(Collectors.groupingBy(criterio));
+        return coleccion.stream().collect(Collectors.groupingBy(criterio));
     }
 
     /**
@@ -61,9 +60,7 @@ public class UtilidadesColecciones {
      */
     public static <T> List<T> elementosComunes(Collection<T> coleccion1, Collection<T> coleccion2) {
         Set<T> set = new HashSet<>(coleccion1);
-        return coleccion2.stream()
-                .filter(set::contains)
-                .collect(Collectors.toList());
+        return coleccion2.stream().filter(set::contains).collect(Collectors.toList());
     }
 
     /**
