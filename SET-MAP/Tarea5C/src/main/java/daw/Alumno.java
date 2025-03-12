@@ -1,76 +1,25 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package daw;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.Objects;
 
-/**
- *
- * @author carlos
- */
 public class Alumno {
-    private int idAlumn;
-    private String name; 
+
+    private String nombre;
     private String nif;
     
-    
-    
-    
-    
-   /* 
-     //CREACION DE 10 ALUMNOS
-    private static void crearAlumno(Alumno alumno) {
-        /*Explicacion del for para nif alumnos
-                i = 0 → "3333555" + 0 → "33335550"
-                i = 1 → "3333555" + 1 → "33335551"
-            'A' + i % 26 genera letras de la A a la Z:
-            i = 0 → 'A' + (0 % 26) → 'A' + 0 = 'A'
-            i = 1 → 'A' + (1 % 26) → 'A' + 1 = 'B'
-            i = 2 → 'A' + (2 % 26) → 'A' + 2 = 'C'
-            i = 26 → 'A' + (26 % 26) → 'A' + 0 = 'A'  ✅ *Reinicio*
-            i = 27 → 'A' + (27 % 26) → 'A' + 1 = 'B'*/
-/*        
-for (int i = 0; i < 10; i++) {
-            //creacion del nif
-            char letra = (char) ('A' + i % 26); //Letras de A a Z
-            NIF nif = new NIF("3333555" + i, letra);
-
-            //Creamos la lista de alumnos vacía
-            ArrayList<String> alumnos = new ArrayList<>();
-
-            //Creamos el alumno
-            Alumno alumno = new Alumno();
-            
-            alumnos.add(alumno);
-        }
-    }*/
-
-    public Alumno() {
-    }
-
-    public Alumno(int idAlumn, String name, String nif) {
-        this.idAlumn = idAlumn;
-        this.name = name;
+  // Constructor para crear un nuevo alumno con nombre y nif
+    public Alumno(String nombre, String nif) {
+        this.nombre = nombre;
         this.nif = nif;
     }
 
-    public int getIdAlumn() {
-        return idAlumn;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setIdAlumn(int idAlumn) {
-        this.idAlumn = idAlumn;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getNif() {
@@ -80,11 +29,25 @@ for (int i = 0; i < 10; i++) {
     public void setNif(String nif) {
         this.nif = nif;
     }
-
+    
+    // Sobreescribimos el método equals para comparar alumnos por su NIF
+    // Esto es importante para evitar duplicados en las estructuras de datos
     @Override
-    public String toString() {
-        return "Alumno{" + "idAlumn=" + idAlumn + ", name=" + name + ", nif=" + nif + '}';
+    public boolean equals(Object o) {
+        if (this == o) return true;  // Si es el mismo objeto en memoria
+        if (o == null || getClass() != o.getClass()) return false;  // Si es null o de otra clase
+        Alumno alumno = (Alumno) o;  // Convertimos el objeto a Alumno
+        return Objects.equals(nif, alumno.nif);  // Comparamos solo por NIF
     }
+    
+    // Sobreescribimos hashCode para que sea coherente con equals
+    // Esto es necesario para el correcto funcionamiento de HashSet y HashMap
+    @Override
+    public int hashCode() {
+        return Objects.hash(nif);  // Generamos el código hash solo basado en el NIF
+    }
+    
+
 
 
 }
