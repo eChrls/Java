@@ -3,33 +3,46 @@ Pide al usuario un número entre 1 y 9 y comprueba si está o no en la matriz, i
 Crea un método que devuelva la fila y columna donde está el número o -1 -1 si no está en la matriz.*/
 package tarea5D;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 
 public class Ejercicio1 {
         
-
-         public static int[][] comprobarPosicion(int numero, int[][] matriz){
-             
-            int[][]matrizPosicion = new int[0][0];
-            
-            for (int i = 0; i < matriz.length; i++) {
-                for (int j = 0; j < matriz[i].length; j++) {
-                   if(matriz[i][j] == numero){
-                      matrizPosicion = matriz; 
-                        System.out.println("El numero esta en la posicion (columna, fila) =  " + i + " , " + j);
-                       
+        //metodo para recibir un numero y una matriz y devuelve un array con la posicion fila y columna
+         public static int[] comprobarPosicion(int numero, int[][] matriz){
+           int[] coordenadas = {-1, 1};
+           
+           if (numero>0 && numero<10){
+               for (int i = 0; i < matriz.length; i++) {
+                   for (int j = 0; j < matriz[i].length; j++) {
+                       return new int[]{i,j};
                    }
-                   if(matriz[i][j] != numero ||  numero<= 0){
-                       System.out.println("-1 . - 1");
-                   }
-                }
-            }
-            return matrizPosicion;
+               }
+           }
+             return coordenadas; 
          }
-        
-        
-    
+
+         //Mismo metodo pero en vez de devolver posicion devuelve lista de posiciones.
+         //Requiere una clase posicion
+         public static List<Posicion> comprobarPosicionList(int numero, int[][]matriz){
+             
+             List<Posicion> posiciones = new ArrayList<>();
+             
+             for (int i = 0; i < matriz.length; i++) {
+                 for (int j = 0; j < matriz[i].length; j++) {
+                     if(matriz[i][j] ==numero){
+                         posiciones.add(new Posicion(i,j));
+                     }
+                 }
+             }
+             return posiciones;
+         }
+         
+         
+         
+         
         public static boolean comprobarNumero(int numero, int[][] matriz){
             
             for (int i = 0; i < matriz.length; i++) {
