@@ -11,15 +11,20 @@ import java.util.Random;
 public class Ejercicio4 {
 
     public static void main(String[] args) {
+        
+        //inicializamos una matriz de 1s y 0s de tamaño 5
         int dimension = 5; 
         int[][] matriz = generarMatrizAleatoria(dimension);
-
+        
+        //La imprimimos
         System.out.println("Matriz generada:");
         imprimirMatriz(matriz);
-
+        
+        //Buscamos las coordenadas de los 1s con los metodos de la clase BuscaUnos
         BuscaUnos buscador = new BuscaUnos();
         int[] coordenadas = buscador.buscarCeroRodeadoDeUnos(matriz);
-
+        
+        
         if (coordenadas != null) {
             System.out.println("Se encontró un cero rodeado de unos en las coordenadas: (" + coordenadas[0] + ", " + coordenadas[1] + ")");
         } else {
@@ -39,7 +44,7 @@ public class Ejercicio4 {
         }
         return matriz;
     }
-
+    //Recorre la matriz para imprimir los valores formateados
     public static void imprimirMatriz(int[][] matriz) {
         for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz[i].length; j++) {

@@ -40,7 +40,7 @@ public class BuscaUnos {
                     continue;
                 }
 
-                // Si la posición adyacente no existe en la matriz, la saltamos
+                // Si la posición adyacente no existe en la matriz, la saltamos. ExisteEnMatriz se anida en Posicion.
                 if (!Posicion.existeEnMatriz(matriz, fila + adyacentes[i], columna + adyacentes[j])) {
                     continue;
                 }
@@ -55,8 +55,26 @@ public class BuscaUnos {
         return true;
     }
     
+    //apuntes de clase
+    public static boolean posicionValida(int fila, int columna, int[][]matriz){
+        try{
+            int valor = matriz[fila][columna];
+            return true;
+        }catch(IndexOutOfBoundsException iob){
+            return false;
+        }
+    }
     
-
+    public static void imprimirVecinas(int fila, int columna, int[][]matriz){
+        for (int i = fila-1; i <= fila +1; i++) {//recorremos filas (anterior, actual y posterior)
+            for (int j = columna-1; j <= columna+1; j++) {//recorremos columnas igual
+                if (posicionValida(i,j,matriz)){//falta controlar la posicion 0 0 para imprimir solo las vecinas
+                    System.out.println(matriz[i][j]);
+                }
+            }
+        }
+        
+    }
 }
 
 

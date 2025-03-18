@@ -38,17 +38,16 @@ public class Teatro {
         // Creamos la matriz de asientos
         asientos = new boolean[filas][columnas];
         
-        // Inicializamos todos los asientos como libres (false)
+        // Inicializa los asientos libres como false
         inicializarAsientos();
         
         System.out.println("Teatro creado con " + filas + " filas y " + columnas + " columnas.");
+  
     }
     
-    /**
-     * Método privado para inicializar todos los asientos como libres (false).
-     * Utiliza un bucle anidado para recorrer toda la matriz.
-     */
-    private void inicializarAsientos() {
+    /* Método privado para inicializar todos los asientos como libres (false).
+    Utiliza un bucle anidado para recorrer toda la matriz.*/
+    public void inicializarAsientos() {
         for (int i = 0; i < filas; i++) {
             for (int j = 0; j < columnas; j++) {
                 asientos[i][j] = false;
@@ -56,11 +55,7 @@ public class Teatro {
         }
     }
     
-    /**
-     * Método para reservar un asiento específico.
-     * 
-     * @param identificador Identificador del asiento (ej: "1A", "2B", "3C")
-     */
+    /* Método para reservar un asiento específico.*/
     public void reservarAsiento(String identificador) {
         try {
             // Convertimos el identificador a coordenadas de la matriz
@@ -68,11 +63,11 @@ public class Teatro {
             int fila = coordenadas[0];
             int columna = coordenadas[1];
             
-            // Verificamos si el asiento ya está ocupado
+            // Verificamos si el asiento ya está ocupado (devuelve true)
             if (asientos[fila][columna]) {
                 System.out.println("El asiento " + identificador + " ya está ocupado.");
             } else {
-                // Marcamos el asiento como ocupado
+                // Marcamos el asiento como ocupado (lo convertimos en true)
                 asientos[fila][columna] = true;
                 System.out.println("Asiento " + identificador + " reservado correctamente.");
             }
@@ -81,11 +76,7 @@ public class Teatro {
         }
     }
     
-    /**
-     * Método para liberar un asiento previamente reservado.
-     * 
-     * @param identificador Identificador del asiento (ej: "1A", "2B", "3C")
-     */
+    /*Método para liberar un asiento previamente reservado.*/
     public void liberarAsiento(String identificador) {
         try {
             // Convertimos el identificador a coordenadas de la matriz
@@ -106,12 +97,9 @@ public class Teatro {
         }
     }
     
-    /**
-     * Método privado para convertir un identificador de asiento a coordenadas de matriz.
-     * Maneja la conversión de formatos como "1A", "2B", etc. a índices [fila, columna].
-     * @param identificador Identificador del asiento en formato "FilaColumna"
-     */
-    private int[] convertirIdentificadorACoordenadas(String identificador) throws IllegalArgumentException {
+    /* Método privado para convertir un identificador de asiento a coordenadas de matriz.
+        Maneja la conversión de formatos como "1A", "2B", etc. a índices [fila, columna]*/
+        private int[] convertirIdentificadorACoordenadas(String identificador)  {
         // Verificamos que el identificador tenga el formato correcto
         if (identificador == null || identificador.length() != 2) {
             throw new IllegalArgumentException("Identificador inválido: " + identificador);
@@ -119,7 +107,10 @@ public class Teatro {
         
         try {
             // Extraemos la fila y columna del identificador
-            int fila = Character.getNumericValue(identificador.charAt(0)) - 1; // Restamos 1 porque los arrays empiezan en 0
+            int fila = Character.getNumericValue(identificador.charAt(0)) - 1;
+            //se puede hacer tambien con codePointAt. 
+            //int fila = Character.codePointAt(identificador)-1 - nº del char
+            // Restamos 1 porque los arrays empiezan en 0 
             char columnaLetra = identificador.charAt(1);
             int columna = columnaLetra - 'A'; // Convertimos la letra a índice (A=0, B=1, etc.)
             
@@ -129,17 +120,20 @@ public class Teatro {
             }
             
             return new int[] {fila, columna};
+            
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Error: Formato de identificador inválido: " + identificador);
         }
     }
     
-    /**
-     * Método para mostrar el estado actual del teatro.
-     * Imprime una representación visual del teatro con los asientos libres (L) y ocupados (R).
+    /*
+     Método para mostrar el estado actual del teatro. 
+     Imprime una representación visual del teatro con los asientos libres (L) y ocupados (R).
      */
     public void mostrarEstado() {
+        
         // Imprimimos el encabezado con las letras de las columnas
+        //Este primer FOR llena el indice horizontal de la tabla.
         System.out.print("  ");
         for (int j = 0; j < columnas; j++) {
             // Convertimos el índice numérico a letra: 0->A, 1->B, 2->C, etc.
@@ -152,9 +146,10 @@ public class Teatro {
             // Imprimimos el número de fila (sumamos 1 para mostrar desde 1, no desde 0)
             System.out.print((i + 1) + " ");
             
-            // Recorremos cada columna de la fila actual
+            // Una vez impreso el numero de fila entramos y recorremos cada columna de la fila actual
             for (int j = 0; j < columnas; j++) {
-                // Mostramos "R" (reservado) o "L" (libre) según el estado del asiento
+                // Mostramos "R" (reservado) o "L" (libre) según el estado del asiento, true o false. 
+                //Usamos ? que da R si es True o L si es False. 
                 char estado = asientos[i][j] ? 'R' : 'L';
                 System.out.print(" " + estado + " ");
             }
