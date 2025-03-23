@@ -23,7 +23,17 @@ public class Ejercicio2 {
     public static int maxVocalesSeguidas(String palabra) {
         int maxVocales = 0;
         int contadorActual = 0;
+        for (int i = 0; i < palabra.length(); i++) {
+                char c = palabra.charAt(i);
+                if(esVocal(c)){
+                contadorActual++;
+                maxVocales = Math.max(maxVocales, contadorActual);
+            } else {
+                contadorActual = 0;
+            }
+        }
         
+       /* 
         for (char c : palabra.toCharArray()) {
             if (esVocal(c)) {
                 contadorActual++;
@@ -32,7 +42,7 @@ public class Ejercicio2 {
                 contadorActual = 0;
             }
         }
-        
+     */   
         return maxVocales;
     }
     

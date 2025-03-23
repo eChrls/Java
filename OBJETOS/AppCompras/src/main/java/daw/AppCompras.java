@@ -27,7 +27,8 @@ public class AppCompras {
                           2. Gestionar productos
                           3. Gestionar ventas
                           4. Salir
-                          Elige una opcion: """;
+                          Elige una opcion:
+                               """;
                 
                 opcion = Integer.parseInt(JOptionPane.showInputDialog(menu));
                 
