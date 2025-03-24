@@ -1,0 +1,99 @@
+Archivo .dtd
+<!ELEMENT instituto (#PCDATA/)>
+<!ELEMENT instituto (clase, clase)>
+<!ELEMENT clase (nombre,aula)>
+<!ELEMENT nombre (#PCDATA)>
+<!ELEMENT aula (#PCDATA)>
+<instituto>
+  <clase>
+      <nombre>1DAW</nombre>
+      <aula>103</aula>
+  </clase>
+      <nombre>2DAW</nombre>
+      <aula>104</aula>
+  <clase>
+  </clase>
+</instituto>
+
+
+Archivo .xml version 1
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE instituto SYSTEM "instituto.dtd">
+<instituto>
+  <clase>
+      <nombre>1DAW</nombre>
+      <aula>103</aula>
+  </clase>
+    <clase>
+      <nombre>2DAW</nombre>
+      <aula>104</aula>
+  </clase>
+</instituto>
+
+
+Archivo .xml version 2 (interno)
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE instituto [
+<!ELEMENT instituto (clase, clase)>
+<!ELEMENT clase (nombre,aula)>
+<!ELEMENT nombre (#PCDATA)>
+<!ELEMENT aula (#PCDATA)>
+]>
+<instituto>
+  <clase>
+      <nombre>1DAW</nombre>
+      <aula>103</aula>
+  </clase>
+  <clase>
+      <nombre>2DAW</nombre>
+      <aula>104</aula>
+  </clase>
+</instituto>
+
+
+
+Archivo .xml version comparador (que aparezca en orden aula nombre o nombre aula y sea valido)
+Archivo .xml version 2 (interno)
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE instituto [
+<!ELEMENT instituto (clase, clase)>
+<!ELEMENT clase (nombre,aula)|(aula,nombre)>
+<!ELEMENT nombre (#PCDATA)>
+<!ELEMENT aula (#PCDATA)>
+]>
+<instituto>
+  <clase>
+      <nombre>1DAW</nombre>
+      <aula>103</aula>
+  </clase>
+  <clase>
+      <aula>104</aula>
+      <nombre>2DAW</nombre>
+  </clase>
+</instituto>
+
+
+<!ELEMENT clase (nombre,aula?)|(aula?,nombre)> -- La interrogacion es un ternario, hace que su aparición sea OPCIONAL.
+
+<!ELEMENT instituto (clase+)> -- podrias poner todas las <clase> que quieras, AL MENOS UNA.
+
+<!ELEMENT instituto (clase*)> -- podrias poner todas las <clase> que quieras. NINGUNA O MUCHAS.
+
+
+Explicación de contenido mixto (es raro que lo veamos en el mundo real)
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE instituto [
+<!ELEMENT instituto (clase+)>
+<!ELEMENT clase (#PCDATA|nombre)*>
+<!ELEMENT nombre (#PCDATA)>
+]>
+<instituto>
+  <clase>
+      <nombre>1DAW</nombre>
+        Hola Mundo!!!
+  </clase>
+</instituto>
+
+-- nos dice que utilicemos visual, extension XML para validar.
+-- manda listado de ejercicios.
