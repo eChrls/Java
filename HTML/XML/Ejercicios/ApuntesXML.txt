@@ -97,3 +97,303 @@ Explicación de contenido mixto (es raro que lo veamos en el mundo real)
 
 -- nos dice que utilicemos visual, extension XML para validar.
 -- manda listado de ejercicios.
+
+*********************************************************************************************************
+CLASE 27 DE MARZO
+Explicacion de como atributos, empieza con etiqueta vacía con empty. <tutor/>
+Y luego con el nombre, etc. Para explicar que atributos usar.
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE instituto [
+<!ELEMENT instituto (clase*)>
+<!ELEMENT clase (nombre,aula)|(aula,nombre), tutor?>
+<!ELEMENT nombre (#PCDATA)>
+<!ELEMENT aula (#PCDATA)>
+<!ELEMENT tutor EMPTY>
+<!ATTLIST tutor nombre CDATA #REQUIRED> nombre, tipo de dato y modificador (si es obligatorio, si aparece debo ponerlo, o voluntario IMPLIED)
+]>
+<instituto>
+  <clase>
+      <nombre>1DAW</nombre>
+      <aula>103</aula>
+      <tutor nombre = "Pedro Juan Garcia"/>
+  </clase>
+  <clase>
+      <aula>104</aula>
+      <nombre>2DAW</nombre>
+      <tutor nombre = "Pedro Juan Garcia"/>
+  </clase>
+</instituto>
+
+*********************************************************************************************************
+-- Version añadiendo otro atributo.
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE instituto [
+<!ELEMENT instituto (clase*)>
+<!ELEMENT clase (nombre,aula)|(aula,nombre), tutor?>
+<!ELEMENT nombre (#PCDATA)>
+<!ELEMENT aula (#PCDATA)>
+<!ELEMENT tutor EMPTY>
+<!ATTLIST tutor
+nombre CDATA #REQUIRED
+edad CDATA #IMPLIED
+salario CDATA #IMPLIED
+moneda CDATA #FIXED "euro"
+>
+]>
+<instituto>
+  <clase>
+      <nombre>1DAW</nombre>
+      <aula>103</aula>
+      <tutor nombre = "Pedro Juan Garcia" edad="18"/>
+  </clase>
+  <clase>
+      <aula>104</aula>
+      <nombre>2DAW</nombre>
+      <tutor nombre = "Pedro Juan Garcia" salario="1500" moneda="euro"/> --si aparece la moneda que sea fija a la palabra euro.
+  </clase>
+</instituto>
+
+******************************************************************
+REQUIRED -> OBLIGATORIO
+IMPLIED -> OPCIONAL
+FIXED -> OPCIONAL, pero si aparece al valor que yo le ponga.
+******************************************************************
+
+Version poniendo un delegado a 2ºDAW para probar otro atributo más.
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE instituto [
+<!ELEMENT instituto (clase*)>
+<!ELEMENT clase (nombre,aula)|(aula,nombre), tutor?, delegado?>
+<!ELEMENT nombre (#PCDATA)>
+<!ELEMENT aula (#PCDATA)>
+<!ELEMENT tutor EMPTY>
+<!ATTLIST tutor
+nombre CDATA #REQUIRED
+edad CDATA #IMPLIED
+salario CDATA #IMPLIED
+moneda CDATA #FIXED "euro"
+>
+<!ATTLIST delegado
+ tipo (bueno|malo|regular) #IMPLIED --tipo enumerado, decimos los tipos que puede tener el valor delegado.
+>
+]>
+<instituto>
+  <clase>
+      <nombre>1DAW</nombre>
+      <aula>103</aula>
+      <tutor nombre = "Pedro Juan Garcia" edad="18"/>
+  </clase>
+  <clase>
+      <aula>104</aula>
+      <nombre>2DAW</nombre>
+      <tutor nombre = "Pedro Juan Garcia" salario="1500" moneda="euro"/>
+      <delegado tipo="bueno"/>
+  </clase>
+</instituto>
+
+*********************************************************************************************************
+Explicacion de como hacer que delegado tenga un valor que aparezca siempre con él.
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE instituto [
+<!ELEMENT instituto (clase*)>
+<!ELEMENT clase (nombre,aula)|(aula,nombre), tutor?, delegado?>
+<!ELEMENT nombre (#PCDATA)>
+<!ELEMENT aula (#PCDATA)>
+<!ELEMENT tutor EMPTY>
+<!ATTLIST tutor
+nombre CDATA #REQUIRED
+edad CDATA #IMPLIED
+salario CDATA #IMPLIED
+moneda CDATA #FIXED "euro"
+>
+<!ATTLIST delegado
+ tipo (bueno|malo|regular) #IMPLIED
+ sexo (hombre|mujer|otro) #REQUIRED
+>
+]>
+<instituto>
+  <clase>
+      <nombre>1DAW</nombre>
+      <aula>103</aula>
+      <tutor nombre = "Pedro Juan Garcia" edad="18"/>
+  </clase>
+  <clase>
+      <aula>104</aula>
+      <nombre>2DAW</nombre>
+      <tutor nombre = "Pedro Juan Garcia" salario="1500" moneda="euro"/>
+      <delegado tipo="bueno" sexo="otro"/>
+  </clase>
+</instituto>
+
+*********************************************************************************************************
+Explicacion de valor_token (NMTOKEN y NMTOKENS)
+-- Las estructuras siempre son nombre-tipodedato-modificador
+(nombre valor_token) tipo de dato (CDATA) modificador (REQUIRED)
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE instituto [
+<!ELEMENT instituto (clase*)>
+<!ELEMENT clase (nombre,aula)|(aula,nombre), tutor?, delegado?>
+<!ELEMENT nombre (#PCDATA)>
+<!ELEMENT aula (#PCDATA)>
+<!ELEMENT tutor EMPTY>
+<!ATTLIST tutor
+nombre CDATA #REQUIRED
+edad CDATA #IMPLIED
+salario CDATA #IMPLIED
+moneda CDATA #FIXED "euro"
+>
+<!ATTLIST delegado
+ tipo (bueno|malo|regular) #IMPLIED
+ sexo (hombre|mujer|otro) #REQUIRED
+ valor_token NMTOKENS #REQUIRED -- varios tokens. NMTOKEN = 1 solo token.
+>
+]>
+<instituto>
+  <clase>
+      <nombre>1DAW</nombre>
+      <aula>103</aula>
+      <tutor nombre = "Pedro Juan Garcia" edad="18"/>
+  </clase>
+  <clase>
+      <aula>104</aula>
+      <nombre>2DAW</nombre>
+      <tutor nombre = "Pedro Juan Garcia" salario="1500" moneda="euro"/>
+      <delegado tipo="bueno" sexo="otro" valor_token="3d_4d"/> -- varios "3d 4d"
+  </clase>
+</instituto>
+
+*********************************************************************************************************
+Explicacion de ID
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE instituto [
+<!ELEMENT instituto (clase*)>
+<!ATTLIST instituto
+ cif ID #REQUIRED    -- ID debe ser siempre REQUIRED
+>
+<!ELEMENT clase (nombre,aula)|(aula,nombre), tutor?, delegado?>
+<!ELEMENT nombre (#PCDATA)>
+<!ELEMENT aula (#PCDATA)>
+<!ELEMENT tutor EMPTY>
+<!ATTLIST tutor
+nombre CDATA #REQUIRED
+edad CDATA #IMPLIED
+salario CDATA #IMPLIED
+moneda CDATA #FIXED "euro"
+>
+<!ATTLIST delegado
+ tipo (bueno|malo|regular) #IMPLIED
+ sexo (hombre|mujer|otro) #REQUIRED
+ valor_token NMTOKENS #REQUIRED
+>
+]>
+<instituto cif="c_273471650N">
+  <clase>
+      <nombre>1DAW</nombre>
+      <aula>103</aula>
+      <tutor nombre = "Pedro Juan Garcia" edad="18"/>
+  </clase>
+  <clase>
+      <aula>104</aula>
+      <nombre>2DAW</nombre>
+      <tutor nombre = "Pedro Juan Garcia" salario="1500" moneda="euro"/>
+      <delegado tipo="bueno" sexo="otro" valor_token="3d 4d"/>
+  </clase>
+</instituto>
+
+--CIF debe ser unico , un solo token, y no puede empezar por numero.
+-- El valor que tenga no puede tener espacios.
+-- No puede haber valores ID repetidos.
+*****************************************************************************
+Explicacion de varios ID
+Prueba llamando cod y cif iguales, y con valores iguales.
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE instituto [
+<!ELEMENT instituto (clase*)>
+<!ATTLIST instituto
+ cif ID #REQUIRED    -- ID debe ser siempre REQUIRED
+>
+<!ELEMENT clase (nombre,aula)|(aula,nombre), tutor?, delegado?>
+<!ATTLIST clase cod ID #REQUIRED>
+<!ELEMENT nombre (#PCDATA)>
+<!ELEMENT aula (#PCDATA)>
+<!ELEMENT tutor EMPTY>
+<!ATTLIST tutor
+nombre CDATA #REQUIRED
+edad CDATA #IMPLIED
+salario CDATA #IMPLIED
+moneda CDATA #FIXED "euro"
+>
+<!ATTLIST delegado
+ tipo (bueno|malo|regular) #IMPLIED
+ sexo (hombre|mujer|otro) #REQUIRED
+ valor_token NMTOKENS #REQUIRED
+>
+]>
+<instituto cif="c_273471650N">
+  <clase cod="c_1">
+      <nombre>1DAW</nombre>
+      <aula>103</aula>
+      <tutor nombre = "Pedro Juan Garcia" edad="18"/>
+  </clase>
+  <clase cod="c_2">
+      <aula>104</aula>
+      <nombre>2DAW</nombre>
+      <tutor nombre = "Pedro Juan Garcia" salario="1500" moneda="euro"/>
+      <delegado tipo="bueno" sexo="otro" valor_token="3d 4d"/>
+  </clase>
+</instituto>
+*********************************************************************************************
+
+Explicacion ID REF
+Explicacion ID de 2 clases a la vez. ID REFS
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE instituto [
+<!ELEMENT instituto (clase*, alumno*)> -- añade alumno
+<!ATTLIST instituto
+ cif ID #REQUIRED    -- ID debe ser siempre REQUIRED
+>
+<!ELEMENT clase (nombre,aula)|(aula,nombre), tutor?, delegado?>
+<!ATTLIST clase cod ID #REQUIRED>
+<!ELEMENT nombre (#PCDATA)>
+<!ELEMENT aula (#PCDATA)>
+<!ELEMENT tutor EMPTY>
+<!ELEMENT alumno EMPTY> -- que alumno puede ser vacio
+<!ATTLIST alumno
+  nombre CDATA #REQUIRED
+  clase IDREFS #REQUIRED
+>
+<!ATTLIST tutor
+nombre CDATA #REQUIRED
+edad CDATA #IMPLIED
+salario CDATA #IMPLIED
+moneda CDATA #FIXED "euro"
+>
+<!ATTLIST delegado
+ tipo (bueno|malo|regular) #IMPLIED
+ sexo (hombre|mujer|otro) #REQUIRED
+ valor_token NMTOKENS #REQUIRED
+>
+]>
+<instituto cif="c_273471650N">
+  <clase cod="c_1">
+      <nombre>1DAW</nombre>
+      <aula>103</aula>
+      <tutor nombre = "Pedro Juan Garcia" edad="18"/>
+  </clase>
+  <clase cod="c_2">
+      <aula>104</aula>
+      <nombre>2DAW</nombre>
+      <tutor nombre = "Pedro Juan Garcia" salario="1500" moneda="euro"/>
+      <delegado tipo="bueno" sexo="otro" valor_token="3d 4d"/>
+  </clase>
+  <alumno nombre="nombre1" clase="c_1 c_2"/> -- alumno de la clase 1DAW y 2 DAW
+  <alumno nombre="nombre2" clase="c_2"/> -- alumno de la clase 2ºDAW
+</instituto>
