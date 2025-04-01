@@ -16,7 +16,12 @@ Archivo .dtd
 </instituto>
 
 
-Archivo .xml version 1
+Archivo .xml version 1 (externa)
+-> ruta del archivo. = <!DOCTYPE instituto SYSTEM "instituto.dtd">
+-> Dentro del archivo. 1ª Linea del archivo instituto.dtd = <!ELEMENT instituto (clase+)>
+-> en versiones más adelante que hay varias clases y varios alumnos y queremos que aparezcan o clase
+o alumno, podemos poner (clase|alumno)*. Significa que puede haber muchos o ninguno.
+
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE instituto SYSTEM "instituto.dtd">
 <instituto>
@@ -306,7 +311,7 @@ moneda CDATA #FIXED "euro"
   </clase>
 </instituto>
 
---CIF debe ser unico , un solo token, y no puede empezar por numero.
+-- CIF debe ser unico , un solo token, y no puede empezar por numero.
 -- El valor que tenga no puede tener espacios.
 -- No puede haber valores ID repetidos.
 *****************************************************************************
@@ -353,6 +358,9 @@ moneda CDATA #FIXED "euro"
 
 Explicacion ID REF
 Explicacion ID de 2 clases a la vez. ID REFS
+Los unicos valores que pueden aparecer en una etiqueta son caracteres, numeros y los 4 simbolos.
+El ID debe ser unico.
+
 
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE instituto [
@@ -397,3 +405,58 @@ moneda CDATA #FIXED "euro"
   <alumno nombre="nombre1" clase="c_1 c_2"/> -- alumno de la clase 1DAW y 2 DAW
   <alumno nombre="nombre2" clase="c_2"/> -- alumno de la clase 2ºDAW
 </instituto>
+
+
+*********************************************************************************************
+2º parte tokens
+NMTOKEN y NMTOKENS
+No tiene restriccion de inicio (empezar por guion bajo o letra)
+Ejemplo. 1500 no podria ser ID pq empieza por un numero.
+Lo utiliza para darles Ids que tiene que haber en el documento.En un lado el delegado
+pertenece a una clase y en el otro, esta en las dos clases.
+Hay que usar IDREF o IDREFS (REQUIERED) para asociar el token en el ATTLIST.
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE instituto [
+<!ELEMENT instituto (clase*, alumno*)>
+ cif ID #REQUIRED
+>
+<!ELEMENT clase (nombre,aula)|(aula,nombre), tutor?, delegado?>
+<!ATTLIST clase cod ID #REQUIRED>
+<!ELEMENT nombre (#PCDATA)>
+<!ELEMENT aula (#PCDATA)>
+<!ELEMENT tutor EMPTY>
+<!ELEMENT alumno EMPTY>
+<!ATTLIST alumno
+  nombre CDATA #REQUIRED
+  clase IDREFS #REQUIRED
+>
+<!ATTLIST tutor
+nombre CDATA #REQUIRED
+edad CDATA #IMPLIED
+salario CDATA #IMPLIED
+moneda CDATA #FIXED "euro"
+>
+<!ELEMENT delegado EMPTY>
+<!ATTLIST delegado
+ tipo (bueno|malo|regular) #IMPLIED
+ sexo (hombre|mujer|otro) #REQUIRED
+ valor_token NMTOKENS #REQUIRED
+>
+]>
+<instituto cif="c_273471650N">
+  <clase cod="c_1">
+      <nombre>1DAW</nombre>
+      <aula>103</aula>
+      <tutor nombre = "Pedro Juan Garcia" edad="18"/>
+  </clase>
+  <clase cod="c_2">
+      <aula>104</aula>
+      <nombre>2DAW</nombre>
+      <tutor nombre = "Pedro Juan Garcia" salario="1500" moneda="euro"/>
+      <delegado tipo="bueno" sexo="otro" valor_token="3d 4d"/>
+  </clase>
+  <alumno nombre="nombre1" clase="c_1 c_2"/>
+  <alumno nombre="nombre2" clase="c_2"/>
+</instituto>
+
