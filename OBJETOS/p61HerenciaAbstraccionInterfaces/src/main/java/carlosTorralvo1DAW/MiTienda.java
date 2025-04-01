@@ -131,8 +131,8 @@ public class MiTienda {
             }
         }
         /*Recorre la lista de objetos <<SeEnvía>> y llama al método de la interfaz.*/
-        for (SeEnvia s : listadoConEnvios){
-           s.enviar("direccion");
+        for (SeEnvia s : listadoConEnvios) {
+            s.enviar("direccion");
         }
     }
 }
