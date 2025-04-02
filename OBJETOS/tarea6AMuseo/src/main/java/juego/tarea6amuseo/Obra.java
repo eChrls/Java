@@ -11,7 +11,7 @@ package juego.tarea6amuseo;
 public abstract class Obra {
     private String id;
     private String autor;
-
+    
     public Obra(String id, String autor) {
         this.id = id;
         this.autor = autor;

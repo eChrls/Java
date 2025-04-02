@@ -18,7 +18,7 @@ public abstract class Sala {
     private String id;
     private boolean abierta;
     private Set<Obra> obras;
-    private List<Sensor> sensores;
+    private Sensor[] sensores = new Sensor[2];
 
     public Sala(String nombre, String id) {
         this.nombre = nombre;
@@ -45,6 +45,13 @@ public abstract class Sala {
 
     public Set<Obra> getObras() {
         return obras;
+    }
+    
+    public Obra getObra(String id){
+        Obra ObraEncontrada = obras.stream().filter(s -> s.getId().equals(id)).findFirst().orElse(null);
+//        if (ObraEncontrada == null) {
+//         trow   
+//        }
     }
 
     public void añadirObra(Obra obra) {
