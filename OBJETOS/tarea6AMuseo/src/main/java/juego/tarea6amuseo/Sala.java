@@ -5,7 +5,9 @@
 package juego.tarea6amuseo;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -15,13 +17,14 @@ public abstract class Sala {
     private String nombre;
     private String id;
     private boolean abierta;
-    private List<Obra> obras;
+    private Set<Obra> obras;
+    private List<Sensor> sensores;
 
     public Sala(String nombre, String id) {
         this.nombre = nombre;
         this.id = id;
         this.abierta = false;
-        this.obras = new ArrayList<>();
+        this.obras = new HashSet<>();
     }
 
     public String getNombre() {
@@ -40,7 +43,7 @@ public abstract class Sala {
         this.abierta = abierta;
     }
 
-    public List<Obra> getObras() {
+    public Set<Obra> getObras() {
         return obras;
     }
 
