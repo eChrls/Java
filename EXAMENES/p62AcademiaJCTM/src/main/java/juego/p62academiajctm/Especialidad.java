@@ -8,6 +8,7 @@ package juego.p62academiajctm;
  *
  * @author carlos
  */
+<<<<<<< HEAD
 public enum Especialidad {
     SECUNDARIA(0.25),
     PT(0.23);
@@ -27,4 +28,3 @@ public enum Especialidad {
         return porcentajeIRPF;
     }
 }
-

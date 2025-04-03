@@ -8,8 +8,11 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 /**
+<<<<<<< HEAD
  *
  * @author carlos
+=======
+>>>>>>> 6d38b78ce75ff1a90877c739327476a8a34dea24
  */
 public class Alumno extends Persona implements SolicitarBaja {
     private String numeroExpediente;
