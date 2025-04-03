@@ -46,13 +46,13 @@ public abstract class Sala {
     public Set<Obra> getObras() {
         return obras;
     }
-    
+    /*PRUEBA DE STREAM
     public Obra getObra(String id){
         Obra ObraEncontrada = obras.stream().filter(s -> s.getId().equals(id)).findFirst().orElse(null);
 //        if (ObraEncontrada == null) {
 //         trow   
 //        }
-    }
+    }*/
 
     public void añadirObra(Obra obra) {
         this.obras.add(obra);

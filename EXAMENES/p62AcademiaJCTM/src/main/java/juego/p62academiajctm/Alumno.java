@@ -1,20 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package juego.p62academiajctm;
 
 import java.time.LocalDate;
 import java.util.Objects;
 
-/**
-<<<<<<< HEAD
- *
- * @author carlos
-=======
->>>>>>> 6d38b78ce75ff1a90877c739327476a8a34dea24
- */
 public class Alumno extends Persona implements SolicitarBaja {
+
     private String numeroExpediente;
     private LocalDate fechaBaja;
 
@@ -25,8 +16,8 @@ public class Alumno extends Persona implements SolicitarBaja {
     }
 
     public Alumno() {
+        this.fechaBaja=LocalDate.MAX;
     }
-
 
     public String getNumeroExpediente() {
         return numeroExpediente;
@@ -47,8 +38,8 @@ public class Alumno extends Persona implements SolicitarBaja {
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 97 * hash + Objects.hashCode(this.numeroExpediente);
-        hash = 97 * hash + Objects.hashCode(this.fechaBaja);
+        hash = 97 * hash + Objects.hashCode(this.numeroExpediente) + Objects.hashCode(this.fechaBaja)
+                + Objects.hashCode(this.nombre) + Objects.hashCode(this.nif) + Objects.hash(this.apellidos);
         return hash;
     }
 
@@ -67,26 +58,28 @@ public class Alumno extends Persona implements SolicitarBaja {
         if (!Objects.equals(this.numeroExpediente, other.numeroExpediente)) {
             return false;
         }
+        if (!Objects.equals(this.nombre, other.nombre)) {
+            return false;
+        }
+        if (!Objects.equals(this.apellidos, other.apellidos)) {
+            return false;
+        }
+        if (!Objects.equals(this.nif, other.nif)) {
+            return false;
+        }
         return Objects.equals(this.fechaBaja, other.fechaBaja);
     }
 
-    
-    
-    
     @Override
     public String toString() {
         return super.toString() + "Alumno{" + "numeroExpediente=" + numeroExpediente + ", fechaBaja=" + fechaBaja + '}';
     }
-    //puede ser un void, o devolver la fecha de baja, en este caso prefiero devolverla.
+
+
+
     @Override
-    public LocalDate solicitarBaja() {
-        this.fechaBaja = LocalDate.now();
-        
-        return this.fechaBaja;
-        
+    public void solicitarBaja(LocalDate fechaSolicitada) {
+        this.fechaBaja=fechaSolicitada;
     }
-    
-    
-    
-    
+
 }

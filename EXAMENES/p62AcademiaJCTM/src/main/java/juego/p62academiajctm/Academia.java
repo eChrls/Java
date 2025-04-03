@@ -18,26 +18,60 @@ public class Academia {
     private  Set <Alumno> alumnos;
     private Set<Empleado> empleados;
 
-    public Academia(String nombre1, String direccion1, Set<Alumno> alumnos1, Set<Empleado> empleados1) {
+
+    public Academia() {
+        this.alumnos = new HashSet<>();
+        this.empleados= new HashSet<>();
+        this.direccion= new Direccion();
     }
 
-    public Academia(String nombre, Direccion direccion, Set<Alumno> alumnos, Set<Empleado> empleados) {
+    
+    public Academia(String nombre, Direccion direccion) {
         this.nombre = nombre;
         this.direccion = direccion;
+        this.empleados=new HashSet<>();
+        this.alumnos=new HashSet<>();
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public Direccion getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(Direccion direccion) {
+        this.direccion = direccion;
+    }
+
+    public Set<Alumno> getAlumnos() {
+        return alumnos;
+    }
+
+    public void setAlumnos(Set<Alumno> alumnos) {
         this.alumnos = alumnos;
+    }
+
+    public Set<Empleado> getEmpleados() {
+        return empleados;
+    }
+
+    public void setEmpleados(Set<Empleado> empleados) {
         this.empleados = empleados;
     }
     
-    public static void contratarEmpleado(Empleado empleado){
-        //Elijo set porque no deberia haber dos empleados contratados iguales
-        Set<Empleado>empleadosContratados = new HashSet<>();
-        empleadosContratados.add(empleado);
+    public void contratarEmpleado(Empleado empleado){
+        empleados.add(empleado);
         
     }
     
-    public static void matricularAlumno(Alumno alumno){
-        Set<Alumno>alumnosMatriculados = new HashSet<>();
-        alumnosMatriculados.add(alumno);
+    public void matricularAlumno(Alumno alumno){
+        alumnos.add(alumno);
     }
     
 }

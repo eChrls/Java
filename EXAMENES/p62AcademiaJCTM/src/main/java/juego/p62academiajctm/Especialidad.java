@@ -8,21 +8,24 @@ package juego.p62academiajctm;
  *
  * @author carlos
  */
-<<<<<<< HEAD
+
 public enum Especialidad {
-    SECUNDARIA(0.25),
-    PT(0.23);
-    
-    private final String nombre;
+    Secundaria("Secundaria", 0.25),
+    ProfesorTecnico("PT", 0.23);
+
+    private final String nombre; 
     private final double porcentajeIRPF;
 
-    private Especialidad() {
-         this.nombre = nombre;
+    private Especialidad(String nombre, double porcentajeIRPF) {
+        this.nombre = nombre;
         this.porcentajeIRPF = porcentajeIRPF;
-
     }
 
 
+
+    public String getNombre() {
+        return nombre;
+    }
 
     public double getPorcentajeIRPF() {
         return porcentajeIRPF;

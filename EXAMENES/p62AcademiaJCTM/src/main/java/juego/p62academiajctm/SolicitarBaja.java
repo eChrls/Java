@@ -12,7 +12,7 @@ import java.time.LocalDate;
  */
 public interface SolicitarBaja {
     
-    public LocalDate solicitarBaja();
+    public void solicitarBaja(LocalDate fechaSolicitada);
     
 
 }

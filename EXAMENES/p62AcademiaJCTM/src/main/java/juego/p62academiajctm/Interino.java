@@ -11,15 +11,14 @@ import java.time.Period;
  *
  * @author carlos
  */
-public final class Interino extends Profesor implements SolicitarBaja{
+public final class Interino extends Profesor implements SolicitarBaja {
+
     private LocalDate fechaInicio;
     private LocalDate fechaCese;
-
 
     public Interino(String numeroSeguridadSocial, double salarioBase, String nombre, String apellidos, String nif) {
         super(numeroSeguridadSocial, salarioBase, nombre, apellidos, nif);
     }
-
 
     public Interino(LocalDate fechaInicio, LocalDate fechaCese, Especialidad especialidad, double complementoSalarial, String numeroSeguridadSocial, double salarioBase, String nombre, String apellidos, String nif) {
         super(especialidad, complementoSalarial, numeroSeguridadSocial, salarioBase, nombre, apellidos, nif);
@@ -27,10 +26,13 @@ public final class Interino extends Profesor implements SolicitarBaja{
         this.fechaCese = this.fechaInicio.plusMonths(6);
     }
 
- 
-    
-    public int calcularDiasTrabajados(){
-        
+    public Interino() {
+        this.fechaInicio = LocalDate.now();
+        this.fechaCese = this.fechaInicio.plusMonths(6);
+    }
+
+    public int calcularDiasTrabajados() {
+
         Period fecha = Period.between(this.fechaInicio, this.fechaCese);
         int fecha2 = fecha.getDays();
         return fecha2;
@@ -38,22 +40,17 @@ public final class Interino extends Profesor implements SolicitarBaja{
 
     @Override
     public double calcularIRPF() {
-        return 0;
+        return this.getSalarioBase() * Especialidad.Secundaria.getPorcentajeIRPF();
     }
 
     @Override
     public String toString() {
         return super.toString() + "Interino{" + "fechaInicio=" + fechaInicio + ", fechaCese=" + fechaCese + '}';
     }
-    //puede ser un void, o devolver la fecha de baja, en este caso prefiero devolverla.
+
     @Override
-    public LocalDate solicitarBaja() {
-        
-        this.fechaCese = LocalDate.now();
-        
-        return this.fechaCese;
+    public void solicitarBaja(LocalDate fechaSolicitada) {
+        this.fechaCese = fechaSolicitada;
     }
 
-
-    
 }

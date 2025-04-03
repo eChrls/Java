@@ -64,15 +64,14 @@ public final class Titular extends Profesor {
 
     @Override
     public double calcularIRPF() {
-        return 0;
+        return (this.getSalarioBase()+this.getComplementoSalarial()) * Especialidad.ProfesorTecnico.getPorcentajeIRPF();
     }
     
     public boolean pedirProrroga(int meses){
       
-        LocalDate fechaTemp = this.fechaJubilacion;
-       
-        fechaTemp.plusMonths(meses);
-        return !fechaTemp.isAfter(this.fechaJubilacion);
+        LocalDate fechaTemp = this.fechaJubilacion.plusMonths(meses);
+
+        return !fechaTemp.isAfter( LocalDate.of(2030,01,01));
     }
 
     @Override
