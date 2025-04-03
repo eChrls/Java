@@ -8,23 +8,21 @@ package juego.p62academiajctm;
  *
  * @author carlos
  */
-public enum Especialidad {
-    SECUNDARIA(0.25),
-    PT(0.23);
-    
-    private final String nombre;
-    private final double porcentajeIRPF;
 
-    private Especialidad() {
-         this.nombre = nombre;
-        this.porcentajeIRPF = porcentajeIRPF;
+*public enum Especialidad {
+    *
+    SECUNDARIA(0.25), *PT(0.23);**
 
-    }
+    private final String nombre;*
+    private final double porcentajeIRPF;**
 
+   private Especialidad() {
+ * this.nombre = nombre;
+ * this.porcentajeIRPF = porcentajeIRPF;
+ * 
+ * }****
 
-
-    public double getPorcentajeIRPF() {
-        return porcentajeIRPF;
-    }
+   public double getPorcentajeIRPF() {
+ * return porcentajeIRPF;
+ * }*
 }
-
