@@ -64,3 +64,64 @@ respecto al ejemplo-agenda.dtd: -->
 <tlf>955837659</tlf>
 </persona>
 </agenda>
+
+
+<!-- Ejercicio 8
+Explicacion de las entidades
+Entidad interna.
+Las entidades no pueden estar en el archivo externo, sino junto
+al enlace web en el archivo original-->
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html SYSTEM "xtml.dtd"[<!ENTITY iacute "i">] >
+<html xmlns="http://www.w3.org/1999/xhtml"></html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Documento sin t&iacute;tulo</title>
+</head>
+<body bgcolor="red">
+<p>Implementa el DTD asociado a este XML</p>
+<p align="center">resuelve el ejercicio</p>
+</body>
+
+<!-- archivo externo xhtml.dtd-->
+<!ELEMENT html (head, body)>
+<!ATTLIST html xmlns CDATA #IMPLIED>
+<!ELEMENT head (meta*, title?, meta*)>
+<!ELEMENT meta EMPTY>
+<!ATTLIST meta http-equiv NMTOKEN #REQUIRED
+content CDATA #REQUIRED>
+<!ELEMENT title (#PCDATA)>
+<!ELEMENT body (p*)>
+<!ATTLIST body bgcolor CDATA #IMPLIED>
+<!ELEMENT p (#PCDATA)>
+<!ATTLIST p align CDATA #IMPLIED>
+
+<!-- Entidad parametrica (externa)
+busca un elemento que se repita para la explicacion.
+Utiliza CDATA #IMPLIED y se inicializa con %
+SOLO FUNCIONAN EXTERNAMENTE-->
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html SYSTEM "xtml.dtd"[<!ENTITY iacute "i">] >
+<html xmlns="http://www.w3.org/1999/xhtml"></html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Documento sin t&iacute;tulo</title>
+</head>
+<body bgcolor="red">
+<p>Implementa el DTD asociado a este XML</p>
+<p align="center">resuelve el ejercicio</p>
+</body>
+
+
+<!ELEMENT html (head, body)>
+<!ENTITY %c_op "CDATA #IMPLIED"> <!-- se inventa el nombre c_op-->
+<!ATTLIST html xmlns %c_op;> <!-- se utiliza %c_op con porcentaje y sustituye a CDATA IMPLIED-->
+<!ELEMENT head (meta*, title?, meta*)>
+<!ELEMENT meta EMPTY>
+<!ATTLIST meta http-equiv NMTOKEN #REQUIRED
+content %c_op;>
+<!ELEMENT title (#PCDATA)>
+<!ELEMENT body (p*)>
+<!ATTLIST body bgcolor %c_op;>
+<!ELEMENT p (#PCDATA)>
+<!ATTLIST p align %c_op;>
