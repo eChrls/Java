@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package juego.tarea6brecordempleado;
 
 import java.util.HashSet;
@@ -19,32 +16,48 @@ public class Empresa {
         this.empleados = new HashSet<>();
     }
     
-    
+    //1. Agregar un empleado a la colección.
     public void agregarEmpleado(Empleado empleado){
         empleados.add(empleado);
         
     }
-    
-    public void eliminarEmpleado(Empleado empleado){
-        empleados.remove(empleado);
+    //2. Eliminar un empleado de la colección por su ID.
+    public void eliminarEmpleado(int idBuscado, Set<Empleado>empleados){
+        for (Empleado empleado : empleados) {
+            if(empleado.id() == idBuscado){
+                empleados.remove(empleado);
+            }else{
+                System.out.println("Id no encontrado. ");
+            }
+        }
+        
     }
-    
-    public Set<Empleado> empleadosPorDpto(String departamento){
-
-              for (Empleado empleado : empleados) {
-
+    //3. Buscar los empleados de un departamento.
+    public Set<Empleado> empleadosPorDpto(String departamentoBuscado){
+        Set<Empleado>empleadosEncontrados = new HashSet<>();
+              for (Empleado empleado : this.empleados) {
+                  if(empleado.departamento().equals(departamentoBuscado)){
+                      empleadosEncontrados.add(empleado);
+                  }
             }
         
-        return empleados; 
+        return empleadosEncontrados; 
     }
-    
+    //4. Listar todos los empleados en la colección.
     public void showAll (){
         empleados.forEach(System.out::println);
     }
-    
-    public void salarioMedio(){
-       
+    //5. Calcular el salario promedio de todos los empleados. 
+    public double salarioMedioEmpleados(Set<Empleado> empleados){
+        double salarioTotal = 0;
         
+        for (Empleado empleado : this.empleados) {
+                salarioTotal += empleado.salario();
+               
+        }
+        double salarioMedio = salarioTotal/empleados.size();
+        
+        return salarioMedio; 
     }
     
    
