@@ -361,13 +361,13 @@ a un determinado dominio/problema. -->
 <!ELEMENT Cuenta (Cliente*, Domiciliacion*)>
 <!ATTLIST Cuenta codigo CDATA #REQUIRED>
 <!ELEMENT Cliente EMPTY>
-<!ATTLIST Cliente nif CDATA #REQUIRED privilegios CDATA #IMPLIED>
+<!ATTLIST Cliente nif ID #REQUIRED privilegios CDATA #IMPLIED>
 <!ELEMENT Domiciliacion EMPTY>
 <!ATTLIST Domiciliacion referencia CDATA #REQUIRED>
 <!ELEMENT Cliente (Prestamo*)>
-<!ATTLIST Cliente nif CDATA #REQUIRED>
+<!ATTLIST Cliente nif #REQUIRED>
 <!ELEMENT Prestamo EMPTY>
-<!ATTLIST Prestamo id CDATA #REQUIRED>
+<!ATTLIST Prestamo id #REQUIRED>
 
 <!-- 16. Elabora en formato XML el fichero de texto que contiene datos pertenecientes
  a un determinado dominio/problema. -->
@@ -472,3 +472,8 @@ contiene datos pertenecientes a un determinado dominio/problema. -->
 <!ELEMENT Nombre (#PCDATA)>
 <!ELEMENT Familiar EMPTY>
 <!ATTLIST Familiar nombre CDATA #REQUIRED>
+
+
+<!--
+ver diferencia entre id, idref implied, idrefs implied, y lo mismo requiered.
+-->

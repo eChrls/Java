@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE factura [
     <!ELEMENT factura (empresa, cliente, pedido, datos_factura)>
-    <!ATTLIST factura n_fac CDATA #REQUIRED>
-
-    <!ELEMENT empresa (nombre, direccion, localidad, cif, telefono?, fax?)>
+    <!ATTLIST factura n_fac ID #REQUIRED>
+    <!ELEMENT empresa (nombre, direccion, localidad, cif)>
+    <!ATTLIST empresa
+             telefono CDATA #FIXED "91.777.66.88"
+             fax CDATA #FIXED  "91.777.66.99" >
     <!ELEMENT nombre (#PCDATA)>
     <!ELEMENT direccion (#PCDATA)>
     <!ELEMENT localidad (#PCDATA)>
@@ -13,7 +15,7 @@
     <!ELEMENT fax (#PCDATA)>
 
     <!ELEMENT cliente (nombre, direccion_envio, poblacion, provincia)>
-    <!ATTLIST cliente n_cli CDATA #REQUIRED>
+    <!ATTLIST cliente n_cli ID #REQUIRED>
     <!ELEMENT direccion_envio (#PCDATA)>
     <!ELEMENT poblacion (#PCDATA)>
     <!ATTLIST poblacion codigo_postal CDATA #REQUIRED>
@@ -21,7 +23,7 @@
 
     <!ELEMENT pedido EMPTY>
     <!ATTLIST pedido
-        n_ped CDATA #REQUIRED
+        n_ped ID #REQUIRED
         fecha CDATA #REQUIRED
         forma_pago (efectivo|tarjeta|plazos) #REQUIRED>
 
@@ -33,7 +35,7 @@
     <!ELEMENT descripcion (#PCDATA)>
     <!ELEMENT cantidad (#PCDATA)>
     <!ELEMENT precio (#PCDATA)>
-    <!ELEMENT iva (#PCDATA)>
+    <!ELEMENT iva NMTOKEN #REQUIRED> <!-- Comprobar si en element puede ir NMTOKEN y rehacer examen-->
     <!ELEMENT importe (#PCDATA)>
 
     <!ELEMENT base_imponible (#PCDATA)>
@@ -41,22 +43,20 @@
     <!ATTLIST cuota_iva tipo CDATA #REQUIRED>
     <!ELEMENT total (#PCDATA)>
 ]>
-<factura n_fac="999">
-    <empresa>
+<factura n_fac="_999">
+    <empresa fax="91.777.66.99" telefono="91.777.66.88">
         <nombre>Equipos Digitales S.L.</nombre>
         <direccion>Av. Valladolid</direccion>
         <localidad codigo_postal="28015">Madrid</localidad>
         <cif>Q-9876543</cif>
-        <telefono>91.777.66.88</telefono>
-        <fax>91.777.66.99</fax>
     </empresa>
-    <cliente n_cli="879">
+    <cliente n_cli="_879">
         <nombre>Dario Bueno Gutiérrez</nombre>
         <direccion_envio>Av. Oporto n° 7 4° d</direccion_envio>
         <poblacion codigo_postal="28043">Madrid</poblacion>
         <provincia>Madrid</provincia>
     </cliente>
-    <pedido n_ped="731" fecha="12-01-2005" forma_pago="efectivo" />
+    <pedido n_ped="_731" fecha="12-01-2005" forma_pago="efectivo" />
     <datos_factura moneda="euro">
         <linea ref="MII93000F/8">
             <descripcion>MICRO PENTIUM IV 3000MHZ FB800</descripcion>
