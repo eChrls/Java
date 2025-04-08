@@ -14,5 +14,5 @@ public interface SolicitarBaja {
     
     public void solicitarBaja(LocalDate fechaSolicitada);
     
-
+    
 }

@@ -17,8 +17,6 @@ public class Direccion {
     public Direccion() {
         if (cpostal.length() != 5) {
             this.cpostal = "00000";
-        } else {
-            this.cpostal = cpostal;
         }
     }
 
@@ -29,6 +27,30 @@ public class Direccion {
         } else {
             this.cpostal = cpostal;
         }
+        this.poblacion = poblacion;
+    }
+
+    public String getCalleNumero() {
+        return calleNumero;
+    }
+
+    public void setCalleNumero(String calleNumero) {
+        this.calleNumero = calleNumero;
+    }
+
+    public String getCpostal() {
+        return cpostal;
+    }
+
+    public void setCpostal(String cpostal) {
+        this.cpostal = cpostal;
+    }
+
+    public String getPoblacion() {
+        return poblacion;
+    }
+
+    public void setPoblacion(String poblacion) {
         this.poblacion = poblacion;
     }
 
