@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE factura SYSTEM "facturas.dtd">
+<factura n_fac="_999">
+    <datos_cliente id_cli="_879">
+        <nombreCliente>Dario Bueno</nombreCliente>
+        <dirEnvio>Av. Oporto nº7</dirEnvio>
+        <poblacion>Madrid</poblacion>
+        <codPostal>28043</codPostal>
+        <provincia>Madrid</provincia>
+    </datos_cliente>
+    <datos_factura n_ped="_731">
+        <empresa telefono="917776688" fax="917766999">
+            <nombre>Equipos Digitales S.L.</nombre>
+            <direccion>Av.Valladolid Madrid 28015</direccion>
+            <cif>Q-9876543</cif>
+        </empresa>
+        <pedido>
+            <fecha>12-01-2005</fecha>
+            <formaPago tipo="EFECTIVO">EFECTIVO</formaPago>
+            <productos>
+                <p>
+                    <ref>150564056456</ref>
+                    <descripcion>MICRO PENTIUM IV</descripcion>
+                    <cantidad>1</cantidad>
+                    <precio moneda="eur">230</precio>
+                    <iva porcentaje="16.0">16.00</iva>
+                    <importe moneda="eur">266.80</importe>
+                </p>
+                <p>
+                    <ref>150564056456</ref>
+                    <descripcion>MICRO PENTIUM IV</descripcion>
+                    <cantidad>1</cantidad>
+                    <precio moneda="eur">230</precio>
+                    <iva porcentaje="16.0">16.0</iva>
+                    <importe moneda="eur">266.80</importe>
+                </p>
+                <p>
+                    <ref>150564056456</ref>
+                    <descripcion>MICRO PENTIUM IV</descripcion>
+                    <cantidad>1</cantidad>
+                    <precio>230</precio>
+                    <iva porcentaje="16.0">16.0</iva>
+                    <importe moneda="eur">266.80</importe>
+                </p>
+            </productos>
+            <baseImponible moneda="eur">970.00</baseImponible>
+            <ivaPorcentual porcentaje="16.0">16.0</ivaPorcentual>
+            <ivaEuros moneda="eur">155.20</ivaEuros>
+            <total moneda="eur">1125.20</total>
+        </pedido>
+    </datos_factura>
+</factura>

@@ -1,0 +1,47 @@
+<!ELEMENT factura (datos_cliente, datos_factura)>
+<!ATTLIST factura n_fac ID #REQUIRED>
+
+<!ELEMENT datos_cliente (nombreCliente,dirEnvio,poblacion,codPostal, provincia)>
+<!ATTLIST datos_cliente id_cli ID #REQUIRED>
+<!ELEMENT nombreCliente (#PCDATA)>
+<!ELEMENT dirEnvio (#PCDATA)>
+<!ELEMENT poblacion (#PCDATA)>
+<!ELEMENT codPostal (#PCDATA)>
+<!ELEMENT provincia (#PCDATA)>
+
+
+<!ELEMENT datos_factura (empresa, pedido)>
+<!ATTLIST datos_factura n_ped ID #REQUIRED>
+
+<!ELEMENT empresa (nombre, direccion, cif)>
+<!ELEMENT nombre (#PCDATA)>
+<!ELEMENT direccion (#PCDATA)>
+<!ELEMENT cif (#PCDATA)>
+<!ATTLIST empresa
+    telefono CDATA #FIXED "917776688"
+    fax CDATA #FIXED "917766999">
+
+<!ELEMENT pedido (fecha, formaPago, productos, baseImponible, ivaPorcentual, ivaEuros, total)>
+<!ELEMENT fecha (#PCDATA)>
+<!ELEMENT formaPago (#PCDATA)>
+<!ATTLIST formaPago tipo (EFECTIVO|TARJETA|PLAZOS) "EFECTIVO">
+<!ELEMENT productos (p+)>
+<!ELEMENT baseImponible (#PCDATA)>
+<!ATTLIST baseImponible moneda CDATA #FIXED "eur">
+<!ELEMENT ivaPorcentual (#PCDATA)>
+<!ATTLIST ivaPorcentual porcentaje NMTOKEN #REQUIRED>
+<!ELEMENT ivaEuros (#PCDATA)>
+<!ATTLIST ivaEuros moneda CDATA #FIXED "eur">
+<!ELEMENT total (#PCDATA)>
+<!ATTLIST total moneda CDATA #FIXED "eur">
+
+<!ELEMENT p (ref, descripcion, cantidad, precio, iva, importe)>
+<!ELEMENT ref (#PCDATA)>
+<!ELEMENT descripcion (#PCDATA)>
+<!ELEMENT cantidad (#PCDATA)>
+<!ELEMENT precio (#PCDATA)>
+<!ATTLIST precio moneda CDATA #FIXED "eur">
+<!ELEMENT iva (#PCDATA)>
+<!ATTLIST iva porcentaje NMTOKEN #REQUIRED>
+<!ELEMENT importe (#PCDATA)>
+<!ATTLIST importe moneda CDATA #FIXED "eur">
