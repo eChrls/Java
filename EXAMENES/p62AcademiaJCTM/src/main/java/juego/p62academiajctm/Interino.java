@@ -42,7 +42,7 @@ public final class Interino extends Profesor implements SolicitarBaja {
     public double calcularIRPF() {
         return this.getSalarioBase() * this.getEspecialidad().getPorcentajeIRPF();
     }
-
+    
     @Override
     public String toString() {
         return super.toString() + "Interino{" + "fechaInicio=" + fechaInicio + ", fechaCese=" + fechaCese + '}';

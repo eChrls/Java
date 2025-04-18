@@ -17,9 +17,12 @@ public class Academia {
     private Direccion direccion; 
     private  Set <Alumno> alumnos;
     private Set<Empleado> empleados;
-
+    
+    
+    
 
     public Academia() {
+        this.nombre = "Academia sin nombre";
         this.alumnos = new HashSet<>();
         this.empleados= new HashSet<>();
         this.direccion= new Direccion();

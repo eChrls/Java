@@ -15,9 +15,7 @@ public class Direccion {
     private String poblacion;
 
     public Direccion() {
-        if (cpostal.length() != 5) {
-            this.cpostal = "00000";
-        }
+
     }
 
     public Direccion(String calleNumero, String cpostal, String poblacion) {
@@ -52,6 +50,11 @@ public class Direccion {
 
     public void setPoblacion(String poblacion) {
         this.poblacion = poblacion;
+    }
+
+    @Override
+    public String toString() {
+        return "Direccion{" + "calleNumero=" + calleNumero + ", cpostal=" + cpostal + ", poblacion=" + poblacion + '}';
     }
 
 }

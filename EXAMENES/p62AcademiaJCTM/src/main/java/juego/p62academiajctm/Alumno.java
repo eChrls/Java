@@ -12,7 +12,7 @@ public class Alumno extends Persona implements SolicitarBaja {
     public Alumno(String numeroExpediente, LocalDate fechaBaja, String nombre, String apellidos, String nif) {
         super(nombre, apellidos, nif);
         this.numeroExpediente = numeroExpediente;
-        this.fechaBaja = LocalDate.MAX;
+        this.fechaBaja =fechaBaja;
     }
 
     public Alumno() {
