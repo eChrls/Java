@@ -166,12 +166,6 @@ public record Empleado(int id, String nombre, int edad, double salario) {
 
                 // 11 - Ordenar la lista de empleados por edad de forma ascendente.
                 System.out.println("Ordenación por edad ascendente");
-                
-                // Ordenar edades
-                List<Integer> listaEdades = listaEmpleados.stream()
-                /*Collections.sort(listaEdades);
-                 * System.out.println(listaEdades);
-                 */
 
                 // Ordenar empleados por edad
                 listaEmpleados.sort(Comparator.comparingInt(Empleado::edad));
@@ -210,6 +204,7 @@ public record Empleado(int id, String nombre, int edad, double salario) {
                 // 15 - Obtener un set con los nombres de los empleados mayores de 18 años.
                 // *Nota: Lo cambio a 40 años para filtrar.
                 System.out.println("Set de empleados veteranos, edad superior a 40 años* (ver nota)");
+                List<Integer>listaEdades =  listaEmpleados.stream().map(Empleado::edad).collect(Collectors.toList());
                 Set<Integer> setEdades = new HashSet(listaEdades);
                 Set<Integer> veteranos = setEdades.stream()
                                 .filter(edad -> edad > 40)
