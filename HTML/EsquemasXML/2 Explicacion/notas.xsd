@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="nota" type="tipoNota"/>
+
+    <xs:complexType name="tipoNota">
+        <xs:sequence>
+            <xs:element name="a" type="xs:string"></xs:element>
+            <xs:element name="de" type="xs:string"></xs:element>
+            <xs:element name="cabecera" type="tipoCabecera"></xs:element>
+            <xs:element name="cuerpo" type="xs:string" minOccurs="0"></xs:element>
+            <xs:element name="color" type="xs:string" maxOccurs="unbounded"></xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+<xs:complexType name="tipoCabecera">
+    <xs:sequence>
+        <xs:element name="cabeza1"></xs:element>
+        <xs:element name="cabeza2"></xs:element>
+    </xs:sequence>
+    <xs:attribute name="moneda" type="xs:string" fixed="euro" use="required"></xs:attribute>
+</xs:complexType>
+
+<xs:complexType name="tipoVacio"></xs:complexType>
+</xs:schema>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="nota" type="tipoNota">
+        <xs:complexType name="tipoNota">
+            <xs:all>
+                <xs:element name="a" type="xs:string"></xs:element>
+                <xs:element name="de" type="xs:string"></xs:element>
+                <xs:element name="cabecera" type="xs:string"></xs:element>
+                <xs:element name="cuerpo">
+                    <xs:complexType></xs:complexType>
+                </xs:element>
+                <xs:element name="color" type="xs:string"></xs:element>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
