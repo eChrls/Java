@@ -166,10 +166,10 @@ public record Empleado(int id, String nombre, int edad, double salario) {
 
                 // 11 - Ordenar la lista de empleados por edad de forma ascendente.
                 System.out.println("Ordenación por edad ascendente");
-                /*
-                 * Ordenar edades
-                 * List<Integer> listaEdades = listaEmpleados.stream()
-                 * Collections.sort(listaEdades);
+                
+                // Ordenar edades
+                List<Integer> listaEdades = listaEmpleados.stream()
+                /*Collections.sort(listaEdades);
                  * System.out.println(listaEdades);
                  */
 
