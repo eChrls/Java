@@ -179,10 +179,12 @@ public record Empleado(int id, String nombre, int edad, double salario) {
                                 .map(Empleado::salario)
                                 .collect(Collectors.toList());
 
-                Collections.sort(listaSalario);// hay que ordenar primero para que el reverse funcione.
+                /*Collections.sort(listaSalario);// hay que ordenar primero para que el reverse funcione.
                 Collections.reverse(listaSalario);
-                System.out.println(listaSalario);
+                System.out.println(listaSalario);*/
+                listaEmpleados.sort(Comparator.comparingDouble(Empleado::salario));
                 System.out.println("\n");
+                
 
                 // 13- Ordenar la lista por nombre y obtener una nueva lista con los tres
                 // primeros elementos.
