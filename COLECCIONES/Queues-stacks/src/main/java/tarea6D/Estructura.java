@@ -50,6 +50,8 @@ public abstract class Estructura<T> {
 
     public abstract boolean estaLlena();
 
+    public abstract int numeroElementosGuardados();
+
 
     public int obtenerCapacidad() {
         return capacidad;

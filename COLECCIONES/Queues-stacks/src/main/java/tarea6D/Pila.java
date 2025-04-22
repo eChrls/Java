@@ -40,10 +40,6 @@ public class Pila<T> extends Estructura<T>{
 //        return pila.pop();
 //    }
 
-    //examinar
-    public T peek() {
-        return pila.peek();
-    }
 
     public int obtenerCapacidad() {
         return capacidad;
@@ -72,6 +68,15 @@ public class Pila<T> extends Estructura<T>{
     @Override
     public boolean estaLlena() {
         return pila.size() >= capacidad;
+    }
+
+
+    // Método específico de Pila
+    public T peek() throws EstructuraException {
+        if (pila.isEmpty()) {
+            throw new EstructuraException("Pila vacía");
+        }
+        return this.elementos.get(this.elementos.size() - 1);
     }
 
 
