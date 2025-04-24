@@ -183,24 +183,37 @@ public record Empleado(int id, String nombre, int edad, double salario) {
                 Collections.reverse(listaSalario);
                 System.out.println(listaSalario);*/
                 listaEmpleados.sort(Comparator.comparingDouble(Empleado::salario));
+                System.out.println(listaEmpleados.reversed());
                 System.out.println("\n");
                 
 
                 // 13- Ordenar la lista por nombre y obtener una nueva lista con los tres
                 // primeros elementos.
                 System.out.println("Lista con los tres primeros nombres alfabéticamente : ");
-                Collections.sort(listaNombres);
+                List<Empleado>listanueva=(listaEmpleados).stream()
+                                            .sorted(Comparator.comparing(Empleado::nombre))
+                                            .limit(3)
+                                            .collect(Collectors.toList());
+                
+                
+                
+                
                 Stream<String> streamLimitado = listaNombres.stream().limit(3);
                 streamLimitado.forEach(System.out::println);
                 System.out.println("\n");
+                
+                
 
                 // 14 - Comprobar si algún empleado tiene salario superior a 100. *Nota : Lo
                 // cambio a 3000 para filtrar.
                 System.out.println("Comprobando salarios superiores a 3000* (ver nota)");
-                List<Double> salariosAltos = listaSalario.stream().filter(s -> s > 3000)
-                                .collect(Collectors.toList());
-
-                salariosAltos.forEach(System.out::println);
+                    boolean comprobacion = listaSalario.stream().anyMatch(s -> s>3000);
+                      System.out.println(comprobacion); 
+                                /*.filter(s -> s > 3000)
+                                .collect(Collectors.toList());*/
+                
+                
+               // salariosAltos.forEach(System.out::println);
                 System.out.println("\n");
 
                 // 15 - Obtener un set con los nombres de los empleados mayores de 18 años.
@@ -208,12 +221,14 @@ public record Empleado(int id, String nombre, int edad, double salario) {
                 System.out.println("Set de empleados veteranos, edad superior a 40 años* (ver nota)");
                 List<Integer>listaEdades =  listaEmpleados.stream().map(Empleado::edad).collect(Collectors.toList());
                 Set<Integer> setEdades = new HashSet(listaEdades);
-                Set<Integer> veteranos = setEdades.stream()
-                                .filter(edad -> edad > 40)
+                Set<String> veteranos = listaEmpleados.stream()
+                                .filter(empleado -> empleado.edad() > 40)
+                                .map(Empleado::nombre)
                                 .collect(Collectors.toSet());
                 veteranos.forEach(System.out::println);
                 System.out.println("\n");
-
+                
+                
                 // 16- Obtener el empleado con salario más alto. Usa la función max.
                 Optional<Empleado> salarioMax = listaEmpleados.stream()
                                 .max((e1, e2) -> Double.compare(e1.salario(), e2.salario()));
@@ -231,7 +246,16 @@ public record Empleado(int id, String nombre, int edad, double salario) {
                 DoubleStream streamSalarios = DoubleStream.of(arraySalarios);
                 System.out.println("La suma de los salarios es = " + streamSalarios.sum() + " €.");
                 System.out.println("\n");
-
+                
+                listaEmpleados.stream()
+                                            .mapToDouble(Empleado::salario)
+                                            .sum();
+                
+                listaEmpleados.stream()
+                                          .map(Empleado::salario)
+                                          .reduce(0.0, Double::sum);
+                
+                                          
                 // 18 - Agrupar (obtener un map) los empleados por id y salario asociado.
 
                 Map<Integer, Double> mapaFinal = listaEmpleados.stream()
@@ -239,5 +263,6 @@ public record Empleado(int id, String nombre, int edad, double salario) {
                 System.out.println("IDs y Salarios: ");
                 System.out.println(mapaFinal);
 
+                
         }
 }

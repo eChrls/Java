@@ -14,7 +14,7 @@ public class Main {
         try {
             Estructura<Integer> pilaMain = new Pila<>(5);
             Estructura<String> colaMain = new Cola<>(5);
-
+            
             System.out.println("Pruebas con Pila : ");
             pilaMain.añadir(1);
             pilaMain.añadir(2);
