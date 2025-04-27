@@ -4,60 +4,92 @@
  */
 package ficheros;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 /**
  *
  * @author carlos
  */
 public class Lectura {
-    
-    
-//       public static List<Vehiculo> leerCsv(String nombre) throws IOException {
-//        List<Vehiculo>vehiculos = new ArrayList<>();
-//        FileInputStream fis;
-//        Vehiculo tmp; 
-//        try{
-//            fis = new FileInputStream (nombre);
-//            try(ObjectInputStream flujo = new ObjectInputStream(fis)){
-//                //devuelve el numero estimado de bytes, si llega a 0 es que ha terminado
-//                while(fis.available()>0){
-//                }   
-//            }catch(IOException e){
-//                System.out.println("Error en lectura" + e.getMessage());
-//            }
-//        }catch (FileNotFoundException ex){
-//            System.out.println("El fichero a leer no existe" + ex.getMessage());
-//        }
 
-//       public static List<Vehiculo> leerCsv(String nombre)  {
-//        try (Scanner sc = new Scanner(new File(nombre))) {//scanner de new file
-//            boolean primeraLinea = true;
-//            while (sc.hasNextLine()) {   //iteracion
-//                String linea = sc.nextLine().trim(); //elimina los espacios
-//                Vehiculo vehiculo = new Vehiculo(nombre, nombre, nombre, nombre, nombre, nombre);
-//             if(primeraLinea){
-//                 primeraLinea = false;
-//                 continue;
-//                }
-//             String[] datos = linea.split(separador);//divide la linea por cada separador
-//             String marca = datos[0];//añadimos los datos en cada posicion
-//             String modelo = datos[1];
-//             String year = datos[2];
-//             String vin= datos[3];
-//             String color=  datos[4];
-//             String licencia= datos[5];     
-//            }   
-//        } catch (FileNotFoundException e) {
-//            throw new RuntimeException("Archivo no encontrado" + nombre, e);
-//        }
-//        return vehiculos;
-//    }
+    //metodo que lee el CSV y devuelve un List de vehiculos
+    public static List<Vehiculo> leerVehiculosCSV(String nombreArchivo) {
+        List<Vehiculo> vehiculos = new ArrayList<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(nombreArchivo))) {
+            //Lee la primera linea
+            String linea = br.readLine();
+
+            //Resto de lineas
+            while ((linea = br.readLine()) != null) {
+                String[] datos = linea.split(","); //divide la linea por comas
+
+                Vehiculo vehiculo = new Vehiculo(
+                        datos[0],
+                        datos[1],
+                        Integer.parseInt(datos[2]),
+                        datos[3],
+                        datos[4],
+                        datos[5]
+                );
+
+                vehiculos.add(vehiculo);
+            }
+
+        } catch (IOException | NumberFormatException e) {
+            System.out.println("Error al leer archivo" + e.getMessage());
+        }
+
+        return vehiculos;
+    }
+
+    public static Set<String> obtenerFabricantesVehiculosVerdes(List<Vehiculo> vehiculos, int año, String color) {
+        return vehiculos.stream()
+                .filter(v -> v.año() == año && v.color().equalsIgnoreCase(color)) //filtro por año y color
+                .map(Vehiculo::marca) //solo las marcas
+                .collect(Collectors.toSet());
+
+    }
+
+    public static Map<String, Long> contarVehiculosPorColor(List<Vehiculo> vehiculos) {
+        return vehiculos.stream()
+                .collect(Collectors.groupingBy(//sirve para agrupar y funciones de conteo
+                        Vehiculo::color, //agrupa los colores
+                        TreeMap::new, //crea un treemap que ordena por clave (color)
+                        Collectors.counting() //cuenta las iteraciones , devuelve un Long
+                ));
+    }
+
+    //Metodo para guardar el map en un CSV
+    public static void guardarMapEnCSV(Map<String, Long> mapa, String nombreArchivo) {
+        try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(nombreArchivo))) {
+        //convierte el nombre del archivo en un objeto Path que representa su ubicacion
+
+            writer.write("Color, Cantidad");
+            writer.newLine();
+            
+            //bucle para recorrer cada par clave valor
+            for(Map.Entry<String, Long>entrada : mapa.entrySet()){ //devuelve un conjunto con los pares clave valor del mapa
+                writer.write(entrada.getKey() + " , " + entrada.getValue());
+                writer.newLine();// salto de linea
+            }
+            
+            System.out.println("Archivo " + nombreArchivo + "creado correctamente. ");
+            
+        } catch (IOException e) {
+            System.out.println("Error al guardar el archivo" + e.getMessage());
+        }
+    }
+
 }
