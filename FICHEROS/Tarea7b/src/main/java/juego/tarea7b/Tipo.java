@@ -8,7 +8,7 @@ package juego.tarea7b;
  *
  * @author carlos
  */
-public enum Event {
+public enum Tipo {
     PUBLICO,
     PRIVADO
 }

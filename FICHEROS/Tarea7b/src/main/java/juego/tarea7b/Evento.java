@@ -4,8 +4,11 @@
 package juego.tarea7b;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -15,7 +18,7 @@ import java.util.Random;
 
 public class Evento {
 
-    private Event event;
+    private Tipo tipo;
     private final int codigoUnico;
     private String nombre;
     private String lugar;
@@ -31,18 +34,20 @@ public class Evento {
         int tmp = r.nextInt(0, 2);
 
         if (tmp == 0) {
-            this.event = event.PRIVADO;
+            this.tipo = tipo.PRIVADO;
         } else {
-            this.event = event.PUBLICO;
+            this.tipo = tipo.PUBLICO;
         }
         //El código único se implementará con un autoIncrement de instancias.
-        autoIncrement++;
+       
         this.codigoUnico = autoIncrement;
-
-        //El nombre será un String con el formato: “event+codigo único+letra aleatoria (a-z)”. Por ejemplo: event1x, event2y, event3a, etc.
+         autoIncrement++;
+         
+        //El nombre será un String con el formato: “tipo+codigo único+letra aleatoria (a-z)”. 
+        //Por ejemplo: event1x, event2y, event3a, etc.
         StringBuilder sb = new StringBuilder();
-        char tmpchar = (char) (r.nextInt(97, 123)); //valores ascii de a -z
-        sb.append(this.event);
+        char tmpchar = (char) (r.nextInt('a', 'z')); 
+        sb.append("event");
         sb.append(this.codigoUnico);
         sb.append(tmpchar);
 
@@ -64,20 +69,26 @@ public class Evento {
     }
 
     //constructor parametrizado
-    public Evento(Event event, int codigoUnico, String nombre, String lugar, LocalDate fecha) {
-        this.event = event;
+    public Evento(Tipo tipo, int codigoUnico, String nombre, String lugar, LocalDate fecha) {
+        this.tipo = tipo;
         this.codigoUnico = codigoUnico;
         this.nombre = nombre;
         this.lugar = lugar;
         this.fecha = fecha;
     }
 
-    public Event getEvent() {
-        return event;
+    public Tipo getTipo() {
+        return tipo;
     }
 
-    public void setEvent(Event event) {
-        this.event = event;
+    public int getId(){
+       return codigoUnico;
+    }
+    
+    
+
+    public void setTipo(Tipo tipo) {
+        this.tipo = tipo;
     }
 
     public String getNombre() {
@@ -107,38 +118,10 @@ public class Evento {
 
     @Override
     public String toString() {
-        return event + ";" + codigoUnico + ";" + nombre + ";" + lugar + ";" + fecha;
+        return tipo + ";" + codigoUnico + ";" + nombre + ";" + lugar + ";" + fecha;
     }
 
-    //Implementa un método llamado generarDatos que crea y 
-    //devuelve una lista con 25 objetos usando el constructor por defecto. 
-    public static List<Evento> listaEventosAleatorios() {
-        List<Evento> listaGenerada = new ArrayList<>();
 
-        for (int i = 0; i < 25; i++) {
-            Evento e = new Evento();
-            listaGenerada.add(e);
-        }
-        return listaGenerada;
-    }
-    
-    //Guarda los datos de la lista, en un fichero de texto llamado datoscsv.csv, dentro del directorio “./csv”. 
-    //Los campos de cada registro irán separados por el caracter ";".
-    public static void guardarListaEnCSV(List<Evento> lista, String nombre){
-        
-        try(BufferedWriter bw = Files.newBufferedWriter(Paths.get(nombre))){
-            for(Evento e : lista){
-                bw.write(e.toString());
-                bw.newLine();
-            }
-            System.out.println("CSV creado correctamente");
-        }catch(IOException e){
-            System.out.println("Error al guardar la lista." + e.getMessage());
-        }
-    }
-    
-   /* Crea un directorio, "./csv2", donde se guarden en archivos individuales CSV, 
-    los datos de cada una de los eventos. En este directorio deben generarse 25 ficheros 
-    con el nombre que tenga el evento en su atributo id (ejemplos: event2y,csv, event1e.csv, etc).*/
 
+   
 }
