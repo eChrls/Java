@@ -53,7 +53,7 @@ public class Lectura {
 
         return vehiculos;
     }
-
+//Crea un set con los nombres de aquellos fabricantes de los coches fabricados en 2007 de color Green. Usa Streams.
     public static Set<String> obtenerFabricantesVehiculosVerdes(List<Vehiculo> vehiculos, int año, String color) {
         return vehiculos.stream()
                 .filter(v -> v.año() == año && v.color().equalsIgnoreCase(color)) //filtro por año y color
@@ -62,6 +62,8 @@ public class Lectura {
 
     }
 
+     //Implementa un método que reciba la lista de objetos y devuelva un map ordenado, 
+    //conteniendo el número de total de coches que hay por cada color. Usa streams dentro del método.
     public static Map<String, Long> contarVehiculosPorColor(List<Vehiculo> vehiculos) {
         return vehiculos.stream()
                 .collect(Collectors.groupingBy(//sirve para agrupar y funciones de conteo
@@ -86,10 +88,12 @@ public class Lectura {
             }
             
             System.out.println("Archivo " + nombreArchivo + "creado correctamente. ");
+           
             
         } catch (IOException e) {
             System.out.println("Error al guardar el archivo" + e.getMessage());
         }
+
     }
 
 }
