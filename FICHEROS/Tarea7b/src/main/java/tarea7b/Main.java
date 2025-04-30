@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package juego.tarea7b;
+package tarea7b;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -12,8 +12,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import java.util.ArrayList;
+import java.util.List;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -23,6 +29,7 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
+        
 
     }
 
@@ -121,35 +128,60 @@ public class Main {
     /*Guarda los datos de la lista, en un fichero JSON llamado datosjson.json, dentro del directorio “./json”.
     Ayúdate del ejemplo del repositorio de clase. Incluye las dependencias necesarias en el pom.xml.*/
     public static void crearJson(List<Evento> lista) {
-        try {
-            //Crear directorio sino existe
-            File directorio = new File("./json");
-            if (!directorio.exists()) {
-                directorio.mkdir();
 
+        ObjectMapper om = new ObjectMapper();
+        om.registerModule(new JavaTimeModule());
+        om.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+        om.enable(SerializationFeature.INDENT_OUTPUT);
+        om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+        //Guardar objeto como JSON
+        File file = new File("./json");
+        File directorio = file.getParentFile();
+        if (directorio != null && !directorio.exists()) {
+            directorio.mkdirs();
+        }
+        for (Evento evento : lista) {
+            try {
+                om.writeValue(file, evento);
+
+            }catch (IOException e){
+                System.out.println("Error creando JSON" + e.getMessage());
             }
-
-            PrintWriter pw = new PrintWriter("./json/datosjson.json");
-            pw.println("[");
-            for (Evento e : lista) {
-                pw.println("{");
-                pw.println("\"id\":" + e.getId() + ",");
-                pw.println("\"nombre\":" + "\"" + e.getNombre() + "\",");
-                pw.println("\"lugar\":" + "\"" + e.getLugar() + "\",");
-                pw.println("\"tipo\":" + "\"" + e.getTipo() + "\",");
-                pw.println("\"fecha\":" + "\"" + e.getFecha() + "\",");
-                pw.println("},");
-            }
-            pw.println("]");
-
-            pw.close();
-
-            System.out.println("Archivo JSON creado correctamente. ");
-
-        } catch (IOException e) {
-            System.out.println("Error al crear JSON " + e.getMessage());
+            System.out.println("Json creado correctamente.");
         }
     }
+
+//  METODO MANUAL
+//      try {
+//            //Crear directorio sino existe
+//            File directorio = new File("./json");
+//            if (!directorio.exists()) {
+//                directorio.mkdir();
+//
+//            }
+//
+//            PrintWriter pw = new PrintWriter("./json/datosjson.json");
+//            pw.println("[");
+//            for (Evento e : lista) {
+//                pw.println("{");
+//                pw.println("\"id\":" + e.getId() + ",");
+//                pw.println("\"nombre\":" + "\"" + e.getNombre() + "\",");
+//                pw.println("\"lugar\":" + "\"" + e.getLugar() + "\",");
+//                pw.println("\"tipo\":" + "\"" + e.getTipo() + "\",");
+//                pw.println("\"fecha\":" + "\"" + e.getFecha() + "\",");
+//                pw.println("},");
+//            }
+//            pw.println("]");
+//
+//            pw.close();
+//
+//            System.out.println("Archivo JSON creado correctamente. ");
+//
+//        } catch (IOException e) {
+//            System.out.println("Error al crear JSON " + e.getMessage());
+//        }
+//    }
 
     /*Crea una carpeta “./copias” y realiza una copia de los ficheros contenidos en la carpeta "csv2" 
     dentro de ella.*/
@@ -180,11 +212,11 @@ public class Main {
                         Path destinoPath = destino.resolve(origenPath.getFileName()); //Indicamos la ruta destino del archivo origen
                         Files.copy(origenPath, destinoPath, StandardCopyOption.REPLACE_EXISTING);
                         //Files.copy necesita dos paths y la funcion de copia. 
-                    
+
                         System.out.println("Copiado: " + origenPath.getFileName() + " a " + destinoPath.getFileName());
                     }
                 }
-            }else{
+            } else {
                 System.out.println(origen.getFileName() + " no es un directorio.");
             }
 

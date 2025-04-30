@@ -1,5 +1,5 @@
 
-package ficheros;
+package tarea7a;
 
 
 public record Vehiculo(String marca, String modelo, int año, String vin, String color, String matricula) {

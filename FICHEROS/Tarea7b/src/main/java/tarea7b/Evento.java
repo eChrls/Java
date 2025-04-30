@@ -1,7 +1,7 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
-package juego.tarea7b;
+package tarea7b;
 
 import java.io.BufferedWriter;
 import java.io.File;

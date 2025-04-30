@@ -1,5 +1,5 @@
 
-package ficheros;
+package tarea7a;
 
 
 import java.util.List;
