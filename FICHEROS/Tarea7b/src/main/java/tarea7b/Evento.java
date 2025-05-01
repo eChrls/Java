@@ -3,17 +3,9 @@
  */
 package tarea7b;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class Evento {
@@ -118,7 +110,7 @@ public class Evento {
 
     @Override
     public String toString() {
-        return tipo + ";" + codigoUnico + ";" + nombre + ";" + lugar + ";" + fecha;
+        return tipo + ";" + codigoUnico + ";" + nombre + ";" + lugar + ";" + fecha.format(DateTimeFormatter.ISO_DATE);
     }
 
 

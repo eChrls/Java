@@ -111,7 +111,10 @@ INDICE GENERAL Y TABLA DE UTILIDADES CLAVE
     }
 
     public static <T> T leerObjetoDesdeJson(String rutaArchivo, Class<T> clase) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        //mapper.registerModule(new JavaTimeModule());
         return mapper.readValue(new File(rutaArchivo), clase);
+        //return mapper.readValue(new File(filePath), new TypeReference<List<Evento>>() {});
     }
 
 

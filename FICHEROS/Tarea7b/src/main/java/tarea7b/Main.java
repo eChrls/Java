@@ -4,6 +4,7 @@
  */
 package tarea7b;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.BufferedWriter;
 import java.io.PrintWriter;
 import java.nio.file.Files;
@@ -15,8 +16,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -26,8 +30,24 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
-        
-
+        //creacion Lista objetos
+        List<Evento> listaMain = new ArrayList<>(generarDatos());
+        listaMain.forEach(System.out::println);
+        String directorioCSV = "./csv";
+        String nombreCSV = "datoscsv.csv";
+        guardarListaEnCSV(listaMain, directorioCSV, nombreCSV);
+        crearCSVindividuales(listaMain);
+        crearFicheroXML(listaMain);
+        crearJson(listaMain);
+        crearCopias();
+        String delimiter = ";";
+        leerCSV(directorioCSV, delimiter);
+        String directorioJson = "./json";
+        try {
+            lecturaJson(directorioJson, listaMain);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     //Implementa un método llamado generarDatos que crea y 
@@ -44,17 +64,23 @@ public class Main {
 
     //Guarda los datos de la lista, en un fichero de texto llamado datoscsv.csv, dentro del directorio “./csv”. 
     //Los campos de cada registro irán separados por el caracter ";".
-    public static void guardarListaEnCSV(List<Evento> lista, String nombre) {
+    public static void guardarListaEnCSV(List<Evento> lista, String directorio, String nombre)  {
 
-        try (BufferedWriter bw = Files.newBufferedWriter(Paths.get(nombre))) {
-            for (Evento e : lista) {
-                bw.write(e.toString());
-                bw.newLine();
+//        Path dir = Paths.get(directorio); // me da la ruta
+//        Path ruta = dir.resolve(nombre); //ruta completa del archivo a crear
+        try (PrintWriter pw = new PrintWriter(new File(directorio + "/" + nombre))) {
+
+            for (Evento evento : lista) {
+
+                pw.println(evento);
+
             }
             System.out.println("CSV creado correctamente");
+
         } catch (IOException e) {
             System.out.println("Error al guardar la lista." + e.getMessage());
         }
+
     }
 
     /* Crea un directorio, "./csv2", donde se guarden en archivos individuales CSV, 
@@ -139,15 +165,14 @@ public class Main {
         }
 
         File file = new File("./json/datosjson.json");
-        
-        
-            try {
-                om.writeValue(file, lista);
-                 System.out.println("Json creado correctamente.");
-            }catch (IOException e){
-                System.out.println("Error creando JSON" + e.getMessage());
-            }
-           
+
+        try {
+            om.writeValue(file, lista);
+            System.out.println("Json creado correctamente.");
+        } catch (IOException e) {
+            System.out.println("Error creando JSON" + e.getMessage());
+        }
+
     }
 
 //  METODO MANUAL
@@ -223,12 +248,32 @@ public class Main {
         }
     }
 
-    /*Lectura texto - CSV - Json*/
-    
-    
-    
-    
-}    
+    /*Lectura CSV + Json*/
+    public static List<Evento> leerCSV(String filePath, String delimiter) {
 
+        String line;
 
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            List<Evento> listaCsv = new ArrayList<>();
+            while ((line = br.readLine()) != null) {
+                String[] datos = line.split(delimiter);
+                Evento evento = new Evento(Tipo.valueOf(datos[0]), Integer.parseInt(datos[1]), datos[2], datos[3], LocalDate.parse(datos[4]));
+                listaCsv.add(evento);
+            }
+            return listaCsv;
 
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    public static List<Evento> lecturaJson(String filePath, List<Evento> listaJson) throws IOException {
+        ObjectMapper om = new ObjectMapper();
+        om.registerModule(new JavaTimeModule());
+        return om.readValue(new File(filePath), new TypeReference<List<Evento>>() {
+        });
+    }
+
+}
