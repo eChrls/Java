@@ -1,4 +1,4 @@
-package com.myprojects.utils;
+package Utils;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;

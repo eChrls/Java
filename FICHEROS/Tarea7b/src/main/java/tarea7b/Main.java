@@ -5,15 +5,12 @@
 package tarea7b;
 
 import java.io.BufferedWriter;
-import java.io.File;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
-import java.util.List;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -136,20 +133,21 @@ public class Main {
         om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
         //Guardar objeto como JSON
-        File file = new File("./json");
-        File directorio = file.getParentFile();
-        if (directorio != null && !directorio.exists()) {
+        File directorio = new File("./json");
+        if (!directorio.exists()) {
             directorio.mkdirs();
         }
-        for (Evento evento : lista) {
-            try {
-                om.writeValue(file, evento);
 
+        File file = new File("./json/datosjson.json");
+        
+        
+            try {
+                om.writeValue(file, lista);
+                 System.out.println("Json creado correctamente.");
             }catch (IOException e){
                 System.out.println("Error creando JSON" + e.getMessage());
             }
-            System.out.println("Json creado correctamente.");
-        }
+           
     }
 
 //  METODO MANUAL
@@ -223,8 +221,14 @@ public class Main {
         } catch (IOException e) {
             System.out.println("Error al crear la copia " + e.getMessage());
         }
-
     }
 
-    /*Hacer los metodos que hagan las funciones de lectura del archivo*/
-}
+    /*Lectura texto - CSV - Json*/
+    
+    
+    
+    
+}    
+
+
+

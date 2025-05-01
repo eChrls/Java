@@ -1,4 +1,4 @@
-package com.myprojects.utils;
+package Utils;
 import java.util.Collection;
 import java.util.Map;
 import java.util.stream.Collectors;
