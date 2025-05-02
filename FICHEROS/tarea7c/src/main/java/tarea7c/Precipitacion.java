@@ -1,10 +1,9 @@
 
 
-package com.myprojects.tarea7c;
+package tarea7c;
 
 
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
@@ -13,9 +12,19 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import javax.annotation.processing.Generated;
+import java.time.LocalDate;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+
+
+
+// En la declaración del campo fecha:
+
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
+    
 "fecha",
 "estacionMeteorologica",
 "provincia",
@@ -25,7 +34,9 @@ import javax.annotation.processing.Generated;
 public class Precipitacion {
 
 @JsonProperty("fecha")
-private List<Integer> fecha;
+@JsonDeserialize(using = LocalDateDeserializer.class) 
+@JsonSerialize(using = LocalDateSerializer.class)
+private LocalDate fecha;
 @JsonProperty("estacionMeteorologica")
 private String estacionMeteorologica;
 @JsonProperty("provincia")
@@ -42,7 +53,7 @@ private Map<String, Object> additionalProperties = new LinkedHashMap<String, Obj
 public Precipitacion() {
 }
 
-public Precipitacion(List<Integer> fecha, String estacionMeteorologica, String provincia, Double precipitacion) {
+public Precipitacion(LocalDate fecha, String estacionMeteorologica, String provincia, Double precipitacion) {
 super();
 this.fecha = fecha;
 this.estacionMeteorologica = estacionMeteorologica;
@@ -51,12 +62,12 @@ this.precipitacion = precipitacion;
 }
 
 @JsonProperty("fecha")
-public List<Integer> getFecha() {
+public LocalDate  getFecha() {
 return fecha;
 }
 
 @JsonProperty("fecha")
-public void setFecha(List<Integer> fecha) {
+public void setFecha(LocalDate  fecha) {
 this.fecha = fecha;
 }
 
