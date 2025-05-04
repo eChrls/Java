@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE cartelera SYSTEM "cartelera.dtd">
+<cartelera>
+    <pelicula codigo="_1A" duracion="125" año="1999">
+        <titulo>EL SEÑOR DE LOS ANILLOS: LA COMUNIDAD DEL ANILLO</titulo>
+        <titulo_original>The Lord of the Rings: The Fellowship of the Ring</titulo_original>
+        <nacionalidad>Estados Unidos</nacionalidad>
+        <genero>Fantasía</genero>
+        <clasificacion edad="12"/>
+        <sinopsis>
+            Un hobbit de la Comarca y ocho compañeros emprenden un viaje 
+            para destruir el poderoso Anillo Único y salvar la Tierra Media 
+            del Señor Oscuro Sauron.
+        </sinopsis>
+        <director>Peter Jackson</director>
+        <reparto>
+            <actor>Elijah Wood</actor>
+            <actor>Ian McKellen</actor>
+            <actor>Viggo Mortensen</actor>
+        </reparto>
+        <web>http://www.lordoftherings.net</web>
+        <cartel>carteles/lotr.jpg</cartel>
+    </pelicula>
+    <pelicula codigo="_2B" duracion="97">
+        <titulo>TORRENTE, EL BRAZO TONTO DE LA LEY</titulo>
+        <nacionalidad>España</nacionalidad>
+        <genero>Comedia</genero>
+        <sin_clasificar/>
+        <sinopsis>
+            José Luis Torrente, un policía español, corrupto, machista, racista, 
+            alcohólico y fanático del Atlético de Madrid, que se encuentra en 
+            la reserva, se propone resolver un caso relacionado con el tráfico 
+            de drogas en su barrio.
+        </sinopsis>
+        <director>Santiago Segura</director>
+        <reparto>
+            <actor>Santiago Segura</actor>
+            <actor>Javier Cámara</actor>
+            <actor>Neus Asensi</actor>
+        </reparto>
+    </pelicula>
+</cartelera>
