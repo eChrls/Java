@@ -19,7 +19,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.List;
 import java.util.TreeMap;
 
@@ -35,7 +34,7 @@ public class tarea7c {
         ObjectMapper mapper = new ObjectMapper();
         //mapper.registerModule(new JavaTimeModule());
         mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-
+        //mapper.registerModule(new JavaTimeModule());
         List<Precipitacion> precipitaciones = mapper.readValue(new File("precipitacionesBadajoz.json"), new TypeReference<List<Precipitacion>>() {
         });
         precipitaciones.forEach(System.out::println);
@@ -47,12 +46,15 @@ public class tarea7c {
                         Collectors.groupingBy(Precipitacion::getEstacionMeteorologica,
                                 Collectors.summingDouble(Precipitacion::getPrecipitacion))
                 );
-
+       //investigar la funcion merge
+       //Collectors.toMap (opcion con merging)
+       
         map.forEach((k, v) -> System.out.println(k + v));
 
         /*Guarda en un fichero JSON, en la raíz del proyecto, el resultado del map. Pasa el objeto map directamente 
         a la hora de generar el archivo.*/
         File archivo = new File("./json");
+        //mapper.registerModule(new JavaTimeModule());
         archivo.getParentFile().mkdirs();
         mapper.writeValue(archivo, map);
 
