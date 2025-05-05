@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package tarea7c;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -43,11 +40,14 @@ public class tarea7c {
         consultar la precipitación acumulada de la misma. Muestra por consola el resultado de la estructura map obtenida.*/
         Map<String, Double> map = precipitaciones.stream()
                 .collect(
-                        Collectors.groupingBy(Precipitacion::getEstacionMeteorologica,
-                                Collectors.summingDouble(Precipitacion::getPrecipitacion))
+                            Collectors.groupingBy(Precipitacion::getEstacionMeteorologica,
+                            Collectors.summingDouble(Precipitacion::getPrecipitacion))
                 );
-       //investigar la funcion merge
-       //Collectors.toMap (opcion con merging)
+        
+                Map<String, Double> map2 = precipitaciones.stream()
+                .collect(
+                        Collectors.toMap(Precipitacion::getEstacionMeteorologica, Precipitacion::getPrecipitacion, Double::sum)
+                );
        
         map.forEach((k, v) -> System.out.println(k + v));
 
