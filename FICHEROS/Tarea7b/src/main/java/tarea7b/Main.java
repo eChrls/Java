@@ -43,12 +43,12 @@ public class Main {
         String delimiter = ";";
         leerCSV(directorioCSV, delimiter);
         String directorioJson = "./json";
-        try {
-            lecturaJson(directorioJson, listaMain);
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-    }
+//        try {
+//            lecturaJson(directorioJson, listaMain);
+//        } catch (IOException e) {
+//            System.out.println(e.getMessage());
+//        }
+   }
 
     //Implementa un método llamado generarDatos que crea y 
     //devuelve una lista con 25 objetos usando el constructor por defecto. 
@@ -269,7 +269,7 @@ public class Main {
 
     }
 
-    public static List<Evento> lecturaJson(String filePath, List<Evento> listaJson) throws IOException {
+    public static List<Evento> lecturaJson(String filePath) throws IOException {
         ObjectMapper om = new ObjectMapper();
         om.registerModule(new JavaTimeModule());
         return om.readValue(new File(filePath), new TypeReference<List<Evento>>() {

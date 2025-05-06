@@ -1,21 +1,26 @@
-
 package tarea7c;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.Comparator;
 import java.util.Optional;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
@@ -40,15 +45,15 @@ public class tarea7c {
         consultar la precipitación acumulada de la misma. Muestra por consola el resultado de la estructura map obtenida.*/
         Map<String, Double> map = precipitaciones.stream()
                 .collect(
-                            Collectors.groupingBy(Precipitacion::getEstacionMeteorologica,
-                            Collectors.summingDouble(Precipitacion::getPrecipitacion))
+                        Collectors.groupingBy(Precipitacion::getEstacionMeteorologica,
+                                Collectors.summingDouble(Precipitacion::getPrecipitacion))
                 );
-        
-                Map<String, Double> map2 = precipitaciones.stream()
+
+        Map<String, Double> map2 = precipitaciones.stream()
                 .collect(
                         Collectors.toMap(Precipitacion::getEstacionMeteorologica, Precipitacion::getPrecipitacion, Double::sum)
                 );
-       
+
         map.forEach((k, v) -> System.out.println(k + v));
 
         /*Guarda en un fichero JSON, en la raíz del proyecto, el resultado del map. Pasa el objeto map directamente 
@@ -154,19 +159,61 @@ public class tarea7c {
 
         Path rutaCompleta = directorio.resolve(nombre);
 
-        BufferedWriter bw = new BufferedWriter(new FileWriter(nombre));
-        bw.write("fecha" + delimiter + "estacionMeteorologica" + delimiter + "provincia" + delimiter + "precipitacion");
-        bw.newLine();
-
-        for (Precipitacion p : precipitaciones) {
-            bw.write(p.getFecha() + delimiter + p.getEstacionMeteorologica() + delimiter + p.getProvincia() + delimiter + p.getPrecipitacion());
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(nombre))) {
+            bw.write("fecha" + delimiter + "estacionMeteorologica" + delimiter + "provincia" + delimiter + "precipitacion");
             bw.newLine();
+
+            for (Precipitacion p : precipitaciones) {
+                bw.write(p.getFecha() + delimiter + p.getEstacionMeteorologica() + delimiter + p.getProvincia() + delimiter + p.getPrecipitacion());
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
-        bw.close();
         System.out.println("Fichero CSV generado en: " + rutaCompleta.toAbsolutePath());
+        List<Precipitacion> listaCsv = new ArrayList<>();
         // Lee un fichero CSV y carga una lista de objetos Precipitacion.
+        try (BufferedReader br = new BufferedReader(new FileReader(nombre))) {
+
+            String line;
+            br.readLine();
+            
+            while ((line = br.readLine()) != null) {
+                String[] datos = line.split(",");
+                Precipitacion pr = new Precipitacion(LocalDate.parse(datos[0]), datos[1], datos[2], Double.valueOf(datos[3]));
+                listaCsv.add(pr);
+
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
+        listaCsv.forEach(System.out::println);
+
         // Guarda el Map<String, Double> de precipitaciones por estación en un JSON.
+        ObjectMapper om = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+        mapper.enable(SerializationFeature.INDENT_OUTPUT);
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+        PrintWriter pw = new PrintWriter(new File("./fichero.json"));
+        
+        pw.println(om.writeValueAsString(map));
+        pw.close();
+        
+
         // Guarda un List<Precipitacion> filtrado (por ejemplo, fechas específicas) en un JSON.
+        List<Precipitacion> listaFiltrada = precipitaciones.stream()
+                .filter(p -> (p.getFecha().isAfter(f1) && p.getFecha().isBefore(f2)))
+                .toList();
+        
+       PrintWriter pw2 = new PrintWriter(new File("./fichero2.json"));
+       
+       pw2.println(om.writeValueAsString(listaFiltrada));
+       
+       pw2.close();
     }
 }
