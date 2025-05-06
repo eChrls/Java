@@ -52,9 +52,10 @@ public class tarea7c {
         Map<String, Double> map2 = precipitaciones.stream()
                 .collect(
                         Collectors.toMap(Precipitacion::getEstacionMeteorologica, Precipitacion::getPrecipitacion, Double::sum)
-                );
+                );        
 
         map.forEach((k, v) -> System.out.println(k + v));
+        map2.forEach((k, v) -> System.out.println(k + v));
 
         /*Guarda en un fichero JSON, en la raíz del proyecto, el resultado del map. Pasa el objeto map directamente 
         a la hora de generar el archivo.*/

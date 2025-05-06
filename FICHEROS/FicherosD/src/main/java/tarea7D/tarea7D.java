@@ -7,8 +7,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  *
@@ -18,22 +25,37 @@ public class tarea7D {
 
     public static void main(String[] args) throws IOException {
 
-        TelaAraña tela1 = new TelaAraña();
-        TelaAraña tela2 = new TelaAraña();
-        TelaAraña tela3 = new TelaAraña();
-
-        tela1 = leerJson("./caso1.json");
-        tela2 = leerJson("./caso2.json");
-        tela3 = leerJson("./caso3.json");
-
-        System.out.println("El fichero 1 tiene los siguientes nombres de elefantes en la red: " + nombresElefantesColumpiados(tela1));
-
-        System.out.println("El fichero 2 tiene los siguientes nombres de elefantes en la red: " + nombresElefantesColumpiados(tela2));
-
-        System.out.println("El fichero 3 tiene los siguientes nombres de elefantes en la red: " + nombresElefantesColumpiados(tela3));
-
+//        TelaAraña tela1 = new TelaAraña();
+//        TelaAraña tela2 = new TelaAraña();
+//        TelaAraña tela3 = new TelaAraña();
+//
+//        tela1 = leerJson("./ficheros/caso1.json");
+//        tela2 = leerJson("./ficheros/caso2.json");
+//        tela3 = leerJson("./ficheros/caso3.json");
+//        System.out.println("El fichero 1 tiene los siguientes nombres de elefantes en la red: " + nombresElefantesColumpiados(tela1));
+//        System.out.println("El fichero 2 tiene los siguientes nombres de elefantes en la red: " + nombresElefantesColumpiados(tela2));
+//        System.out.println("El fichero 3 tiene los siguientes nombres de elefantes en la red: " + nombresElefantesColumpiados(tela3));
+        
+        System.out.println("Elige un numero de fichero: ");
+        Path dir =Paths.get("./ficheros");
+        File fichero = new File("./ficheros");
+        String[]array = fichero.list();
+        for (int i = 0; i < array.length; i++) {
+            System.out.println(array[i]);
+        }
+        
+       Scanner sc = new Scanner(System.in);
+       String ficheroElegido = sc.nextLine();
+       
+       try{
+       TelaAraña tela = new TelaAraña();
+       String ruta = "./ficheros/" + ficheroElegido;
+       tela = leerJson(ruta);
+        System.out.println("FICHERO=" + tela);
+        }catch (Exception e){
+            System.out.println("Fallo al introducir nombre del fichero.");
+        }
     }
-
     /*Tienes que crear un programa, modularizado, que pregunte al usuario qué fichero leer entre los JSON que haya en la raíz de tu proyecto
     , y en función de la elección, el programa mostrará:*/
     public static TelaAraña leerJson(String ruta) throws IOException {
