@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<facturas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="factura2.xsd">
+<facturas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="factura2.xsd">
     <factura n_fact="n_27" fecha="2013-12-18" moneda="Euro">
         <datos-emisor>
             <nombre>Librería Pérez</nombre>

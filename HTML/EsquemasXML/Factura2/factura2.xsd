@@ -3,15 +3,15 @@
     <xs:element name="facturas" type="tipoFacturas"/>
     <xs:complexType name="tipoFacturas">
         <xs:sequence>
-            <xs:element name="factura" type="tipoFac"/>
+            <xs:element name="factura" type="tipoFac" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
     <xs:complexType name="tipoFac">
-        <xs:sequence>
+        <xs:all>
             <xs:element name="datos-emisor" type="tipoEmisor"/>
             <xs:element name="datos-cliente" type="tipoCliente"/>
             <xs:element name="detalle-factura" type="tipoFactura"/>
-        </xs:sequence>
+        </xs:all>
         <xs:attribute name="n_fact" type="xs:ID" use="required"/>
         <xs:attribute name="fecha" type="xs:date" use="required"/>
         <xs:attribute name="moneda" type="xs:string" use="required"/>
@@ -29,8 +29,12 @@
         <xs:sequence>
             <xs:element name="descripcion" type="xs:string"/>
             <xs:element name="cantidad" type="xs:positiveInteger"/>
-            <xs:element name="oferta" type="tipoOferta" minOccurs="0"/>
-            <xs:element name="descuento" type="xs:decimal" minOccurs="0"/>
+            <xs:choice minOccurs="0">
+                <xs:sequence>
+                    <xs:element name="oferta" type="tipoOferta"/>
+                    <xs:element name="descuento" type="xs:decimal"/>
+                </xs:sequence>
+            </xs:choice>
             <xs:element name="pvp" type="xs:decimal"/>
         </xs:sequence>
         <xs:attribute name="codigo-articulo" type="xs:string" use="required"/>
