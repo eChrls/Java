@@ -48,11 +48,7 @@ public class MetodosGestion {
     }
 
     public static List<Futbolista> filtrarEntreFechas(List<Futbolista> lista, LocalDate ini, LocalDate fin) {
-        return lista.stream()
-                .filter(f -> !f.getFechaFichaje().isBefore(ini) && !f.getFechaFichaje().isAfter(fin))
-                .sorted(Comparator.comparing(Futbolista::getNombre))
-                .toList();
-    }
+
 
     public static List<Futbolista> filtrarMayorGoles(List<Futbolista> lista, double umbral) {
         return lista.stream()
