@@ -46,7 +46,6 @@ Crea una clase llamada LecturaCSV, que reciba la ruta del fichero a leer y devue
 //            }).collect(Collectors.toList());
 //        }
 //    }
-
     public static List<Curso> leerCsv2() throws IOException {
         String ruta = "./cursosCEP.csv";
         String separador = ";";
@@ -70,19 +69,30 @@ Crea una clase llamada LecturaCSV, que reciba la ruta del fichero a leer y devue
                 if (datos.length >= 8) {
                     try {
                         // Formateo de la fecha
-                     //   DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-mm-dd");
+                        //   DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-mm-dd");
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                         Curso curso = new Curso(
-                                datos[0].trim().replaceAll("\"", ""),
-                                datos[1].trim().replaceAll("\"", ""),
-                                datos[2].trim().replaceAll("\"", ""),
-                                datos[3].trim().replaceAll("\"", ""),
-                                datos[4].trim().replaceAll("\"", ""),
-                                datos[4].trim().replaceAll("\"", ""),
-                                datos[6].trim().replaceAll("\"", ""),
-                             //   LocalDate.parse(datos[5], formatter),
-                            //    LocalDate.parse(datos[6], formatter),
-                                datos[7].trim()
+                                datos[0],
+                                datos[1],
+                                datos[2],
+                                datos[3],
+                                datos[4],
+                                LocalDate.parse(datos[5], formatter),
+                                LocalDate.parse(datos[6], formatter),
+                                datos[7]
                         );
+//                        Curso curso = new Curso(
+//                                datos[0].trim().replaceAll("\"", ""),
+//                                datos[1].trim().replaceAll("\"", ""),
+//                                datos[2].trim().replaceAll("\"", ""),
+//                                datos[3].trim().replaceAll("\"", ""),
+//                                datos[4].trim().replaceAll("\"", ""),
+//                                datos[5].trim().replaceAll("\"", ""),
+//                                datos[6].trim().replaceAll("\"", ""),
+//                                //   LocalDate.parse(datos[5], formatter),
+//                                //    LocalDate.parse(datos[6], formatter),
+//                                datos[7].trim()
+//                        );
                         cursos.add(curso);
 
                     } catch (NumberFormatException e) {

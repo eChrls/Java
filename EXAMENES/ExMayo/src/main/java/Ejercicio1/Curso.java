@@ -5,7 +5,6 @@
 package Ejercicio1;
 
 import java.time.LocalDate;
-import java.util.Objects;
 
 
 public class Curso {
@@ -15,14 +14,14 @@ public class Curso {
     private String titulo;
     private String modalidad;
     private String estado;
-    private String fechaInicio;
-    private String fechaFin;
+    private LocalDate fechaInicio;
+    private LocalDate fechaFin;
     private String dirigidoA;
 
     public Curso() {
     }
 
-    public Curso(String codigo, String centro, String titulo, String modalidad, String estado, String fechaInicio, String fechaFin, String dirigidoA) {
+    public Curso(String codigo, String centro, String titulo, String modalidad, String estado, LocalDate fechaInicio, LocalDate fechaFin, String dirigidoA) {
         this.codigo = codigo;
         this.centro = centro;
         this.titulo = titulo;
@@ -73,19 +72,19 @@ public class Curso {
         this.estado = estado;
     }
 
-    public String getFechaInicio() {
+    public LocalDate getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(String fechaInicio) {
+    public void setFechaInicio(LocalDate fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
-    public String getFechaFin() {
+    public LocalDate getFechaFin() {
         return fechaFin;
     }
 
-    public void setFechaFin(String fechaFin) {
+    public void setFechaFin(LocalDate fechaFin) {
         this.fechaFin = fechaFin;
     }
 
