@@ -10,7 +10,7 @@
         <maven.compiler.release>23</maven.compiler.release>
         <exec.mainClass>Ejercicio1.LecturaCsv</exec.mainClass>
     </properties>
-    <dependencies>
+     <dependencies>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
