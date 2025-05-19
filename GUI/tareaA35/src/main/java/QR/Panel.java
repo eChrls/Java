@@ -23,7 +23,7 @@ public class Panel extends JPanel {
     private ButtonGroup grupoRadios;
 
     public Panel() {
-        this.setLayout(new GridLayout(6, 2));
+        this.setLayout(new GridLayout(6, 2));//constructor que organiza los elementos
 
         // Campo para introducir el texto que llevará el QR
         this.add(new JLabel("Introduce texto para el QR:"));

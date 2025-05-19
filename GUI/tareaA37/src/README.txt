@@ -40,7 +40,7 @@ Método:
 * stringToPojo(String json, Class<T> clase): Usa ObjectMapper de Jackson para transformar el JSON en un objeto del tipo especificado.
 
 \--- modelos.Flags.java ---
-Representa los indicadores de contenido sensible (como nsfw o political). Aunque están comentados los métodos getter/setter, deben implementarse para permitir acceso y modificación a las propiedades si fueran necesarias desde otras clases.
+Representa los indicadores de contenido sensible (como nsfw o political). los métodos getter/setter permiten acceso y modificación a las propiedades si fueran necesarias desde otras clases.
 
 Métodos:
 

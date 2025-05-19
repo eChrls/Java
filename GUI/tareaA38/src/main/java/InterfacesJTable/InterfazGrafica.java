@@ -25,7 +25,8 @@ public class InterfazGrafica {
             System.err.println("Error al establecer el Look & Feel: " + e.getMessage());
         }
 
-        // Iniciar la aplicación en el Event Dispatch Thread
+        // Iniciar la aplicación en el Event Dispatch Thread. 
+        //Inicia la interfaz gráfica de manera segura en el hilo de eventos de Swing.
         java.awt.EventQueue.invokeLater(() -> {
             MainWindow ventanaPrincipal = new MainWindow();
             ventanaPrincipal.setVisible(true);

@@ -20,11 +20,11 @@ public class ConexionHTTP {
         StringBuilder content;
         try (BufferedReader in = new BufferedReader(new InputStreamReader(
                 status == 200 ? con.getInputStream() : con.getErrorStream()))) {
-            content = new StringBuilder();
-            String line;
-            while ((line = in.readLine()) != null) {
-                content.append(line);
-            }
+                content = new StringBuilder();
+                String line;
+                while ((line = in.readLine()) != null) {
+                    content.append(line);
+                }
         }
         con.disconnect();
         return content.toString();

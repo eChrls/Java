@@ -47,7 +47,6 @@ public class PanelBotones extends JPanel {
 
     /**
      * Devuelve el array de botones para añadir listeners.
-     * @return JButton[] grupoBotones
      */
     public JButton[] getGrupoBotones() {
         return grupoBotones;

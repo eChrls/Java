@@ -36,7 +36,7 @@ public class VentanaLogin extends JFrame {
         botonLogin.addActionListener(e -> login());
         this.add(botonLogin);
 
-        // Botón registro
+        // Botón registro abre modal DialogoRegistro
         botonRegistrar = new JButton("Registrar");
         botonRegistrar.addActionListener(e -> new DialogoRegistro(this));
         this.add(botonRegistrar);

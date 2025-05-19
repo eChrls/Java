@@ -6,7 +6,6 @@ Simplemente abre una nueva ventana con un JLabel que muestra la imagen del QR ge
 package QR;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class VentanaResultado extends JFrame {
 
