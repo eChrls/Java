@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Validador DAW</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <header class="hero-title">
+      Validador DAW
+    </header>
+    <main class="container">
+      <h1>Validador XML ↔ XSD</h1>
+
+      <section class="editors">
+        <div class="panel">
+          <h2>XML</h2>
+          <textarea
+            id="xmlText"
+            placeholder="Pega o carga tu XML aquí"
+          ></textarea>
+          <input type="file" id="xmlFile" accept=".xml" />
+          <button id="downloadXml">Descargar XML</button>
+        </div>
+        <div class="panel">
+          <h2>XSD</h2>
+          <textarea
+            id="xsdText"
+            placeholder="Pega o carga tu XSD aquí"
+          ></textarea>
+          <input type="file" id="xsdFile" accept=".xsd" />
+          <button id="downloadXsd">Descargar XSD</button>
+        </div>
+      </section>
+
+      <section class="controls">
+        <button id="validateBtn" disabled>Validar</button>
+        <div id="spinner" class="spinner hidden">
+          <div class="lds-ring">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="result">
+        <h2>Resultado</h2>
+        <pre id="resultText"></pre>
+      </section>
+    </main>
+
+    <script src="xmllint.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
