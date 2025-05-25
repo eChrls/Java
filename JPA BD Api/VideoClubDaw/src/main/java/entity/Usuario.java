@@ -30,22 +30,59 @@ public class Usuario {
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Alquiler> alquileres; //lista de todos los alquileres que ha hecho.
 
+    @Column(nullable = false)
+    private boolean admin;
+
     // Constructor vacío obligatorio para JPA
-    public Usuario() {}
+    public Usuario() {
+    }
 
     // Getters y setters 
-    public Long getIdUsuario() { return idUsuario; }
-    public void setIdUsuario(Long idUsuario) { this.idUsuario = idUsuario; }
+    public Long getIdUsuario() {
+        return idUsuario;
+    }
 
-    public String getNombre() { return nombre; }
-    public void setNombre(String nombre) { this.nombre = nombre; }
+    public void setIdUsuario(Long idUsuario) {
+        this.idUsuario = idUsuario;
+    }
 
-    public String getPassword() { return password; }
-    public void setPassword(String password) { this.password = password; }
+    public String getNombre() {
+        return nombre;
+    }
 
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-    public List<Alquiler> getAlquileres() { return alquileres; }
-    public void setAlquileres(List<Alquiler> alquileres) { this.alquileres = alquileres; }
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public List<Alquiler> getAlquileres() {
+        return alquileres;
+    }
+
+    public void setAlquileres(List<Alquiler> alquileres) {
+        this.alquileres = alquileres;
+    }
+
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
+    }
 }

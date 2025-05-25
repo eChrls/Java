@@ -21,6 +21,10 @@ public class Alquiler {
     @Column(name = "fecha_alquiler")
     private Date fechaAlquiler;
 
+    @Temporal(TemporalType.DATE)
+    @Column(name = "fecha_entrega")
+    private Date fechaEntrega;
+
     // Relación N:1 con Usuario
     @ManyToOne
     @JoinColumn(name = "id_usuario")
@@ -31,18 +35,49 @@ public class Alquiler {
     @JoinColumn(name = "id_pelicula")
     private Pelicula pelicula;
 
-    public Alquiler() {}
+    public Alquiler() {
+    }
 
     // Getters y setters
-    public Long getIdAlquiler() { return idAlquiler; }
-    public void setIdAlquiler(Long idAlquiler) { this.idAlquiler = idAlquiler; }
+    public Long getIdAlquiler() {
+        return idAlquiler;
+    }
 
-    public Date getFechaAlquiler() { return fechaAlquiler; }
-    public void setFechaAlquiler(Date fechaAlquiler) { this.fechaAlquiler = fechaAlquiler; }
+    public void setIdAlquiler(Long idAlquiler) {
+        this.idAlquiler = idAlquiler;
+    }
 
-    public Usuario getUsuario() { return usuario; }
-    public void setUsuario(Usuario usuario) { this.usuario = usuario; }
+    public Date getFechaAlquiler() {
+        return fechaAlquiler;
+    }
 
-    public Pelicula getPelicula() { return pelicula; }
-    public void setPelicula(Pelicula pelicula) { this.pelicula = pelicula; }
+    public void setFechaAlquiler(Date fechaAlquiler) {
+        this.fechaAlquiler = fechaAlquiler;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public Pelicula getPelicula() {
+        return pelicula;
+    }
+
+    public void setPelicula(Pelicula pelicula) {
+        this.pelicula = pelicula;
+    }
+
+    public Date getFechaEntrega() {
+        return fechaEntrega;
+    }
+
+    public void setFechaEntrega(Date fechaEntrega) {
+        this.fechaEntrega = fechaEntrega;
+    }
+    
+    
 }

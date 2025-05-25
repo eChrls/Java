@@ -118,4 +118,24 @@ public class AlquilerController {
         }
     }
 
+    public boolean devolverAlquiler(Alquiler alquiler) {
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            Alquiler a = em.find(Alquiler.class, alquiler.getIdAlquiler());
+            if (a != null && a.getFechaEntrega() == null) {
+                a.setFechaEntrega(new java.util.Date());
+                em.getTransaction().commit();
+                return true;
+            } else {
+                em.getTransaction().rollback();
+                return false;
+            }
+        } catch (Exception e) {
+            return false;
+        } finally {
+            em.close();
+        }
+    }
+
 }

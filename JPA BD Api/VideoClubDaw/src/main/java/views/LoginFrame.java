@@ -297,22 +297,22 @@ public class LoginFrame extends javax.swing.JFrame {
         java.util.List<Usuario> usuarios = usuarioController.listarUsuarios();
 
         boolean loginCorrecto = false;
+        Usuario usuarioLogueado = null;
         for (Usuario u : usuarios) {
             if (u.getNombre().equals(nombre) && u.getPassword().equals(password)) {
-                loginCorrecto = true;
+                usuarioLogueado = u;
                 break;
             }
         }
 
-        if (loginCorrecto) {
-            MainFrame mainFrame = new MainFrame();
+        if (usuarioLogueado != null) {
+            MainFrame mainFrame = new MainFrame(usuarioLogueado);
             mainFrame.setVisible(true);
             this.dispose();
         } else {
             lblMensaje.setForeground(new java.awt.Color(220, 53, 69)); // Rojo Bootstrap
             lblMensaje.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 14));
             lblMensaje.setText("Usuario o contraseña incorrectos.");
-
         }
     }//GEN-LAST:event_btnEntrarActionPerformed
 

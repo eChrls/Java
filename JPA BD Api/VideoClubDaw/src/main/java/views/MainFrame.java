@@ -1,17 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package views;
 
 import entity.Alquiler;
+import entity.Pelicula;
 import java.util.List;
+import javax.swing.GroupLayout;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Casa
- */
 public class MainFrame extends javax.swing.JFrame {
 
     private boolean esAdmin;
@@ -22,17 +16,20 @@ public class MainFrame extends javax.swing.JFrame {
     private controller.AlquilerController alquilerController;
     private controller.FichaTecnicaController fichaTecnicaController;
 
-    /**
-     * Creates new form MainFrame
-     */
-    public MainFrame() {
-        this.esAdmin = esAdmin;
+    public MainFrame(entity.Usuario usuarioLogueado) {
+        // --- Inicializa usuario, rol y controladores principales ---
         this.usuarioLogueado = usuarioLogueado;
-        this.emf = javax.persistence.Persistence.createEntityManagerFactory("videoclubdaw");//inicializador de emf
+        this.esAdmin = usuarioLogueado.isAdmin(); // Usa el getter booleano
+        this.emf = javax.persistence.Persistence.createEntityManagerFactory("videoclubdaw");
+        this.usuarioController = new controller.UsuarioController(emf);
+        this.peliculaController = new controller.PeliculaController(emf);
+        this.alquilerController = new controller.AlquilerController(emf);
+        this.fichaTecnicaController = new controller.FichaTecnicaController(emf);
+
         initComponents();
 
-        // Personalización visual y lógica tras initComponents()
-// 1. Fuentes modernas y coherentes
+        // --- Personalización visual y lógica tras initComponents() ---
+        // 1. Fuentes modernas y coherentes
         java.awt.Font fuenteTitulo = new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 22);
         java.awt.Font fuenteBoton = new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 16);
 
@@ -53,30 +50,38 @@ public class MainFrame extends javax.swing.JFrame {
         btnConsultarTodosAlquileres.setFont(fuenteBoton);
         btnExportarCSV.setFont(fuenteBoton);
 
-// 2. Colores de fondo y textos
+        // 2. Colores de fondo y textos
         getContentPane().setBackground(new java.awt.Color(245, 245, 245)); // Fondo claro y moderno
         panelFondo.setOpaque(false); // Para que se vea el fondo con opacidad
 
         txtBienvenida.setForeground(new java.awt.Color(33, 37, 41)); // Gris oscuro elegante
         txtAdmin.setForeground(new java.awt.Color(0, 102, 204)); // Azul para destacar admin
 
-// 3. Sustituir el panel de fondo por FondoPanel con opacidad
-        FondoPanel fondo = new FondoPanel("/img/cine.png", 0.3f);
-        fondo.setLayout(panelFondo.getLayout());
-        fondo.setBounds(panelFondo.getBounds());
-        getContentPane().remove(panelFondo);
-        getContentPane().add(fondo);
-        panelFondo = fondo;
-        this.repaint();
 
-// 4. Ajustar visibilidad de botones y textos según el rol
+
+
+        // 4. Ajustar visibilidad de botones y textos según el rol
         ajustarVisibilidadBotones();
 
-// 5. Centrar y bloquear el tamaño de la ventana
+        // 5. Centrar y bloquear el tamaño de la ventana
         setLocationRelativeTo(null);
         setResizable(false);
         setTitle("Videoclub DAW");
+    }
 
+    /**
+     * Ajusta la visibilidad de los botones según el rol del usuario. El botón
+     * "Eliminar cuenta" solo es visible para usuarios normales.
+     */
+    private void ajustarVisibilidadBotones() {
+        btnGestionPeliculas.setVisible(esAdmin);
+        btnGestionUsuarios.setVisible(esAdmin);
+        btnGestionFichas.setVisible(esAdmin);
+        btnConsultarTodosAlquileres.setVisible(esAdmin);
+        btnExportarCSV.setVisible(esAdmin);
+        txtAdmin.setVisible(esAdmin);
+        btnEliminarCuenta.setVisible(!usuarioLogueado.isAdmin());
+        // Los demás botones siempre visibles
     }
 
     /**
@@ -105,6 +110,8 @@ public class MainFrame extends javax.swing.JFrame {
         btnConsultarTodosAlquileres = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        panelFondo = new views.FondoPanel("/img/cine.png", 0.3f);
 
         btnVerPeliculas.setText("Ver Peliculas");
         btnVerPeliculas.addActionListener(new java.awt.event.ActionListener() {
@@ -197,7 +204,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        btnConsultarTodosAlquileres.setText("Historial Completo Alquileres");
+        btnConsultarTodosAlquileres.setText("Todos los Alquileres");
         btnConsultarTodosAlquileres.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnConsultarTodosAlquileresActionPerformed(evt);
@@ -238,7 +245,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addGroup(panelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnGestionUsuarios, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
                             .addComponent(btnExportarCSV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap(94, Short.MAX_VALUE))
+                        .addContainerGap(143, Short.MAX_VALUE))
                     .addGroup(panelFondoLayout.createSequentialGroup()
                         .addComponent(txtBienvenida, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -296,37 +303,37 @@ public class MainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtBienvenidaActionPerformed
 
+    /**
+     * Muestra los alquileres activos del usuario. Si no hay, muestra mensaje
+     * "SIN DATOS".
+     */
     private void btnConsultarAlquileresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarAlquileresActionPerformed
         // Muestra los alquileres activos del usuario
-        controller.AlquilerController alquilerController = new controller.AlquilerController(emf);
-
-        // Supón que tienes un objeto usuarioLogueado guardado en el MainFrame
-        List<entity.Alquiler> alquileresActivos = alquilerController.buscarAlquileresActivosPorUsuario(usuarioLogueado);
-
+        List<Alquiler> alquileresActivos = alquilerController.buscarAlquileresActivosPorUsuario(usuarioLogueado);
         if (alquileresActivos.isEmpty()) {
-            javax.swing.JOptionPane.showMessageDialog(this, "No tienes alquileres activos.");
+            JOptionPane.showMessageDialog(this, "No tienes alquileres activos.", "Sin datos", JOptionPane.INFORMATION_MESSAGE);
         } else {
             // Abre un diálogo para mostrar los alquileres activos
-            VerAlquileresDialog dialog = new VerAlquileresDialog(this, true, alquileresActivos);
+            VerAlquileresDialog dialog = new VerAlquileresDialog(this, true, alquileresActivos, alquilerController, false);
             dialog.setVisible(true);
         }
+
+
     }//GEN-LAST:event_btnConsultarAlquileresActionPerformed
-
+    /**
+     * Muestra el historial de alquileres del usuario. Si no hay, muestra
+     * mensaje "SIN DATOS".
+     */
     private void btnVerHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerHistorialActionPerformed
-        // Abrir ventana de alquileres del usuario o todos si es admin
-        // Muestra el historial de alquileres del usuario
-        controller.AlquilerController alquilerController = new controller.AlquilerController(emf);
 
-        // Supón que tienes un objeto usuarioLogueado guardado en el MainFrame
-        List<entity.Alquiler> historial = alquilerController.buscarHistorialAlquileresPorUsuario(usuarioLogueado);
-
+        List<Alquiler> historial = alquilerController.buscarHistorialAlquileresPorUsuario(usuarioLogueado);
         if (historial.isEmpty()) {
-            javax.swing.JOptionPane.showMessageDialog(this, "No tienes historial de alquileres.");
+            JOptionPane.showMessageDialog(this, "No tienes historial de alquileres.", "Sin datos", JOptionPane.INFORMATION_MESSAGE);
         } else {
-            // Abre un diálogo para mostrar el historial
-            VerHistorialDialog dialog = new VerHistorialDialog(this, true, historial);
+            VerAlquileresDialog dialog = new VerAlquileresDialog(this, true, historial, alquilerController, true);
             dialog.setVisible(true);
         }
+
     }//GEN-LAST:event_btnVerHistorialActionPerformed
 
 
@@ -344,22 +351,33 @@ public class MainFrame extends javax.swing.JFrame {
         GestionPeliculasDialog dialog = new GestionPeliculasDialog(this, true);
         dialog.setVisible(true);
     }//GEN-LAST:event_btnGestionPeliculasActionPerformed
-
+    /**
+     * Abre el diálogo para ver todas las películas.
+     */
     private void btnVerPeliculasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerPeliculasActionPerformed
         // TODO add your handling code here:
         //abre ventana de ver peliculas
         List<entity.Pelicula> peliculas = peliculaController.listarPeliculas();
         if (peliculas.isEmpty()) {
-            javax.swing.JOptionPane.showMessageDialog(this, "No hay películas disponibles.", "Sin datos", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "No hay películas disponibles.", "Sin datos", JOptionPane.INFORMATION_MESSAGE);
         } else {
-            VerPeliculasDialog dialog = new VerPeliculasDialog(this, true, esAdmin);
+            VerPeliculasDialog dialog = new VerPeliculasDialog(
+                    this,
+                    true,
+                    peliculas,
+                    esAdmin,
+                    usuarioLogueado,
+                    alquilerController,
+                    fichaTecnicaController
+            );
             dialog.setVisible(true);
         }
     }//GEN-LAST:event_btnVerPeliculasActionPerformed
 
     private void btnPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPerfilActionPerformed
         // Abrir ventana de perfil de usuario
-        PerfilDialog dialog = new PerfilDialog(this, true);
+
+        PerfilDialog dialog = new PerfilDialog(this, true, usuarioLogueado, usuarioController);
         dialog.setVisible(true);
     }//GEN-LAST:event_btnPerfilActionPerformed
 
@@ -374,7 +392,10 @@ public class MainFrame extends javax.swing.JFrame {
         GestionFichasDialog dialog = new GestionFichasDialog(this, true);
         dialog.setVisible(true);
     }//GEN-LAST:event_btnGestionFichasActionPerformed
-
+    /**
+     * Confirma y elimina la cuenta del usuario actual. Solo disponible para
+     * usuarios normales.
+     */
     private void btnEliminarCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarCuentaActionPerformed
         // Confirmar y eliminar cuenta
         int confirm = javax.swing.JOptionPane.showConfirmDialog(this, "¿Estás seguro de que deseas eliminar tu cuenta?", "Confirmar", javax.swing.JOptionPane.YES_NO_OPTION);
@@ -395,28 +416,26 @@ public class MainFrame extends javax.swing.JFrame {
             int seleccion = fileChooser.showSaveDialog(this);
             if (seleccion == javax.swing.JFileChooser.APPROVE_OPTION) {
                 java.io.File carpeta = fileChooser.getSelectedFile();
-
-                // Llama a la clase utilitaria para exportar CSV de cada tabla
                 utils.CSVExporter.exportarUsuarios(usuarioController.listarUsuarios(), new java.io.File(carpeta, "usuarios.csv"));
                 utils.CSVExporter.exportarPeliculas(peliculaController.listarPeliculas(), new java.io.File(carpeta, "peliculas.csv"));
                 utils.CSVExporter.exportarAlquileres(alquilerController.listarAlquileres(), new java.io.File(carpeta, "alquileres.csv"));
                 utils.CSVExporter.exportarFichasTecnicas(fichaTecnicaController.listarFichasTecnicas(), new java.io.File(carpeta, "fichas_tecnicas.csv"));
-
-                javax.swing.JOptionPane.showMessageDialog(this, "¡Copia de seguridad exportada correctamente!");
+                JOptionPane.showMessageDialog(this, "¡Copia de seguridad exportada correctamente!");
             }
         } catch (Exception e) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Error al exportar CSV: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Error al exportar CSV: " + e.getMessage());
         }
     }//GEN-LAST:event_btnExportarCSVActionPerformed
-
+    /**
+     * Abre el diálogo para ver todos los alquileres (ADMIN).
+     */
     private void btnConsultarTodosAlquileresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarTodosAlquileresActionPerformed
         // Abrir ventana de todos los alquileres (solo admin)
-        List<entity.Alquiler> todosAlquileres = alquilerController.buscarHistorialAlquileres();
-
-        if (todosAlquileres.isEmpty()) {
-            javax.swing.JOptionPane.showMessageDialog(this, "No hay alquileres registrados.", "Sin datos", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+        List<Alquiler> alquileres = alquilerController.listarAlquileres();
+        if (alquileres.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No hay alquileres registrados.", "Sin datos", JOptionPane.INFORMATION_MESSAGE);
         } else {
-            VerAlquileresDialog dialog = new VerAlquileresDialog(this, true, true); // true=admin
+            VerAlquileresDialog dialog = new VerAlquileresDialog(this, true, alquileres, alquilerController, true);
             dialog.setVisible(true);
         }
     }//GEN-LAST:event_btnConsultarTodosAlquileresActionPerformed
@@ -426,27 +445,20 @@ public class MainFrame extends javax.swing.JFrame {
         this.dispose();
         new LoginFrame().setVisible(true);
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
-    private void ajustarVisibilidadBotones() {
-        btnGestionPeliculas.setVisible(esAdmin);
-        btnGestionUsuarios.setVisible(esAdmin);
-        btnGestionFichas.setVisible(esAdmin);
-        btnConsultarTodosAlquileres.setVisible(esAdmin);
-        btnExportarCSV.setVisible(esAdmin);
-        txtAdmin.setVisible(esAdmin);
-
-        // Los demás botones siempre visibles
-    }
-
+    /**
+     * Método de respaldopara listar todos los alquileres (solo admin). No suele
+     * usarse ya que btnConsultarTodosAlquileresActionPerformed lo cubre.
+     */
     private void listarAlquileres() {
         List<Alquiler> alquileres = alquilerController.listarAlquileres();
-        // Abre el diálogo o muestra la tabla con los alquileres
-        VerAlquileresDialog dialog = new VerAlquileresDialog(this, true, alquileres);
-        dialog.setVisible(true);
+        if (alquileres.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No hay alquileres registrados.", "Sin datos", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            VerAlquileresDialog dialog = new VerAlquileresDialog(this, true, alquileres, alquilerController, true);
+            dialog.setVisible(true);
+        }
     }
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -474,11 +486,11 @@ public class MainFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainFrame().setVisible(true);
+                // Aquí deberías pasar el usuario logueado real
+                // new MainFrame(usuarioLogueado).setVisible(true);
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JButton btnConsultarAlquileres;

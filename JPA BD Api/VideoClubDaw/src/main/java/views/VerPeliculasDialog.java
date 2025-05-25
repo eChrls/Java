@@ -24,7 +24,15 @@ public class VerPeliculasDialog extends javax.swing.JDialog {
     /**
      * Constructor principal.
      */
-    public VerPeliculasDialog(java.awt.Frame parent, boolean modal, List<Pelicula> peliculas, boolean esAdmin) {
+    public VerPeliculasDialog(
+            java.awt.Frame parent,
+            boolean modal,
+            List<Pelicula> peliculas,
+            boolean esAdmin,
+            entity.Usuario usuarioLogueado,
+            AlquilerController alquilerController,
+            FichaTecnicaController fichaTecnicaController
+    ) {
         super(parent, modal);
         this.peliculas = peliculas;
         this.esAdmin = esAdmin;
@@ -274,34 +282,40 @@ public class VerPeliculasDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VerPeliculasDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VerPeliculasDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VerPeliculasDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VerPeliculasDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        java.util.List<entity.Pelicula> peliculasPrueba = new java.util.ArrayList<>();
-
-        /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                VerPeliculasDialog dialog = new VerPeliculasDialog(new javax.swing.JFrame(), true, peliculasPrueba, false);
+                // Crea la lista de películas de prueba
+                java.util.List<entity.Pelicula> peliculasPrueba = new java.util.ArrayList<>();
+                // Ejemplo de película de prueba
+                entity.Pelicula peli = new entity.Pelicula();
+                peli.setIdPelicula(1L);
+                peli.setTitulo("Película de Prueba");
+                peli.setAnyoEstreno(2024);
+                peli.setPortada("psicosis.jpg"); // Asegúrate de tener la imagen en /img/
+                peliculasPrueba.add(peli);
+
+                // Crea un usuario de prueba
+                entity.Usuario usuarioPrueba = new entity.Usuario();
+                usuarioPrueba.setIdUsuario(1L);
+                usuarioPrueba.setNombre("Usuario Prueba");
+
+                // Crea un EntityManagerFactory de prueba (ajusta el nombre de tu unidad de persistencia)
+                javax.persistence.EntityManagerFactory emf = javax.persistence.Persistence.createEntityManagerFactory("videoclubdaw");
+
+                // Crea los controladores de prueba
+                controller.AlquilerController alquilerController = new controller.AlquilerController(emf);
+                controller.FichaTecnicaController fichaTecnicaController = new controller.FichaTecnicaController(emf);
+
+                // Llama al constructor completo del diálogo
+                VerPeliculasDialog dialog = new VerPeliculasDialog(
+                        new javax.swing.JFrame(),
+                        true,
+                        peliculasPrueba,
+                        false,
+                        usuarioPrueba,
+                        alquilerController,
+                        fichaTecnicaController
+                );
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -312,6 +326,7 @@ public class VerPeliculasDialog extends javax.swing.JDialog {
             }
         });
     }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtras;
     private javax.swing.JScrollPane jScrollPane1;
