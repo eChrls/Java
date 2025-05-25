@@ -57,9 +57,6 @@ public class MainFrame extends javax.swing.JFrame {
         txtBienvenida.setForeground(new java.awt.Color(33, 37, 41)); // Gris oscuro elegante
         txtAdmin.setForeground(new java.awt.Color(0, 102, 204)); // Azul para destacar admin
 
-
-
-
         // 4. Ajustar visibilidad de botones y textos según el rol
         ajustarVisibilidadBotones();
 
@@ -398,14 +395,31 @@ public class MainFrame extends javax.swing.JFrame {
      */
     private void btnEliminarCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarCuentaActionPerformed
         // Confirmar y eliminar cuenta
-        int confirm = javax.swing.JOptionPane.showConfirmDialog(this, "¿Estás seguro de que deseas eliminar tu cuenta?", "Confirmar", javax.swing.JOptionPane.YES_NO_OPTION);
+        // Confirmar y eliminar cuenta
+        int confirm = javax.swing.JOptionPane.showConfirmDialog(
+                this,
+                "¿Estás seguro de que deseas eliminar tu cuenta?",
+                "Confirmar",
+                javax.swing.JOptionPane.YES_NO_OPTION
+        );
         if (confirm == javax.swing.JOptionPane.YES_OPTION) {
-            // Aquí iría la lógica de borrado
-            javax.swing.JOptionPane.showMessageDialog(this, "Cuenta eliminada.");
-            this.dispose();
-            new LoginFrame().setVisible(true);
+            try {
+                // Elimina el usuario de la base de datos
+                usuarioController.eliminarUsuario(usuarioLogueado.getIdUsuario());
+                javax.swing.JOptionPane.showMessageDialog(this, "Cuenta eliminada.");
+                this.dispose();
+                new LoginFrame().setVisible(true);
+            } catch (Exception e) {
+                javax.swing.JOptionPane.showMessageDialog(
+                        this,
+                        "Error al eliminar la cuenta: " + e.getMessage(),
+                        "Error",
+                        javax.swing.JOptionPane.ERROR_MESSAGE
+                );
+            }
+        }
     }//GEN-LAST:event_btnEliminarCuentaActionPerformed
-    }
+
     private void btnExportarCSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarCSVActionPerformed
         // Llama a la utilidad de exportar CSV
         try {

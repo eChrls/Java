@@ -16,11 +16,16 @@ public class VerFichaTecnicaDialog extends javax.swing.JDialog {
         personalizarVisual();
         cargarDatos(ficha);
         setLocationRelativeTo(parent);
+        txtDescripcion.setLineWrap(true);
+        txtDescripcion.setWrapStyleWord(true);
+
     }
 
     private void personalizarVisual() {
         java.awt.Font fuenteTitulo = new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 20);
         java.awt.Font fuenteDatos = new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 16);
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
         lblGenero.setFont(fuenteDatos);
         txtDescripcion.setFont(fuenteDatos);
@@ -39,30 +44,34 @@ public class VerFichaTecnicaDialog extends javax.swing.JDialog {
         // Imagen grande (de la película asociada a la ficha)
         try {
             String portada = ficha.getPelicula().getPortada();
-            ImageIcon original = new ImageIcon(getClass().getResource("/img/" + portada));
-            int ancho = 300, alto = 300;
-            int imgAncho = original.getIconWidth();
-            int imgAlto = original.getIconHeight();
-            double ratio = Math.min((double) ancho / imgAncho, (double) alto / imgAlto);
-            int newAncho = (int) (imgAncho * ratio);
-            int newAlto = (int) (imgAlto * ratio);
-            Image imgEscalada = original.getImage().getScaledInstance(newAncho, newAlto, Image.SCALE_SMOOTH);
+            if (portada != null && !portada.isEmpty()) {
+                ImageIcon original = new ImageIcon(getClass().getResource("/img/" + portada));
+                int ancho = 300, alto = 300;
+                int imgAncho = original.getIconWidth();
+                int imgAlto = original.getIconHeight();
+                double ratio = Math.min((double) ancho / imgAncho, (double) alto / imgAlto);
+                int newAncho = (int) (imgAncho * ratio);
+                int newAlto = (int) (imgAlto * ratio);
+                Image imgEscalada = original.getImage().getScaledInstance(newAncho, newAlto, Image.SCALE_SMOOTH);
 
-            java.awt.image.BufferedImage imagenGrande = new java.awt.image.BufferedImage(ancho, alto, java.awt.image.BufferedImage.TYPE_INT_RGB);
-            java.awt.Graphics2D g2 = imagenGrande.createGraphics();
-            g2.setColor(java.awt.Color.WHITE);
-            g2.fillRect(0, 0, ancho, alto);
-            g2.drawImage(imgEscalada, (ancho - newAncho) / 2, (alto - newAlto) / 2, null);
-            g2.dispose();
+                java.awt.image.BufferedImage imagenGrande = new java.awt.image.BufferedImage(ancho, alto, java.awt.image.BufferedImage.TYPE_INT_RGB);
+                java.awt.Graphics2D g2 = imagenGrande.createGraphics();
+                g2.setColor(java.awt.Color.WHITE);
+                g2.fillRect(0, 0, ancho, alto);
+                g2.drawImage(imgEscalada, (ancho - newAncho) / 2, (alto - newAlto) / 2, null);
+                g2.dispose();
 
-            lblImagen.setIcon(new ImageIcon(imagenGrande));
+                lblImagen.setIcon(new ImageIcon(imagenGrande));
+                lblImagen.setText(""); // Asegúrate de que no hay texto
+            } else {
+                lblImagen.setIcon(null);
+                lblImagen.setText("Sin imagen");
+            }
         } catch (Exception ex) {
+            lblImagen.setIcon(null);
             lblImagen.setText("Sin imagen");
         }
-    }
 
-    private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {
-        this.dispose();
     }
 
     /**
@@ -82,10 +91,19 @@ public class VerFichaTecnicaDialog extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        lblImagen.setToolTipText("");
+
         btnAtras.setText("Atrás");
+        btnAtras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtrasActionPerformed(evt);
+            }
+        });
 
         txtDescripcion.setColumns(20);
+        txtDescripcion.setLineWrap(true);
         txtDescripcion.setRows(5);
+        txtDescripcion.setWrapStyleWord(true);
         jScrollPane1.setViewportView(txtDescripcion);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -126,6 +144,10 @@ public class VerFichaTecnicaDialog extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
+        this.dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAtrasActionPerformed
 
     /**
      * @param args the command line arguments

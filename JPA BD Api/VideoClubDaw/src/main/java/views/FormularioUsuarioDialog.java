@@ -9,8 +9,7 @@ import entity.Usuario;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author Casa
+ * Diálogo para alta/edición de usuario.
  */
 public class FormularioUsuarioDialog extends javax.swing.JDialog {
 

@@ -8,11 +8,6 @@ import controller.PeliculaController;
 import entity.Pelicula;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Casa
- */
-
 public class FormularioPeliculaDialog extends javax.swing.JDialog {
 
     private Pelicula pelicula;

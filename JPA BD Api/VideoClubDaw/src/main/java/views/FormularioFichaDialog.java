@@ -12,8 +12,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author Casa
+ * Diálogo para alta/edición de ficha técnica.
  */
 public class FormularioFichaDialog extends javax.swing.JDialog {
 
@@ -21,14 +20,6 @@ public class FormularioFichaDialog extends javax.swing.JDialog {
     private FichaTecnicaController fichaTecnicaController;
     private List<Pelicula> peliculas;
 
-    /**
-     * Constructor principal.
-     *
-     * @param parent Ventana padre (Frame)
-     * @param modal Modalidad
-     * @param ficha Ficha técnica a editar (null si es alta)
-     * @param fichaTecnicaController Controlador para guardar/actualizar
-     */
     public FormularioFichaDialog(java.awt.Frame parent, boolean modal, FichaTecnica ficha, FichaTecnicaController fichaTecnicaController) {
         super(parent, modal);
         this.ficha = ficha;
@@ -45,9 +36,6 @@ public class FormularioFichaDialog extends javax.swing.JDialog {
         setLocationRelativeTo(parent);
     }
 
-    /**
-     * Añade todas las películas al combo.
-     */
     private void cargarPeliculas() {
         comboPelicula.removeAllItems();
         for (Pelicula p : peliculas) {
@@ -55,11 +43,8 @@ public class FormularioFichaDialog extends javax.swing.JDialog {
         }
     }
 
-    /**
-     * Si es edición, carga los datos en los campos.
-     */
     private void cargarDatos() {
-        txtDescripcion.setText(ficha.getGenero());
+        txtGenero.setText(ficha.getGenero());
         txtDescripcion.setText(ficha.getDescripcion());
         // Selecciona la película asociada
         for (int i = 0; i < peliculas.size(); i++) {

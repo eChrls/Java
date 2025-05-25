@@ -7,11 +7,12 @@ import entity.Pelicula;
 import java.awt.Image;
 import java.util.List;
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
- * Diálogo modal para mostrar las películas disponibles en una tabla. Permite
- * ver ficha técnica y alquilar.
+ * Diálogo modal para mostrar las películas disponibles en una tabla.
+ * Permite ver ficha técnica y alquilar.
  */
 public class VerPeliculasDialog extends javax.swing.JDialog {
 
@@ -21,9 +22,6 @@ public class VerPeliculasDialog extends javax.swing.JDialog {
     private AlquilerController alquilerController;
     private entity.Usuario usuarioLogueado;
 
-    /**
-     * Constructor principal.
-     */
     public VerPeliculasDialog(
             java.awt.Frame parent,
             boolean modal,
@@ -45,9 +43,6 @@ public class VerPeliculasDialog extends javax.swing.JDialog {
         setLocationRelativeTo(parent);
     }
 
-    /**
-     * Personaliza fuentes, colores y aspecto visual.
-     */
     private void personalizarVisual() {
         java.awt.Font fuenteTitulo = new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 20);
         java.awt.Font fuenteTabla = new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 14);
@@ -58,52 +53,30 @@ public class VerPeliculasDialog extends javax.swing.JDialog {
         getContentPane().setBackground(new java.awt.Color(245, 245, 245));
     }
 
-    /**
-     * Carga las películas en la tabla, mostrando ID, título y año.
-     */
     private void cargarTabla() {
-        // Define las columnas de la tabla
         String[] columnas = {"Portada", "ID", "Título", "Año", "Ver ficha técnica", "Alquilar"};
 
-        // Modelo personalizado para mostrar imágenes y controlar columnas editables
         DefaultTableModel modelo = new DefaultTableModel(null, columnas) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return column == 4 || column == 5;
             }
-
             @Override
             public Class<?> getColumnClass(int column) {
-                if (column == 0) {
-                    return ImageIcon.class;
-                }
+                if (column == 0) return ImageIcon.class;
                 return Object.class;
             }
         };
 
-        // Añade las filas al modelo
         for (Pelicula p : peliculas) {
             ImageIcon icono = null;
             try {
                 ImageIcon original = new ImageIcon(getClass().getResource("/img/" + p.getPortada()));
                 int ancho = 80, alto = 80;
-                int imgAncho = original.getIconWidth();
-                int imgAlto = original.getIconHeight();
-                double ratio = Math.min((double) ancho / imgAncho, (double) alto / imgAlto);
-                int newAncho = (int) (imgAncho * ratio);
-                int newAlto = (int) (imgAlto * ratio);
-                Image imgEscalada = original.getImage().getScaledInstance(newAncho, newAlto, Image.SCALE_SMOOTH);
-
-                java.awt.image.BufferedImage thumb = new java.awt.image.BufferedImage(ancho, alto, java.awt.image.BufferedImage.TYPE_INT_RGB);
-                java.awt.Graphics2D g2 = thumb.createGraphics();
-                g2.setColor(java.awt.Color.WHITE);
-                g2.fillRect(0, 0, ancho, alto);
-                g2.drawImage(imgEscalada, (ancho - newAncho) / 2, (alto - newAlto) / 2, null);
-                g2.dispose();
-
-                icono = new ImageIcon(thumb);
+                Image imgEscalada = original.getImage().getScaledInstance(ancho, alto, Image.SCALE_SMOOTH);
+                icono = new ImageIcon(imgEscalada);
             } catch (Exception ex) {
-                // Si hay error, deja el icono en null o pon una imagen por defecto
+                icono = null;
             }
 
             Object[] fila = {
@@ -117,29 +90,42 @@ public class VerPeliculasDialog extends javax.swing.JDialog {
             modelo.addRow(fila);
         }
 
-        // Asigna el modelo a la tabla y ajusta la altura de las filas
         tablaPeliculas.setModel(modelo);
         tablaPeliculas.setRowHeight(80);
 
-        // IMPORTANTE: Elimina listeners anteriores para evitar duplicados
+        // Renderer explícito para la columna de imagen
+        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer() {
+            @Override
+            public void setValue(Object value) {
+                setHorizontalAlignment(JLabel.CENTER);
+                setVerticalAlignment(JLabel.CENTER);
+                if (value instanceof ImageIcon) {
+                    setIcon((ImageIcon) value);
+                    setText("");
+                } else {
+                    setIcon(null);
+                    setText("");
+                }
+            }
+        };
+        tablaPeliculas.getColumnModel().getColumn(0).setCellRenderer(renderer);
+
+        // Elimina listeners anteriores para evitar duplicados
         for (java.awt.event.MouseListener ml : tablaPeliculas.getMouseListeners()) {
             tablaPeliculas.removeMouseListener(ml);
         }
 
-        // Añade el MouseListener para todas las acciones de la tabla
+        // MouseListener para clicks
         tablaPeliculas.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
                 int row = tablaPeliculas.rowAtPoint(evt.getPoint());
                 int col = tablaPeliculas.columnAtPoint(evt.getPoint());
-
-                // 0: Portada (thumbnail)
+                // Portada (thumbnail)
                 if (row >= 0 && col == 0) {
                     Pelicula peliculaSeleccionada = peliculas.get(row);
                     try {
                         ImageIcon original = new ImageIcon(getClass().getResource("/img/" + peliculaSeleccionada.getPortada()));
-
-                        // Calcula tamaño adaptable (máx 500x500, proporcional)
                         int maxAncho = 500, maxAlto = 500;
                         int imgAncho = original.getIconWidth();
                         int imgAlto = original.getIconHeight();
@@ -150,7 +136,6 @@ public class VerPeliculasDialog extends javax.swing.JDialog {
                         Image imgEscalada = original.getImage().getScaledInstance(newAncho, newAlto, Image.SCALE_SMOOTH);
                         JLabel labelImg = new JLabel(new ImageIcon(imgEscalada));
 
-                        // Crea un JDialog modal para mostrar la imagen
                         JDialog dialogImg = new JDialog((java.awt.Frame) getParent(), "Portada de " + peliculaSeleccionada.getTitulo(), true);
                         dialogImg.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
                         dialogImg.getContentPane().add(labelImg);
@@ -163,8 +148,7 @@ public class VerPeliculasDialog extends javax.swing.JDialog {
                         JOptionPane.showMessageDialog(VerPeliculasDialog.this, "No se pudo cargar la imagen.");
                     }
                 }
-
-                // 4: Ver ficha técnica
+                // Ver ficha técnica
                 if (row >= 0 && col == 4) {
                     Pelicula peliculaSeleccionada = peliculas.get(row);
                     FichaTecnica ficha = fichaTecnicaController.buscarPorPelicula(peliculaSeleccionada);
@@ -175,8 +159,7 @@ public class VerPeliculasDialog extends javax.swing.JDialog {
                         JOptionPane.showMessageDialog(VerPeliculasDialog.this, "No hay ficha técnica para esta película.");
                     }
                 }
-
-                // 5: Alquilar
+                // Alquilar
                 if (row >= 0 && col == 5) {
                     Pelicula peliculaSeleccionada = peliculas.get(row);
                     int confirm = JOptionPane.showConfirmDialog(
@@ -208,14 +191,6 @@ public class VerPeliculasDialog extends javax.swing.JDialog {
             }
         });
     }
-
-    /**
-     * Acción del botón Atrás: cierra el diálogo.
-     */
-    private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {
-        this.dispose();
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -248,6 +223,11 @@ public class VerPeliculasDialog extends javax.swing.JDialog {
         jScrollPane1.setViewportView(tablaPeliculas);
 
         btnAtras.setText("Atrás");
+        btnAtras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtrasActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -280,6 +260,10 @@ public class VerPeliculasDialog extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnAtrasActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
