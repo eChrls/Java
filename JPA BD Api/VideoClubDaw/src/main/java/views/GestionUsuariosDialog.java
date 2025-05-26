@@ -182,7 +182,7 @@ public class GestionUsuariosDialog extends javax.swing.JDialog {
         }
         Usuario seleccionado = usuarios.get(row);
         FormularioUsuarioDialog form = new FormularioUsuarioDialog(
-                (java.awt.Frame) this.getParent(), true, null, usuarioController);
+                (java.awt.Frame) this.getParent(), true, seleccionado, usuarioController);
 
         form.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override

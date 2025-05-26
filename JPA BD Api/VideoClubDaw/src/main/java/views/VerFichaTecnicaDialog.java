@@ -7,6 +7,7 @@ package views;
 import entity.FichaTecnica;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import javax.swing.SwingUtilities;
 
 public class VerFichaTecnicaDialog extends javax.swing.JDialog {
 
@@ -18,6 +19,8 @@ public class VerFichaTecnicaDialog extends javax.swing.JDialog {
         setLocationRelativeTo(parent);
         txtDescripcion.setLineWrap(true);
         txtDescripcion.setWrapStyleWord(true);
+        SwingUtilities.invokeLater(() -> cargarDatos(ficha));
+        lblImagen.setBorder(javax.swing.BorderFactory.createLineBorder(java.awt.Color.GRAY, 1));
 
     }
 
@@ -42,36 +45,34 @@ public class VerFichaTecnicaDialog extends javax.swing.JDialog {
         txtDescripcion.setEditable(false);
 
         // Imagen grande (de la película asociada a la ficha)
-        try {
-            String portada = ficha.getPelicula().getPortada();
-            if (portada != null && !portada.isEmpty()) {
-                ImageIcon original = new ImageIcon(getClass().getResource("/img/" + portada));
-                int ancho = 300, alto = 300;
-                int imgAncho = original.getIconWidth();
-                int imgAlto = original.getIconHeight();
-                double ratio = Math.min((double) ancho / imgAncho, (double) alto / imgAlto);
-                int newAncho = (int) (imgAncho * ratio);
-                int newAlto = (int) (imgAlto * ratio);
-                Image imgEscalada = original.getImage().getScaledInstance(newAncho, newAlto, Image.SCALE_SMOOTH);
+        String portada = ficha.getPelicula().getPortada();
+        System.out.println("Portada a cargar: " + portada); // DEBUG
+        java.net.URL url = getClass().getResource("/img/" + portada);
+        System.out.println("URL encontrada: " + url); // DEBUG
 
-                java.awt.image.BufferedImage imagenGrande = new java.awt.image.BufferedImage(ancho, alto, java.awt.image.BufferedImage.TYPE_INT_RGB);
-                java.awt.Graphics2D g2 = imagenGrande.createGraphics();
-                g2.setColor(java.awt.Color.WHITE);
-                g2.fillRect(0, 0, ancho, alto);
-                g2.drawImage(imgEscalada, (ancho - newAncho) / 2, (alto - newAlto) / 2, null);
-                g2.dispose();
+        int ancho = lblImagen.getWidth();
+        int alto = lblImagen.getHeight();
+        System.out.println("lblImagen size: " + ancho + "x" + alto);
 
-                lblImagen.setIcon(new ImageIcon(imagenGrande));
-                lblImagen.setText(""); // Asegúrate de que no hay texto
-            } else {
-                lblImagen.setIcon(null);
-                lblImagen.setText("Sin imagen");
+        if (portada != null && !portada.isEmpty() && url != null) {
+            ImageIcon original = new ImageIcon(url);
+            if (ancho <= 0 || alto <= 0) {
+                ancho = 200;
+                alto = 500;
             }
-        } catch (Exception ex) {
+            Image imgEscalada = original.getImage().getScaledInstance(ancho, alto, Image.SCALE_SMOOTH);
+            lblImagen.setIcon(new ImageIcon(imgEscalada));
+            lblImagen.setText("");
+            lblImagen.revalidate();
+            lblImagen.repaint();
+            System.out.println("Imagen escalada: " + ancho + "x" + alto);
+        } else {
+            System.out.println("No se encuentra la imagen o portada vacía.");
             lblImagen.setIcon(null);
             lblImagen.setText("Sin imagen");
+            lblImagen.revalidate();
+            lblImagen.repaint();
         }
-
     }
 
     /**
@@ -117,26 +118,23 @@ public class VerFichaTecnicaDialog extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
-                .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 693, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 682, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(105, 105, 105)
-                        .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 695, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(96, 96, 96)
-                        .addComponent(lblGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1)))
+                .addGap(96, 96, 96)
+                .addComponent(lblGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblImagen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 622, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(30, Short.MAX_VALUE))

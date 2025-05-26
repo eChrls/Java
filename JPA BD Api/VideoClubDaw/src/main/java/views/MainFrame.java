@@ -385,8 +385,8 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGestionUsuariosActionPerformed
 
     private void btnGestionFichasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionFichasActionPerformed
-        // Abrir gestión de fichas técnicas (CRUD)
-        GestionFichasDialog dialog = new GestionFichasDialog(this, true);
+        // Abrir gestión de fichas técnicas (CRUD) con controladores actualizados
+        GestionFichasDialog dialog = new GestionFichasDialog(this, true, fichaTecnicaController, peliculaController);
         dialog.setVisible(true);
     }//GEN-LAST:event_btnGestionFichasActionPerformed
     /**

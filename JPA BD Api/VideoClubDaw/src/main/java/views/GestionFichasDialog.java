@@ -5,25 +5,26 @@
 package views;
 
 import controller.FichaTecnicaController;
+import controller.PeliculaController;
 import entity.FichaTecnica;
+import entity.Pelicula;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Casa
- */
 public class GestionFichasDialog extends javax.swing.JDialog {
 
     private FichaTecnicaController fichaTecnicaController;
+    private PeliculaController peliculaController;
     private List<FichaTecnica> fichas;
 
-    public GestionFichasDialog(java.awt.Frame parent, boolean modal) {
+    public GestionFichasDialog(java.awt.Frame parent, boolean modal,
+            FichaTecnicaController fichaTecnicaController,
+            PeliculaController peliculaController) {
         super(parent, modal);
-        // Inicializa el controlador (puedes pasarlo por el constructor si prefieres)
-        javax.persistence.EntityManagerFactory emf = javax.persistence.Persistence.createEntityManagerFactory("videoclubdaw");
-        fichaTecnicaController = new FichaTecnicaController(emf);
+        this.fichaTecnicaController = fichaTecnicaController;
+        this.peliculaController = peliculaController;
         initComponents();
         personalizarVisual();
         cargarTablaFichas();
@@ -40,9 +41,6 @@ public class GestionFichasDialog extends javax.swing.JDialog {
         getContentPane().setBackground(new java.awt.Color(245, 245, 245));
     }
 
-    /**
-     * Carga todas las fichas técnicas en la tabla.
-     */
     private void cargarTablaFichas() {
         fichas = fichaTecnicaController.listarFichasTecnicas();
         String[] columnas = {"ID", "Película", "Género", "Descripción"};
@@ -65,6 +63,26 @@ public class GestionFichasDialog extends javax.swing.JDialog {
 
         tablaFichas.setModel(modelo);
         tablaFichas.setRowHeight(30);
+    }
+
+    // NUEVO: Método para obtener películas sin ficha técnica
+    private List<Pelicula> obtenerPeliculasSinFicha() {
+        List<Pelicula> todas = peliculaController.listarPeliculas();
+        List<FichaTecnica> fichas = fichaTecnicaController.listarFichasTecnicas();
+        List<Pelicula> sinFicha = new ArrayList<>();
+        for (Pelicula p : todas) {
+            boolean tieneFicha = false;
+            for (FichaTecnica f : fichas) {
+                if (f.getPelicula() != null && f.getPelicula().getIdPelicula().equals(p.getIdPelicula())) {
+                    tieneFicha = true;
+                    break;
+                }
+            }
+            if (!tieneFicha) {
+                sinFicha.add(p);
+            }
+        }
+        return sinFicha;
     }
 
     @SuppressWarnings("unchecked")
@@ -167,7 +185,9 @@ public class GestionFichasDialog extends javax.swing.JDialog {
             return;
         }
         FichaTecnica seleccionada = fichas.get(row);
-        int confirm = JOptionPane.showConfirmDialog(this, "¿Seguro que quieres eliminar la ficha técnica de la película \"" + seleccionada.getPelicula().getTitulo() + "\"?", "Confirmar", JOptionPane.YES_NO_OPTION);
+        int confirm = JOptionPane.showConfirmDialog(this,
+                "¿Seguro que quieres eliminar la ficha técnica de la película \"" + seleccionada.getPelicula().getTitulo() + "\"?",
+                "Confirmar", JOptionPane.YES_NO_OPTION);
         if (confirm == JOptionPane.YES_OPTION) {
             fichaTecnicaController.eliminarFichaTecnica(seleccionada.getIdFicha());
             cargarTablaFichas();
@@ -180,15 +200,49 @@ public class GestionFichasDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCerrarActionPerformed
 
     private void btnAnadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnadirActionPerformed
-        FormularioFichaDialog form = new FormularioFichaDialog(
-                (java.awt.Frame) this.getParent(), true, null, fichaTecnicaController);
-        form.addWindowListener(new java.awt.event.WindowAdapter() {
-            @Override
-            public void windowClosed(java.awt.event.WindowEvent e) {
-                cargarTablaFichas();
+// Supón que tienes una tabla de películas y el admin selecciona una
+        // Mostrar un diálogo para seleccionar película sin ficha técnica
+        List<Pelicula> peliculasSinFicha = obtenerPeliculasSinFicha();
+        if (peliculasSinFicha.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No hay películas sin ficha técnica.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        String[] titulos = peliculasSinFicha.stream().map(Pelicula::getTitulo).toArray(String[]::new);
+        String seleccion = (String) JOptionPane.showInputDialog(
+                this,
+                "Selecciona una película para añadir ficha técnica:",
+                "Seleccionar película",
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                titulos,
+                titulos[0]
+        );
+        if (seleccion == null) {
+            return; // Cancelado
+        }
+        Pelicula seleccionada = null;
+        for (Pelicula p : peliculasSinFicha) {
+            if (p.getTitulo().equals(seleccion)) {
+                seleccionada = p;
+                break;
             }
-        });
+        }
+        if (seleccionada == null) {
+            JOptionPane.showMessageDialog(this, "Error seleccionando película.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        FormularioFichaDialog form = new FormularioFichaDialog(
+                (java.awt.Frame) this.getParent(),
+                true,
+                null, // Nueva ficha
+                fichaTecnicaController,
+                peliculaController
+        );
+        form.setPeliculaNombre(seleccionada.getTitulo());
         form.setVisible(true);
+        cargarTablaFichas();
+
     }//GEN-LAST:event_btnAnadirActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
@@ -199,7 +253,12 @@ public class GestionFichasDialog extends javax.swing.JDialog {
         }
         FichaTecnica seleccionada = fichas.get(row);
         FormularioFichaDialog form = new FormularioFichaDialog(
-                (java.awt.Frame) this.getParent(), true, seleccionada, fichaTecnicaController);
+                (java.awt.Frame) this.getParent(),
+                true,
+                seleccionada,
+                fichaTecnicaController,
+                peliculaController
+        );
         form.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosed(java.awt.event.WindowEvent e) {
@@ -207,47 +266,30 @@ public class GestionFichasDialog extends javax.swing.JDialog {
             }
         });
         form.setVisible(true);
+
+
     }//GEN-LAST:event_btnEditarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GestionFichasDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GestionFichasDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GestionFichasDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GestionFichasDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            javax.persistence.EntityManagerFactory emf
+                    = javax.persistence.Persistence.createEntityManagerFactory("videoclubdaw");
+            FichaTecnicaController fichaTecnicaController = new FichaTecnicaController(emf);
+            PeliculaController peliculaController = new PeliculaController(emf);
 
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                GestionFichasDialog dialog = new GestionFichasDialog(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
+            GestionFichasDialog dialog = new GestionFichasDialog(
+                    new javax.swing.JFrame(),
+                    true,
+                    fichaTecnicaController,
+                    peliculaController
+            );
+            dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent e) {
+                    System.exit(0);
+                }
+            });
+            dialog.setVisible(true);
         });
     }
 

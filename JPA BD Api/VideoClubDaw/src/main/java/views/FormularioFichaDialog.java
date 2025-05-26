@@ -12,47 +12,41 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
- * Diálogo para alta/edición de ficha técnica.
+ * FormularioFichaDialog Permite crear o editar una ficha técnica, asociando una
+ * película existente o creando una nueva si no existe.
  */
 public class FormularioFichaDialog extends javax.swing.JDialog {
 
     private FichaTecnica ficha;
     private FichaTecnicaController fichaTecnicaController;
-    private List<Pelicula> peliculas;
+    private PeliculaController peliculaController;
 
-    public FormularioFichaDialog(java.awt.Frame parent, boolean modal, FichaTecnica ficha, FichaTecnicaController fichaTecnicaController) {
+    public FormularioFichaDialog(java.awt.Frame parent, boolean modal, FichaTecnica ficha,
+            FichaTecnicaController fichaTecnicaController,
+            PeliculaController peliculaController) {
         super(parent, modal);
         this.ficha = ficha;
         this.fichaTecnicaController = fichaTecnicaController;
-        // Carga todas las películas para el combo
-        javax.persistence.EntityManagerFactory emf = javax.persistence.Persistence.createEntityManagerFactory("videoclubdaw");
-        PeliculaController peliculaController = new PeliculaController(emf);
-        peliculas = peliculaController.listarPeliculas();
+        this.peliculaController = peliculaController;
         initComponents();
-        cargarPeliculas();
         if (ficha != null) {
             cargarDatos();
         }
         setLocationRelativeTo(parent);
+        txtPeliculaNombre.setEditable(false); // El usuario no puede editar el campo
+
     }
 
-    private void cargarPeliculas() {
-        comboPelicula.removeAllItems();
-        for (Pelicula p : peliculas) {
-            comboPelicula.addItem(p.getTitulo());
-        }
-    }
-
+    /**
+     * Carga los datos de la ficha técnica en el formulario si se está editando.
+     */
     private void cargarDatos() {
         txtGenero.setText(ficha.getGenero());
         txtDescripcion.setText(ficha.getDescripcion());
-        // Selecciona la película asociada
-        for (int i = 0; i < peliculas.size(); i++) {
-            if (peliculas.get(i).getIdPelicula().equals(ficha.getPelicula().getIdPelicula())) {
-                comboPelicula.setSelectedIndex(i);
-                break;
-            }
+        if (ficha.getPelicula() != null) {
+            txtPeliculaNombre.setText(ficha.getPelicula().getTitulo());
         }
+
     }
 
     @SuppressWarnings("unchecked")
@@ -63,11 +57,11 @@ public class FormularioFichaDialog extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        comboPelicula = new javax.swing.JComboBox<>();
         txtDescripcion = new javax.swing.JTextField();
         txtGenero = new javax.swing.JTextField();
         btnGuardar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+        txtPeliculaNombre = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -78,13 +72,6 @@ public class FormularioFichaDialog extends javax.swing.JDialog {
         jLabel3.setText("FORMULARIO FICHA TÉCNICA");
 
         jLabel4.setText("Descripción :");
-
-        comboPelicula.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        comboPelicula.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboPeliculaActionPerformed(evt);
-            }
-        });
 
         txtDescripcion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -112,6 +99,12 @@ public class FormularioFichaDialog extends javax.swing.JDialog {
             }
         });
 
+        txtPeliculaNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPeliculaNombreActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -129,9 +122,9 @@ public class FormularioFichaDialog extends javax.swing.JDialog {
                                     .addComponent(jLabel4))
                                 .addGap(72, 72, 72)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtDescripcion)
+                                    .addComponent(txtDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
                                     .addComponent(txtGenero)
-                                    .addComponent(comboPelicula, 0, 350, Short.MAX_VALUE)))))
+                                    .addComponent(txtPeliculaNombre)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(188, 188, 188)
                         .addComponent(btnGuardar)
@@ -144,11 +137,11 @@ public class FormularioFichaDialog extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(52, 52, 52)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(47, 47, 47)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(comboPelicula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
+                    .addComponent(txtPeliculaNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -170,32 +163,43 @@ public class FormularioFichaDialog extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDescripcionActionPerformed
 
-    private void comboPeliculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboPeliculaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboPeliculaActionPerformed
-
     private void txtGeneroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtGeneroActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtGeneroActionPerformed
-
+    public void setPeliculaNombre(String nombre) {
+        txtPeliculaNombre.setText(nombre);
+    }
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        String nombrePelicula = txtPeliculaNombre.getText().trim();
         String genero = txtGenero.getText().trim();
         String descripcion = txtDescripcion.getText().trim();
-        int idx = comboPelicula.getSelectedIndex();
 
-        if (genero.isEmpty() || descripcion.isEmpty() || idx == -1) {
+        if (nombrePelicula.isEmpty() || genero.isEmpty() || descripcion.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        Pelicula peliculaSeleccionada = peliculas.get(idx);
+        // Buscar si existe la película por título (no crear nunca)
+        Pelicula pelicula = null;
+        List<Pelicula> lista = peliculaController.listarPeliculas();
+        for (Pelicula p : lista) {
+            if (p.getTitulo().equalsIgnoreCase(nombrePelicula)) {
+                pelicula = p;
+                break;
+            }
+        }
+
+        if (pelicula == null) {
+            JOptionPane.showMessageDialog(this, "No existe ninguna película con ese nombre. Primero crea la película.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
         if (ficha == null) {
             ficha = new FichaTecnica();
         }
         ficha.setGenero(genero);
         ficha.setDescripcion(descripcion);
-        ficha.setPelicula(peliculaSeleccionada);
+        ficha.setPelicula(pelicula);
 
         try {
             if (ficha.getIdFicha() == null) {
@@ -208,30 +212,49 @@ public class FormularioFichaDialog extends javax.swing.JDialog {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al guardar: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
+
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    private void txtPeliculaNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPeliculaNombreActionPerformed
+        // Esto evita que el usuario cambie el nombre de la película en la edición de ficha.
+        if (ficha != null && ficha.getPelicula() != null) {
+            txtPeliculaNombre.setText(ficha.getPelicula().getTitulo());
+            txtPeliculaNombre.setEditable(false);
+        }
+    }//GEN-LAST:event_txtPeliculaNombreActionPerformed
+
     public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(() -> {
+            javax.persistence.EntityManagerFactory emf
+                    = javax.persistence.Persistence.createEntityManagerFactory("videoclubdaw");
+            FichaTecnicaController fichaTecnicaController = new FichaTecnicaController(emf);
+            PeliculaController peliculaController = new PeliculaController(emf);
+
             FormularioFichaDialog dialog = new FormularioFichaDialog(
-                    null, true, null, null
+                    null, // parent frame
+                    true, // modal
+                    null, // ficha (null para alta, o una FichaTecnica para editar)
+                    fichaTecnicaController,
+                    peliculaController
             );
             dialog.setVisible(true);
         });
     }
 
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGuardar;
-    private javax.swing.JComboBox<String> comboPelicula;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JTextField txtDescripcion;
     private javax.swing.JTextField txtGenero;
+    private javax.swing.JTextField txtPeliculaNombre;
     // End of variables declaration//GEN-END:variables
 }
