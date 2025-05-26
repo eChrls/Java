@@ -85,15 +85,15 @@ public class AlquilerController {
     public boolean alquilarPelicula(Usuario usuario, Pelicula pelicula) {
         EntityManager em = getEntityManager();
         try {
-            // Comprobar si ya existe un alquiler activo de esa película para ese usuario
+            // Comprobar si ya existe un alquiler ACTIVO (sin devolver) de esa película para ese usuario
             List<Alquiler> existentes = em.createQuery(
-                    "SELECT a FROM Alquiler a WHERE a.usuario = :usuario AND a.pelicula = :pelicula", Alquiler.class)
+                    "SELECT a FROM Alquiler a WHERE a.usuario = :usuario AND a.pelicula = :pelicula AND a.fechaEntrega IS NULL", Alquiler.class)
                     .setParameter("usuario", usuario)
                     .setParameter("pelicula", pelicula)
                     .getResultList();
 
             if (!existentes.isEmpty()) {
-                return false; // Ya existe el alquiler
+                return false; // Ya tiene un alquiler activo de esta película
             }
 
             em.getTransaction().begin();
