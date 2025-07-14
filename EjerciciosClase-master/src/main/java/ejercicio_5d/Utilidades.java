@@ -1,6 +1,5 @@
 package ejercicio_5d;
 
-
 import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
@@ -8,7 +7,7 @@ import javax.swing.JOptionPane;
 
 public class Utilidades {
 
-    public static int filtrarNumeroEnteroSccaner() {
+    public static int filtrarNumeroEnteroScanner() {
 
         Scanner entrada = new Scanner(System.in);
 
@@ -31,7 +30,7 @@ public class Utilidades {
         return numero;
     }
 
-    public static int filtrarNumeroEnteroSccanerRango(int minimo, int maximo) {
+    public static int filtrarNumeroEnteroScannerRango(int minimo, int maximo) {
 
         Scanner entrada = new Scanner(System.in);
 
@@ -94,39 +93,25 @@ public class Utilidades {
         } while (seguir);
         return numero;
     }
-    
-    
-    
-    
+
     public static double filtrarNumeroDecimalScanner() {
-
         Scanner entrada = new Scanner(System.in);
-
         double numero = 0;
         boolean seguir = true;
         do {
-
             System.out.println("Introduce el número");
-
             try {
                 numero = entrada.nextDouble();
                 seguir = false;
             } catch (InputMismatchException ime) {
                 System.out.println("Ha introducido un valor incorrecto, repita");
             }
-
             entrada.nextLine();
         } while (seguir);
-
         return numero;
-
     }
 
-    public static double filtrarNumeroDecimalSccanerRango(double minimo, double maximo) {
-
-        Scanner entrada = new Scanner(System.in);
-
-        double numero = 0;
+    public static double filtrarNumeroDecimalScannerRango(double minimo, double maximo) {
         boolean seguir = true;
         do {
 
@@ -162,8 +147,8 @@ public class Utilidades {
                 JOptionPane.showMessageDialog(null, "Ha introducido un valor incorrecto, repita");
             }
             catch(NullPointerException npe){
-                 JOptionPane.showMessageDialog(null, "Ha introducido un valor incorrecto, repita");
-            numero=1;
+                JOptionPane.showMessageDialog(null, "Ha introducido un valor incorrecto, repita");
+                numero=1;
             }
 
         } while (seguir);

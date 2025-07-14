@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 
 public class Utilidades {
 
-    public static int filtrarNumeroEnteroSccaner(String msj) {
+    public static int filtrarNumeroEnteroScanner(String msj) {
 
         Scanner entrada = new Scanner(System.in);
 
@@ -33,7 +33,7 @@ public class Utilidades {
         return numero;
     }
 
-    public static int filtrarNumeroEnteroSccanerRango(int minimo, int maximo,String msj) {
+    public static int filtrarNumeroEnteroScannerRango(int minimo, int maximo,String msj) {
 
         Scanner entrada = new Scanner(System.in);
 
@@ -124,7 +124,7 @@ public class Utilidades {
 
     }
 
-    public static double filtrarNumeroDecimalSccanerRango(double minimo, double maximo,String msj) {
+    public static double filtrarNumeroDecimalScannerRango(double minimo, double maximo,String msj) {
 
         Scanner entrada = new Scanner(System.in);
 
