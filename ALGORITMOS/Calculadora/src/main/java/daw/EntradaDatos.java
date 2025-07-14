@@ -1,7 +1,8 @@
 package daw;
 
-import java.util.*;
-import javax.swing.*;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+import javax.swing.JOptionPane;
 
 public class EntradaDatos {
     //Metodo de clase (=static) para leer un numero int
