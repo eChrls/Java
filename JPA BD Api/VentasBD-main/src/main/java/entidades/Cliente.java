@@ -130,18 +130,18 @@ public class Cliente implements Serializable {
     public void setVentaCollection(Collection<Venta> ventaCollection) {
         this.ventaCollection = ventaCollection;
         for (Venta venta : ventaCollection) {
-            venta.setIdcliente(this);
+            venta.setCliente(this);
         }
     }
     
     public void addVenta(Venta venta){
         this.ventaCollection.add(venta);
-        venta.setIdcliente(this);
+        venta.setCliente(this);
     }
     
     public void removeVenta(Venta venta){
         this.ventaCollection.remove(venta);
-        venta.setIdcliente(null);
+        venta.setCliente(null);
     }
   
 }

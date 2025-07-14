@@ -58,7 +58,6 @@ public class Producto implements Serializable {
         this.descripcion = descripcion;
         this.precio = precio;
         this.stock = stock;
-//        this.detalleventaCollection = new ArrayList<>();
     }
 
     public Integer getId() {
@@ -92,14 +91,7 @@ public class Producto implements Serializable {
     public void setStock(Integer stock) {
         this.stock = stock;
     }
-
-//    public Collection<Detalleventa> getDetalleventaCollection() {
-//        return detalleventaCollection;
-//    }
-//
-//    public void setDetalleventaCollection(Collection<Detalleventa> detalleventaCollection) {
-//        this.detalleventaCollection = detalleventaCollection;
-//    }
+    
     @Override
     public int hashCode() {
         int hash = 0;
