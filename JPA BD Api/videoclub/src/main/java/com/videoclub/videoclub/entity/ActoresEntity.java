@@ -31,30 +31,14 @@ public class ActoresEntity {
 
     @ManyToMany
     @JoinTable(name = "pelicula", joinColumns = @JoinColumn(name = "id_pelicula"), inverseJoinColumns = @JoinColumn(name = "id_actor"))
-
     private Set<PeliculaEntity> peliculas = new LinkedHashSet<>();
-        private PeliculaEntity pelicula;
         
-           public ActoresEntity(String nombre, String apellido, int edad, String origen, LocalDate fechaFallecimiento, PeliculaEntity pelicula) {
-    
-            this.nombre = nombre;
-    
-            this.apellido = apellido;
-    
-            this.edad = edad;
-    
-            this.origen = origen;
-    
-            this.fechaFallecimiento = fechaFallecimiento;
-    
-            this.pelicula = pelicula;
-
+    public ActoresEntity(String nombre, String apellido, int edad, String origen, LocalDate fechaFallecimiento) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.edad = edad;
+        this.origen = origen;
+        this.fechaFallecimiento = fechaFallecimiento;
     }
 
 }
-
-
-
-
-
-

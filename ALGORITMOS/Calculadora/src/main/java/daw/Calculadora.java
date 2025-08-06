@@ -11,30 +11,30 @@ public class Calculadora {
        
         do {
             SalidaPantalla.mostrarMenu();
-            opcion = EntradaDatos.leerScannerv1();
+            opcion = EntradaDatos.leerScanner();
 
             switch (opcion) {
                 case 1 -> {
-                    num1 = EntradaDatos.leerScannerv1();
-                    num2 = EntradaDatos.leerScannerv1();
+                    num1 = EntradaDatos.leerScanner();
+                    num2 = EntradaDatos.leerScanner();
                     resultado = Operaciones.sumar(num1, num2);
                     System.out.println(resultado);
                 }
                 case 2 -> {
-                    num1 = EntradaDatos.leerScannerv1();
-                    num2 = EntradaDatos.leerScannerv1();
+                    num1 = EntradaDatos.leerScanner();
+                    num2 = EntradaDatos.leerScanner();
                     resultado = Operaciones.restar(num1, num2);
                     System.out.println(resultado);
                 }
                 case 3 -> {
-                    num1 = EntradaDatos.leerScannerv1();
-                    num2 = EntradaDatos.leerScannerv1();
+                    num1 = EntradaDatos.leerScanner();
+                    num2 = EntradaDatos.leerScanner();
                     resultado = Operaciones.multiplicar(num1, num2);
                     System.out.println(resultado);
                 }
                 case 4 -> {
-                    num1 = EntradaDatos.leerScannerv1();
-                    num2 = EntradaDatos.leerScannerv1();
+                    num1 = EntradaDatos.leerScanner();
+                    num2 = EntradaDatos.leerScanner();
                     resultadoDiv = Operaciones.dividir(num1, num2);
                     if (num2 !=0){
                     System.out.println(resultadoDiv);
