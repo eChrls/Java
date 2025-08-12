@@ -1,8 +1,77 @@
 {
 	"folders": [
 		{
-			"path": "../../NetBeansProjects"
+			"name": "🎓 DAW - Proyectos Académicos",
+			"path": "."
 		}
 	],
-	"settings": {}
+	"settings": {
+		"files.exclude": {
+			"**/target": true,
+			"**/build": true,
+			"**/.git": false,
+			"**/node_modules": true,
+			"**/*.class": true,
+			"**/temp": true
+		},
+		"search.exclude": {
+			"**/target": true,
+			"**/build": true,
+			"**/node_modules": true,
+			"**/*.class": true
+		},
+		"java.configuration.updateBuildConfiguration": "automatic",
+		"java.compile.nullAnalysis.mode": "automatic",
+		"editor.tabSize": 4,
+		"editor.insertSpaces": true,
+		"files.encoding": "utf8",
+		"git.autofetch": true,
+		"terminal.integrated.defaultProfile.windows": "Command Prompt"
+	},
+	"extensions": {
+		"recommendations": [
+			"vscjava.vscode-java-pack",
+			"ms-vscode.vscode-json",
+			"redhat.vscode-yaml",
+			"ms-python.python",
+			"ms-vscode.powershell",
+			"visualstudioexptteam.vscodeintellicode"
+		]
+	},
+	"tasks": {
+		"version": "2.0.0",
+		"tasks": [
+			{
+				"label": "🔨 Compile Java Project",
+				"type": "shell",
+				"command": "javac",
+				"args": [
+					"-cp", ".",
+					"*.java"
+				],
+				"group": "build",
+				"presentation": {
+					"echo": true,
+					"reveal": "always",
+					"focus": false,
+					"panel": "shared"
+				},
+				"problemMatcher": []
+			},
+			{
+				"label": "▶️ Run Java Main",
+				"type": "shell",
+				"command": "java",
+				"args": ["${fileBasenameNoExtension}"],
+				"group": "test",
+				"presentation": {
+					"echo": true,
+					"reveal": "always",
+					"focus": true,
+					"panel": "new"
+				},
+				"dependsOn": "🔨 Compile Java Project"
+			}
+		]
+	}
 }
