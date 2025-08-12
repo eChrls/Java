@@ -7,6 +7,7 @@ Este espacio de trabajo está dedicado **únicamente** a los proyectos académic
 ## 🏗️ **Estructura de Proyectos**
 
 ### ☕ **Java & Spring Boot**
+
 - `ALGORITMOS/` - Estructuras de datos y algoritmos básicos
 - `OBJETOS/` - Programación Orientada a Objetos
 - `COLECCIONES/` - Collections Framework de Java
@@ -14,16 +15,19 @@ Este espacio de trabajo está dedicado **únicamente** a los proyectos académic
 - `JPA BD Api/` - Persistencia de datos con JPA
 
 ### 🌐 **Desarrollo Web**
+
 - `HTML/` - Maquetación y estructura web
 - `GUI/` - Interfaces gráficas de usuario
 - `APIstream/` - APIs REST y servicios web
 
 ### 🗃️ **Bases de Datos**
+
 - `PracticasIDB/` - Prácticas de Implantación BD
 - `ProyectoIDB/` - Proyecto final de bases de datos
 - `FICHEROS/` - Manejo de archivos y persistencia
 
 ### 🧪 **Testing & Tools**
+
 - `EXAMENES/` - Código de exámenes y pruebas
 - `ENTORNOS/` - Configuración de entornos de desarrollo
 - `utils/` - Utilidades y herramientas auxiliares
