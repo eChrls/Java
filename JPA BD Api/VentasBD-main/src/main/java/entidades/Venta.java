@@ -100,12 +100,12 @@ public class Venta implements Serializable {
         this.fecha = Date.from(fecha.atZone(ZoneId.systemDefault()).toInstant());
     }
 
-    public Cliente getIdcliente() {
+    public Cliente getCliente() {
         return cliente;
     }
 
-    public void setIdcliente(Cliente idcliente) {
-        this.cliente = idcliente;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     public Collection<Detalleventa> getDetalleventaCollection() {
@@ -134,7 +134,7 @@ public class Venta implements Serializable {
         for (Detalleventa detalle : detalleventaCollection) {
             tmp += detalle + "\n";
         }
-        return "Venta{" + "id=" + id + ", fecha=" + fecha + ", idcliente=" + cliente.getNif()
+        return "Venta{" + "id=" + id + ", fecha=" + fecha + ", cliente=" + cliente.getNif()
                 + ", detalleventaCollection=\n" + tmp + '}';
     }
 

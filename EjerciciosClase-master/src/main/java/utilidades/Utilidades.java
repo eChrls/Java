@@ -9,8 +9,17 @@ import java.util.Scanner;
 import javax.swing.JOptionPane;
 
 public class Utilidades {
+    
+    // Common error messages
+    private static final String ERROR_VALOR_INCORRECTO = ERROR_VALOR_INCORRECTO;
+    private static final String ERROR_RANGO = ERROR_RANGO + ;
+    private static final String MSG_NUMERO_ENTERO = "Introduce un numero entero";
+    private static final String MSG_NUMERO_DECIMAL = "Introduce un número decimal";
+    
+    // Static Random instance for better performance
+    private static final Random RANDOM = new Random();
 
-    public static int filtrarNumeroEnteroSccaner(String msj) {
+    public static int filtrarNumeroEnteroScanner(String msj) {
 
         Scanner entrada = new Scanner(System.in);
 
@@ -24,7 +33,7 @@ public class Utilidades {
                 numero = entrada.nextInt();
                 seguir = false;
             } catch (InputMismatchException ime) {
-                System.out.println("Ha introducido un valor incorrecto, repita");
+                System.out.println(ERROR_VALOR_INCORRECTO);
             }
 
             entrada.nextLine();
@@ -33,7 +42,7 @@ public class Utilidades {
         return numero;
     }
 
-    public static int filtrarNumeroEnteroSccanerRango(int minimo, int maximo,String msj) {
+    public static int filtrarNumeroEnteroScannerRango(int minimo, int maximo,String msj) {
 
         Scanner entrada = new Scanner(System.in);
 
@@ -48,10 +57,10 @@ public class Utilidades {
                 if (numero >= minimo && numero <= maximo) {
                     seguir = false;
                 } else {
-                    System.out.println("El número debe estar entre " + minimo + " y " + maximo);
+                    System.out.println(ERROR_RANGO + minimo + " y " + maximo);
                 }
             } catch (InputMismatchException ime) {
-                System.out.println("Ha introducido un valor incorrecto, repita");
+                System.out.println(ERROR_VALOR_INCORRECTO);
             }
 
             entrada.nextLine();
@@ -70,7 +79,7 @@ public class Utilidades {
                 numero = Integer.parseInt(JOptionPane.showInputDialog(msj));
                 seguir = false;
             } catch (NumberFormatException nfe) {
-                JOptionPane.showMessageDialog(null, "Ha introducido un valor incorrecto, repita");
+                JOptionPane.showMessageDialog(null, ERROR_VALOR_INCORRECTO);
             }
 
         } while (seguir);
@@ -88,10 +97,10 @@ public class Utilidades {
                 if (numero >= minimo && numero <= maximo) {
                     seguir = false;
                 } else {
-                    JOptionPane.showMessageDialog(null, "El número debe estar entre " + minimo + " y " + maximo);
+                    JOptionPane.showMessageDialog(null, ERROR_RANGO +  + minimo + " y " + maximo);
                 }
             } catch (NumberFormatException nfe) {
-                JOptionPane.showMessageDialog(null, "Ha introducido un valor incorrecto, repita");
+                JOptionPane.showMessageDialog(null, ERROR_VALOR_INCORRECTO);
             }
         } while (seguir);
         return numero;
@@ -114,7 +123,7 @@ public class Utilidades {
                 numero = entrada.nextDouble();
                 seguir = false;
             } catch (InputMismatchException ime) {
-                System.out.println("Ha introducido un valor incorrecto, repita");
+                System.out.println(ERROR_VALOR_INCORRECTO);
             }
 
             entrada.nextLine();
@@ -124,7 +133,7 @@ public class Utilidades {
 
     }
 
-    public static double filtrarNumeroDecimalSccanerRango(double minimo, double maximo,String msj) {
+    public static double filtrarNumeroDecimalScannerRango(double minimo, double maximo,String msj) {
 
         Scanner entrada = new Scanner(System.in);
 
@@ -139,10 +148,10 @@ public class Utilidades {
                 if (numero >= minimo && numero <= maximo) {
                     seguir = false;
                 } else {
-                    System.out.println("El número debe estar entre " + minimo + " y " + maximo);
+                    System.out.println(ERROR_RANGO +  + minimo + " y " + maximo);
                 }
             } catch (InputMismatchException ime) {
-                System.out.println("Ha introducido un valor incorrecto, repita");
+                System.out.println(ERROR_VALOR_INCORRECTO);
             }
 
             entrada.nextLine();
@@ -161,7 +170,7 @@ public class Utilidades {
                 numero = Double.parseDouble(JOptionPane.showInputDialog(msj));
                 seguir = false;
             } catch (NumberFormatException nfe) {
-                JOptionPane.showMessageDialog(null, "Ha introducido un valor incorrecto, repita");
+                JOptionPane.showMessageDialog(null, ERROR_VALOR_INCORRECTO);
             }
 
         } while (seguir);
@@ -179,10 +188,10 @@ public class Utilidades {
                 if (numero >= minimo && numero <= maximo) {
                     seguir = false;
                 } else {
-                    JOptionPane.showMessageDialog(null, "El número debe estar entre " + minimo + " y " + maximo);
+                    JOptionPane.showMessageDialog(null, ERROR_RANGO +  + minimo + " y " + maximo);
                 }
             } catch (NumberFormatException nfe) {
-                JOptionPane.showMessageDialog(null, "Ha introducido un valor incorrecto, repita");
+                JOptionPane.showMessageDialog(null, ERROR_VALOR_INCORRECTO);
             }
         } while (seguir);
         return numero;
@@ -191,24 +200,15 @@ public class Utilidades {
     
     
     public static int numeroEnteroRandom(int minimo, int maximo) {
-
-        Random random = new Random();
-        int numero = random.nextInt(maximo - minimo + 1) + minimo;
-        return numero;
+        return RANDOM.nextInt(maximo - minimo + 1) + minimo;
     }
 
     public static double numeroDecimalRandom(double minimo, double maximo) {
-
-        Random random = new Random();
-        double numero = random.nextDouble(maximo - minimo + 1) + minimo;
-        return numero;
+        return RANDOM.nextDouble(maximo - minimo + 1) + minimo;
     }
-    
-    
-    
+
     public static String pedirString(String mensaje) {
-        String string = JOptionPane.showInputDialog(mensaje);
-        return string;
+        return JOptionPane.showInputDialog(mensaje);
     }
     
     public static void rellenarMatrizEnteros(int[][] mat, int min,int max){
@@ -216,37 +216,32 @@ public class Utilidades {
         
         for (int i = 0; i < mat.length; i++) {
             for (int j = 0; j < mat[i].length; j++) {
-
-                mat[i][j] = utilidades.Utilidades.numeroEnteroRandom(min, max);
-
+                mat[i][j] = numeroEnteroRandom(min, max);
             }
         }
     }
     
-    public static void imprimirMatrizEnteros(int[][]mat){
-    
-    for (int i = 0; i < mat.length; i++) {
+    public static void imprimirMatrizEnteros(int[][] mat) {
+        for (int i = 0; i < mat.length; i++) {
             for (int j = 0; j < mat[i].length; j++) {
                 if (j < mat[i].length - 1) {
                     System.out.print("[" + mat[i][j] + "]" + "-");
                 } else {
                     System.out.print("[" + mat[i][j] + "]");
                 }
-
             }
             System.out.println("");
         }
     }
-    public static void imprimirMatrizChar(char[][]mat){
     
-    for (int i = 0; i < mat.length; i++) {
+    public static void imprimirMatrizChar(char[][] mat) {
+        for (int i = 0; i < mat.length; i++) {
             for (int j = 0; j < mat[i].length; j++) {
                 if (j < mat[i].length - 1) {
                     System.out.print("[" + mat[i][j] + "]" + "-");
                 } else {
                     System.out.print("[" + mat[i][j] + "]");
                 }
-
             }
             System.out.println("");
         }
