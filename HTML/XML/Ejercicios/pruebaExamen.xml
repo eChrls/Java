@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE factura [
+    <!ELEMENT factura (empresa, cliente, pedido, datos_factura)>
+    <!ATTLIST factura n_fac ID #REQUIRED>
+    <!ELEMENT empresa (nombre, direccion, localidad, cif)>
+    <!ATTLIST empresa
+             telefono CDATA #FIXED "91.777.66.88"
+             fax CDATA #FIXED  "91.777.66.99" >
+    <!ELEMENT nombre (#PCDATA)>
+    <!ELEMENT direccion (#PCDATA)>
+    <!ELEMENT localidad (#PCDATA)>
+    <!ATTLIST localidad codigo_postal CDATA #REQUIRED>
+    <!ELEMENT cif (#PCDATA)>
+    <!ELEMENT telefono (#PCDATA)>
+    <!ELEMENT fax (#PCDATA)>
+
+    <!ELEMENT cliente (nombre, direccion_envio, poblacion, provincia)>
+    <!ATTLIST cliente n_cli ID #REQUIRED>
+    <!ELEMENT direccion_envio (#PCDATA)>
+    <!ELEMENT poblacion (#PCDATA)>
+    <!ATTLIST poblacion codigo_postal CDATA #REQUIRED>
+    <!ELEMENT provincia (#PCDATA)>
+
+    <!ELEMENT pedido EMPTY>
+    <!ATTLIST pedido
+        n_ped ID #REQUIRED
+        fecha CDATA #REQUIRED
+        forma_pago (efectivo|tarjeta|plazos) #REQUIRED>
+
+    <!ELEMENT datos_factura (linea+, base_imponible, cuota_iva, total)>
+    <!ATTLIST datos_factura moneda CDATA #REQUIRED>
+
+    <!ELEMENT linea (descripcion, cantidad, precio, iva, importe)>
+    <!ATTLIST linea ref CDATA #REQUIRED>
+    <!ELEMENT descripcion (#PCDATA)>
+    <!ELEMENT cantidad (#PCDATA)>
+    <!ELEMENT precio (#PCDATA)>
+    <!ELEMENT iva NMTOKEN #REQUIRED> <!-- Comprobar si en element puede ir NMTOKEN y rehacer examen-->
+    <!ELEMENT importe (#PCDATA)>
+
+    <!ELEMENT base_imponible (#PCDATA)>
+    <!ELEMENT cuota_iva (#PCDATA)>
+    <!ATTLIST cuota_iva tipo CDATA #REQUIRED>
+    <!ELEMENT total (#PCDATA)>
+]>
+<factura n_fac="_999">
+    <empresa fax="91.777.66.99" telefono="91.777.66.88">
+        <nombre>Equipos Digitales S.L.</nombre>
+        <direccion>Av. Valladolid</direccion>
+        <localidad codigo_postal="28015">Madrid</localidad>
+        <cif>Q-9876543</cif>
+    </empresa>
+    <cliente n_cli="_879">
+        <nombre>Dario Bueno Gutiérrez</nombre>
+        <direccion_envio>Av. Oporto n° 7 4° d</direccion_envio>
+        <poblacion codigo_postal="28043">Madrid</poblacion>
+        <provincia>Madrid</provincia>
+    </cliente>
+    <pedido n_ped="_731" fecha="12-01-2005" forma_pago="efectivo" />
+    <datos_factura moneda="euro">
+        <linea ref="MII93000F/8">
+            <descripcion>MICRO PENTIUM IV 3000MHZ FB800</descripcion>
+            <cantidad>1</cantidad>
+            <precio>230.00</precio>
+            <iva>16.0</iva>
+            <importe>266.80</importe>
+        </linea>
+        <linea ref="MB8QDIP4">
+            <descripcion>PLACA BASE QDI P4</descripcion>
+            <cantidad>1</cantidad>
+            <precio>180.00</precio>
+            <iva>16.0</iva>
+            <importe>208.80</importe>
+        </linea>
+        <linea ref="MEDD512M32">
+            <descripcion>DIMM DDR 512MB 3200</descripcion>
+            <cantidad>2</cantidad>
+            <precio>40.00</precio>
+            <iva>16.0</iva>
+            <importe>92.80</importe>
+        </linea>
+        <linea ref="HD250GSA7">
+            <descripcion>DISCO DURO 250GB S-ATA 7200</descripcion>
+            <cantidad>4</cantidad>
+            <precio>120.00</precio>
+            <iva>16.0</iva>
+            <importe>556.80</importe>
+        </linea>
+        <base_imponible>970.00</base_imponible>
+        <cuota_iva tipo="16.0">155.20</cuota_iva>
+        <total>1125.20</total>
+    </datos_factura>
+</factura>

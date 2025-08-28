@@ -1,0 +1,113 @@
+OSCARWILDE POSICIONAMIENTO FLOTANTE
+
+	overflow: auto; /* Para que el texto no se salga del cuadro */
+	/*existe letter-spacing y word-spacing para dar espacio entre letras/palabras*/
+	/*text-decoration: underline; para subrayar*/
+	/*text-decoration: line-through; para tachar*/
+
+
+VERTICAL ALIGN (a la imagen para centrarla)
+vertical align: middle; 
+
+
+CLASE ANTES DEL EXAMEN 10.03.25
+html{box-sizing: border-box;}
+*{
+    box-sizing: inherit;
+    border: 0;
+    padding: 0;
+}
+
+Revisar:
+background position
+background-size = cover***
+background containt
+
+MAQUETACION
+Ejercicio 1:
+overflow: hidden
+float left/right
+html{ box-sizing: border-box;}
+*{margin:0; padding:0;box-sizing:inherit;)
+
+Ejercicio 2 y 3:
+#contenedor(width: 90%; margin 0 auto;)
+#centro(overflow:hidden; margin:1 em 0)
+#izq{width:300px; float: left; margin-right: 1em)
+#der{overflow: hidden)
+
+TABLAS:
+border-collapse: collapse;
+border-spacing: 0 =parecido a collapse
+
+LISTAS:
+list-style: none = Quitar los puntos
+list-style-type: none/circle/number
+list-style-position: inside / outside = posicion del punto, con sangria sin sangria. 
+
+MENUS con LISTAS
+Actividad planteada en clase. 
+Estilo vert:
+ul{
+    border: 1px solid black;
+    width: 250px;
+    list-style: none; 
+    margin:0;
+    padding: 0;
+    border-bottom: none;
+}
+li{
+    border-bottom: 1px solid black;
+    background: url("../images/flecha_inactiva.png") 0.2em center no-repeat;
+    background-color: lightgray;
+}
+li a{
+    display: block;
+    padding: 0.25em 0 0.25em 1.4em;
+    text-decoration: none;
+}
+li:hover {
+    background-color: gray; /* Cambia el color de fondo */
+    background: url('../images/flecha_activa.png') .2em center no-repeat; /* Cambia la imagen de fondo */
+}
+Estilo horizontal: 
+html{box-sizing: border-box;}
+*{
+    box-sizing: inherit;
+    border: 0;
+    padding: 0;
+}
+
+ul{
+    border: 1px solid black;
+    list-style: none;
+    width: 80%;
+    margin:2em auto;
+    padding: 0;
+    border-left: none;
+    overflow: hidden;
+}
+li{
+    width: 16.666%;
+    float: left;
+    background: url("../images/flecha_inactiva.png") 0.2em center no-repeat;
+    background-color: white;
+    border-left: 1px solid black;
+}
+
+
+li a{
+    display: block;
+    padding: 0.25em 0 0.25em 1.4em;
+    text-decoration: none;
+    color: black;
+}
+
+
+li:hover {
+    background: url('../images/flecha_activa.png') .2em center no-repeat; /* Cambia la imagen de fondo */
+    cursor: pointer; /* Cambia el cursor */
+    background-color: grey;
+}
+
+

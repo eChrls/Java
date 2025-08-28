@@ -1,0 +1,25 @@
+APUNTES AHORCADO
+
+FUNCIONES COMUNES: 
+- pedir numero
+- pedir palabra
+- mostrar huecos
+- mostrar lista de disponibles
+- mostrar lista de usadas
+- añadir letra
+		Para añadir letra. String palabraAdivinar y String palabraOculta (- - - - -) 
+- añadir vocal
+		Mirar donde esta en el length y luego mirar en el random si esta la vocal o no. 
+		Haciendo un lista con las vocales tambien se puede hacer.
+		Cuando añades la vocal tiene que actualizarse en palabraOculta y las listas de usadas y disponibles.
+- pedirletra
+		te da un char
+		primero comprueba si esta en las usadas (tienes que pedirle otra letra si usa una usada)
+		segundo la quita de disponibles
+		tercero compruebo que esta en palabraAdivinar 
+		cuarto, si esta, actualizo palabraOculta, sino esta RestaVida y repite hasta que la vida sea 0
+		o la palabra oculta este al 100%.  while (palabraOculta = palabraAdivinar) 
+-palabraAleatoria	
+		con lista de palabras y listalength-1
+		
+

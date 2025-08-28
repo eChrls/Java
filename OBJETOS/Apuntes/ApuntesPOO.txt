@@ -1,0 +1,193 @@
+Las clase padre principal es ABSTRACT
+Las clases hijas donde acaba el diagrama son FINAL
+Cuando detectas que un metodo solo afecta a a clases concretas
+se implementa con INTERFAZ
+Cuando tienes un metodo que todas las clases hijas lo van a implementar
+pero de manera diferente, entonces es ABSTRACT
+En ese caso haces un public ABSTRACT pero no le das código.
+
+Explicacion con esquema
+Animal -> Mamifero/Aves ->Gato / Canario, Gallina:
+
+
+public abstract class Animal{
+    
+    public abstract void comer();
+
+}
+
+
+Al cambiar a abstract Animal y su metodo comer 
+las clases mamifero da error porque comer no esta implementado. 
+Y nosotros queremos que no se implemente ahi, solo las queremos en las clases
+hijos (hojas), entonces para eso tenemos que hacerla abstracta tambien. 
+
+public abstract class Mamifero extends Animal{
+
+}
+
+Ahora me da error la clase gato porque no tiene sobreescrito el metodo abstracto
+comer.
+
+public final class Gato extends Mamifero{
+
+    @override
+    public void comer{
+
+    }
+}
+
+Ahora da error la clase Main, donde hacemos las pruebas.
+Cuando yo creo una clase abstracta no puedo crear objetos de esa clase.
+Y habia hecho un objeto Animal y Mamifero.
+    Animal animalito = new Animal ("Toby");
+    =>
+    Animal animalito = new Gato ("Toby");
+    Si lo haces asi no puede mamar ni maullar.
+    Solo comer y dormir.
+
+    =>
+    Gato g1 = new Gato("Garfield");
+    En este caso tiene acceso a todos los metodos
+    comer, mamar, maullar, dormir,...
+
+    =>
+    g1.nombre = "no debo poder hacer esto en el main";
+    
+    esto ocurre porque esta clase esta dentro del paquete donde esta
+    la jerarquia. Creo un paquete "programas" y movemos el main.
+    Ahora con el protected puedo acceder a los atributos pero no
+    modificarlos en el main.
+
+    => Pausa en este punto para explicacion de casting de la clase hija.
+                         Met C y Met A
+                         _____C
+                MetB     |
+                __B------|Met D y Met A
+               |         |____D
+        A -----|         ___
+        MetA   |___E----|     F FINAL
+                MetE    |MetF y Met A
+                        |____
+                MetG y MetA  G FINAL
+
+    A varA = new C();
+    varA.MetA (metodos de A);
+    B varB = new D();
+    varB.MetByMetA(Metodos de B y A);
+    C varC = newC();
+    varC.(Accede a todos los metodos)
+    
+
+    Con esta jerarquia de esta herencia, crea el objeto padre (A) y convierte
+    a la letra especifica. Es preferible, por principios SOLID, que sea lo
+    más universal posible.
+
+    => Continua con la otra rama, Aves.
+    public abstract class Ave extends Animal{
+
+        public void volar(){
+
+        }
+    }
+
+    public final class Canario extends Ave{
+
+        private List<String> colores; 
+
+        public Canario(List<String>colores, String nombre){
+            super(nombre);
+            this.colores = colores;
+
+        }
+
+        public void cantar (String canto){
+
+        }
+
+        => ERROR hasta aqui, no he implementado el metodo abstracto comer.
+        Volar lo hereda de ave tal cual. Sino lo sobreescribo el volar de todas
+        las aves es el mismo.
+
+        @Override
+        public void comer(){
+        }
+
+        => Volvemos al Main
+
+        List<Animal>lista=new ArrayList<>();
+
+        Apuntamos con una variable de tipo animal a una instancia de un
+        subtipo.
+
+        lista.add(new Gato("gatito"));
+        lista.add(new Canario(null, "piolin"));
+
+        Explicacion:
+        //Conversion implicita de tipos
+        //Se declara una variable de un superitpo y se instancia como
+        //un subtipo.
+        Ej: Mamifero mamifero = new Gato("Luna");
+        
+        ->Recorro la lista de animales. Haciendo uso del polimorfismo los voy
+        a poner a todos a comer.
+
+        for(Animal animal : lista){
+            animal.comer();
+        }
+
+        Todos deben tener comer pq te obliga a tenerlo.
+        Y cada uno puede tener un resultado diferente. Cada uno come distinto.
+        POLIMORFMISMO.
+
+        => Operador instaceOf
+
+        animal. (buscamos maullar y no lo hace)
+
+        if (animal instanceof of Gato){
+
+            ((Gato)animal).maullar(); (castea y si aparece)
+            
+            --Solo aparecen gatos por el instanceof
+        }
+        if (animal instance of Canario){
+
+            ((Canario)animal).(metodos de canario)
+        }
+
+   }
+        => EXPLICACION DE INTERFACE
+        crea una clase NADADOR
+        public interface Nadador{
+
+            void nadar{
+                
+            }
+
+        }
+
+        => va a hacer que el gato nade
+
+        public final class Gato extends Mamifero implements Nadador{
+
+            1º Te pide implementar los metodos de la interfar
+
+            public void nadar{
+
+
+            }
+        }
+
+        => de vuelta al main probamos instace of y interface aplicada.
+
+        if (animal instace of Nadador){
+            ((Nadador)animar).nadar(100);
+        }
+
+        =>
+        Podemos crear directamente asi:
+
+        animalito = new Canario();
+
+        (animalito = objeto creado de animal)
+

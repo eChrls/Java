@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nota xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="notas.xsd">
+    <a>Juan</a>
+    <de>Susana Marin</de>
+    <cabecera moneda="euro">
+        <cabeza1>AAAAAAAA</cabeza1>
+        <cabeza2></cabeza2>
+    </cabecera>
+    <cuerpo>CCCC</cuerpo>
+    <color>rojo</color>
+</nota>

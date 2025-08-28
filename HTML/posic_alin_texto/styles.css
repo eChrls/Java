@@ -1,0 +1,96 @@
+html {
+    box-sizing: border-box;
+    height: 100%;
+    width: 100%;
+}
+
+* {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: inherit;
+}
+
+body {
+    height: 100%;
+    width: 100%;
+}
+
+div {
+    float: left;
+    position: relative;
+    border: solid black 1px;
+    width: 30%;
+    margin-top: 2.5%;
+    margin-left: 2.5%;
+}
+
+.vertical {
+    float: left;
+}
+
+.descrip {
+    font-weight: 100;
+    float: right;
+    line-height: 102px;
+}
+
+.imagen1 {
+    border: 1px dashed red;
+    vertical-align: baseline;
+}
+
+.imagen2 {
+    border: 1px dashed red;
+    vertical-align: sub;
+}
+
+.imagen3 {
+    border: 1px dashed red;
+    vertical-align: super;
+}
+
+.imagen4 {
+    border: 1px dashed red;
+    vertical-align: top;
+}
+
+.imagen5 {
+    border: 1px dashed red;
+    vertical-align: text-top;
+}
+
+.imagen6 {
+    border: 1px dashed red;
+    vertical-align: middle;
+}
+
+.imagen7 {
+    border: 1px dashed red;
+    vertical-align: bottom;
+}
+
+.imagen8 {
+    border: 1px dashed red;
+    vertical-align: text-bottom;
+}
+
+.imagen9 {
+    border: 1px dashed red;
+    vertical-align: 1em;
+}
+
+.imagen10 {
+    border: 1px dashed red;
+    vertical-align: -1em;
+}
+
+.imagen11 {
+    border: 1px dashed red;
+    vertical-align: 20%;
+}
+
+.imagen12 {
+    border: 1px dashed red;
+    vertical-align: 80%;
+    min-height: 100
+}

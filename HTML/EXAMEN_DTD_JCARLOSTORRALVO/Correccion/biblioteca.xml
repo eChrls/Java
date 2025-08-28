@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE biblioteca SYSTEM "biblioteca.dtd">
+<biblioteca>
+    <libros>
+        <libro isbn="_55555_777" editorial="McGraw-Hill" autores="_23456788P _23456777G">
+            <titulo>Fundamentos de bbdd</titulo>
+            <precio moneda="euro">40</precio> <!-- Obligacion a que lleve atributo moneda-->
+            <fechaPub>2003</fechaPub>
+            <revisiones>
+                <revision autor="_23456789N">
+                    <valoracion>8.5</valoracion>
+                    <comentario>Libro de texto base</comentario>
+                </revision>
+            </revisiones>
+        </libro>
+    </libros>
+    <autores>
+        <autor nif="_23456788P">
+            <nombre>Abraham</nombre>
+            <apellido>Silver</apellido>
+            <email>silver@gmail.com</email>
+        </autor>
+        <autor nif="_23456777G">
+            <nombre>Henry</nombre>
+            <apellido>Korth</apellido>
+            <email>korth@gmail.com</email>
+        </autor>
+        <autor nif="_23456789N">
+            <nombre>James</nombre>
+            <apellido>Smith</apellido> <!-- El email no era obligatorio-->
+        </autor>
+    </autores>
+    <editoriales>
+        <editorial nombre="McGraw-Hill">
+            <oficina>Av.Santander s/n</oficina>
+            <web>www.mcgrawhill.com</web>
+        </editorial>
+    </editoriales>
+</biblioteca>

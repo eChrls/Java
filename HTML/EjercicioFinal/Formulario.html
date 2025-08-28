@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>  
+    <head>
+        <meta charset="UTF-8">
+        <title>Formulario</title>
+    </head>
+    <body>
+        <h2>Formulario de entrada</h2>
+        <form action="EjercicioFinal.html" method="post">
+            <p>
+                <dd><label for="nombre">Nombre:</label><input type="text" id="nombre" name="nombre"></dd><br/>
+                <dd><label for="Apellidos">Apellidos:</label><input type="text" id="Apellidos" name="Apellidos"></dd><br/>
+            </p>
+            <br/>
+            <table>
+                <tr>
+                    <td style="width:50%">
+                    <dt>Edad
+                    <dd><input type="radio" name="edad" id="edad"><label for="edad" id="edad" name="edad">0-20</label></dd>
+                    <dd><input type="radio" name="edad" id="edad"><label for="edad" id="edad" name="edad">20-40</label></dd>
+                    <dd><input type="radio" name="edad" id="edad"><label for="edad" id="edad" name="edad">40-60</label></dd>
+                    <dd><input type="radio" name="edad" id="edad"><label for="edad" id="edad" name="edad">60-100</label></dd>
+                    </dt>
+                    </td>
+                    <td ></td>
+                    <td style="width:50%">
+                    <dt>¿Cómo nos conociste?
+                        <dd><input type="checkbox" name="conocer" id="conocer"><label for="conocer" id="conocer" name="conocer">A través de un amigo</label></dd>
+                        <dd><input type="checkbox" name="conocer" id="conocer"><label for="conocer" id="conocer" name="conocer">A través de un buscador</label></dd>
+                        <dd><input type="checkbox" name="conocer" id="conocer"><label for="conocer" id="conocer" name="conocer">Navegando por la red</label></dd>
+                        <dd><input type="checkbox" name="conocer" id="conocer"><label for="conocer" id="conocer" name="conocer">Otros</label></dd>
+                    </dt>
+                    </td>
+                </tr>
+            </table>
+            <br/>
+            <p>   
+                <label for="comentario">Opinión sobre nuestra página web</label>
+                <br/>
+                <textarea id="comentario" name="comentario" placeholder="Escriba aquí su opinión" cols="60" rows="8"></textarea></dd>
+                <br/>
+            </p> 
+            <p>
+                <label for="horas">¿Cuánto navegas por internet? (Señala la opción que más se acerque)</label>
+                <br/>
+                <select name = "horas" id = "horas" size="2" multiple>
+                    <option value="2">2 horas al día.</option>
+                    <option value="4">4 horas al día.</option>
+                </select>        
+            </p>
+                <br/>
+            <p>
+                <input type="submit" value="Ir al inicio">
+                <input type="reset" value="Borrar formulario">
+            </p>            
+        </form>
+    </body>
+</html>

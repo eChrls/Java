@@ -1,0 +1,480 @@
+<!-- Relacion de ejercicios DTD FINAL-->
+<!-- José Carlos Torralvo 1º DAW-->
+
+<!-- Ejercicio 1-->
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE etiqueta [
+    <!ELEMENT etiqueta (nombre, calle, pais, codigo)>
+    <!ELEMENT nombre (#PCDATA)>
+    <!ELEMENT calle (#PCDATA)>
+    <!ELEMENT pais (#PCDATA)>
+    <!ELEMENT codigo (#PCDATA)>
+]>
+<etiqueta>
+    <nombre>Pepe García</nombre>
+    <calle>C/Ronda, 3</calle>
+    <pais>España</pais>
+    <codigo>18465</codigo>
+</etiqueta>
+
+
+<!-- Ejercicio 2
+Tras corregir los errores del ejercicio 1.- elabora su DTD-->
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE etiqueta SYSTEM "etiqueta.dtd">
+<etiqueta id="1">
+    <nombre>Pepe García</nombre>
+    <calle>C/Ronda, 3</calle>
+    <pais>España</pais>
+    <codigo>18465</codigo>
+</etiqueta>
+
+
+<!-- etiqueta.dtd -->
+<!ELEMENT etiqueta (nombre, calle, pais, codigo)>
+<!ELEMENT nombre (#PCDATA)>
+<!ELEMENT calle (#PCDATA)>
+<!ELEMENT pais (#PCDATA)>
+<!ELEMENT codigo (#PCDATA)>
+
+
+<!-- Ejercicio 3
+Determina y corrige el/los error/errores que provoca que el fichero XML no sea válido
+respecto al ejemplo-agenda.dtd: -->
+
+<!-- Fichero: ejemplo-agenda.dtd -->
+<!ELEMENT agenda (persona)+>
+<!ELEMENT persona (nombre, tlf)>
+<!ATTLIST persona id #REQUIRED>
+<!ELEMENT nombre (#PCDATA)>
+<!ELEMENT tlf (#PCDATA)>
+
+
+<!-- Fichero: prueba.xml -->
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE agenda SYSTEM "ejemplo-agenda.dtd">
+<agenda>
+    <persona>
+        <nombre>Ricardo Borriquero</nombre>
+        <tlf>951345678</tlf>
+    </persona>
+    <persona>
+        <nombre>Eva Risto</nombre>
+        <tlf>955837659</tlf>
+    </persona>
+</agenda>
+
+
+<!-- Ejercicio 4
+¿Qué líneas tengo que añadir en la parte de definición del documento (DTD interno) 
+para que el XML sea válido? -->
+<!ELEMENT lista_de_personas (persona*)>
+<!ELEMENT persona (nombre, fechanacimiento, telefono*, sexo?)>
+<!ATTLIST persona
+nacionalidad CDATA #IMPLIED>
+<!ELEMENT telefono (#PCDATA)>
+
+
+
+
+<!-- Ejercicio 5
+Elabora el correspondiente DTD para el XML expuesto arriba.  -->
+<!ELEMENT FAQ (INFO, PART)>
+
+<!ELEMENT INFO (TITULO, AUTOR, EMAIL, VERSION, FECHA)>
+<!ELEMENT TITULO (#PCDATA)>
+<!ELEMENT AUTOR (#PCDATA)>
+<!ELEMENT EMAIL (#PCDATA)>
+<!ELEMENT VERSION (#PCDATA)>
+<!ELEMENT FECHA (#PCDATA)>
+
+<!ELEMENT PART (Q+)>
+<!ATTLIST PART
+  number CDATA #REQUIRED>
+
+<!ELEMENT Q (QTEXT, A)>
+<!ATTLIST Q
+  id CDATA #REQUIRED>
+
+<!ELEMENT QTEXT (#PCDATA)>
+<!ELEMENT A (#PCDATA)>
+
+
+<!-- Ejercicio 6
+Construye un DTD que se ajuste a la siguiente jerarquía de datos 
+(XML en forma de árbol) -->
+
+<!ELEMENT cancion (titulo, compositores, productores, sello, artista)>
+<!ATTLIST cancion
+  duracion CDATA #REQUIRED
+  anio CDATA #REQUIRED>
+
+<!ELEMENT titulo (#PCDATA)>
+
+<!ELEMENT compositores (compositor)>
+<!ELEMENT compositor (nombres, apellidos)>
+
+<!ELEMENT productores (productor)>
+<!ELEMENT productor (nombres, apellidos)>
+
+<!ELEMENT sello (#PCDATA)>
+
+<!ELEMENT artista (#PCDATA)>
+
+<!ELEMENT nombres (#PCDATA)>
+<!ELEMENT apellidos (#PCDATA)>
+
+<!-- Ejercicio 7
+Amplía el DTD del ejercicio 6.-  para representar la estructura de un CD completo. 
+Para ello debes crear un nuevo elemento cd que contenga: 
+• Un atributo titulo que tome como valor el título genérico del CD 
+• Dos elementos: o Un elemento songs que a su vez puede contener uno o varios 
+elementos song con la estructura que definiste en el apartado anterior. 
+o Un elemento fecha que sea de carácter EMPTY pero que tenga 
+tres atributos: dia, mes y anio para indicar la fecha de salida al mercado del CD-->
+
+<!ELEMENT cd (songs, fecha)>
+<!ATTLIST cd
+  titulo CDATA #REQUIRED>
+
+<!ELEMENT songs (cancion+)>
+
+<!ELEMENT cancion (titulo, compositores, productores, sello, artista)>
+<!ATTLIST cancion
+  duracion CDATA #REQUIRED
+  anio CDATA #REQUIRED>
+
+<!ELEMENT titulo (#PCDATA)>
+
+<!ELEMENT compositores (compositor)>
+<!ELEMENT compositor (nombres, apellidos)>
+
+<!ELEMENT productores (productor)>
+<!ELEMENT productor (nombres, apellidos)>
+
+<!ELEMENT sello (#PCDATA)>
+
+<!ELEMENT artista (#PCDATA)>
+
+<!ELEMENT nombres (#PCDATA)>
+<!ELEMENT apellidos (#PCDATA)>
+
+<!ELEMENT fecha EMPTY>
+<!ATTLIST fecha
+  dia CDATA #REQUIRED
+  mes CDATA #REQUIRED
+  anio CDATA #REQUIRED>
+
+
+<!-- Ejercicio 8
+Explicacion de las entidades
+Entidad interna.
+Las entidades no pueden estar en el archivo externo, sino junto
+al enlace web en el archivo original-->
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html SYSTEM "xtml.dtd" [
+    <!ENTITY iacute "i">
+]>
+<html xmlns="http://www.w3.org/1999/xhtml"></html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Documento sin t&iacute;tulo</title>
+</head>
+<body bgcolor="red">
+    <p>Implementa el DTD asociado a este XML</p>
+    <p align="center">resuelve el ejercicio</p>
+</body>
+
+<!-- archivo externo xhtml.dtd-->
+<!ELEMENT html (head, body)>
+<!ATTLIST html xmlns CDATA #IMPLIED>
+<!ELEMENT head (meta*, title?, meta*)>
+<!ELEMENT meta EMPTY>
+<!ATTLIST meta http-equiv NMTOKEN #REQUIRED
+content CDATA #REQUIRED>
+<!ELEMENT title (#PCDATA)>
+<!ELEMENT body (p*)>
+<!ATTLIST body bgcolor CDATA #IMPLIED>
+<!ELEMENT p (#PCDATA)>
+<!ATTLIST p align CDATA #IMPLIED>
+
+<!-- Entidad parametrica (externa)
+busca un elemento que se repita para la explicacion.
+Utiliza CDATA #IMPLIED y se inicializa con %
+SOLO FUNCIONAN EXTERNAMENTE-->
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html SYSTEM "xtml.dtd" [
+    <!ENTITY iacute "i">
+]>
+<html xmlns="http://www.w3.org/1999/xhtml"></html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Documento sin t&iacute;tulo</title>
+</head>
+<body bgcolor="red">
+    <p>Implementa el DTD asociado a este XML</p>
+    <p align="center">resuelve el ejercicio</p>
+</body>
+
+
+<!ELEMENT html (head, body)>
+<!ENTITY %c_op "CDATA #IMPLIED"> <!-- se inventa el nombre c_op-->
+<!ATTLIST html xmlns %c_op;> <!-- se utiliza %c_op con porcentaje y sustituye a CDATA IMPLIED-->
+<!ELEMENT head (meta*, title?, meta*)>
+<!ELEMENT meta EMPTY>
+<!ATTLIST meta http-equiv NMTOKEN #REQUIRED
+content %c_op;>
+<!ELEMENT title (#PCDATA)>
+<!ELEMENT body (p*)>
+<!ATTLIST body bgcolor %c_op;>
+<!ELEMENT p (#PCDATA)>
+<!ATTLIST p align %c_op;>
+
+
+
+<!-- Ejercicio 9
+Dado siguiente pedido que ha recibido por correo electrónico 
+una empresa que se dedica a la venta de herramientas para jardinería:-->
+<!ELEMENT Pedido (NumeroPedido, FechaPedido, Destino, Ordenante, Observaciones?, Contenido)>
+<!ELEMENT NumeroPedido (#PCDATA)>
+<!ELEMENT FechaPedido (#PCDATA)>
+<!ELEMENT Destino (Nombre, Direccion, Ciudad, CodPostal)>
+<!ELEMENT Ordenante (Nombre, Direccion, Ciudad, CodPostal)>
+<!ELEMENT Nombre (#PCDATA)>
+<!ELEMENT Direccion (#PCDATA)>
+<!ELEMENT Ciudad (#PCDATA)>
+<!ELEMENT CodPostal (#PCDATA)>
+<!ELEMENT Observaciones (#PCDATA)>
+<!ELEMENT Contenido (Producto+)>
+<!ELEMENT Producto (Codigo, Descripcion, Cantidad, PrecioUnitario)>
+<!ELEMENT Codigo (#PCDATA)>
+<!ELEMENT Descripcion (#PCDATA)>
+<!ELEMENT Cantidad (#PCDATA)>
+<!ELEMENT PrecioUnitario (#PCDATA)>
+
+
+
+<!-- 10. Determina y corrige el/los error/errores que provoca que el fichero XML 
+no sea válida respecto al DTD interno:-->
+<!DOCTYPE libro [
+    <!ELEMENT libro (titulo, disponible*, autor*, formato*, publicacion*, precio*, descuento*, enlacelibro*)>
+    <!ELEMENT autor (#PCDATA)>
+    <!ELEMENT descuento EMPTY>
+    <!ATTLIST descuento cantidad CDATA #REQUIRED>
+    <!ELEMENT disponible EMPTY>
+    <!ATTLIST disponible tiempo CDATA #REQUIRED>
+    <!ATTLIST disponible unidad CDATA #IMPLIED>
+    <!ELEMENT enlacelibro EMPTY>
+    <!ATTLIST enlacelibro href CDATA #REQUIRED>
+    <!ELEMENT formato (#PCDATA)>
+    <!ELEMENT precio EMPTY>
+    <!ATTLIST precio cantidad CDATA #REQUIRED>
+    <!ATTLIST precio moneda CDATA #IMPLIED>
+    <!ELEMENT publicacion (#PCDATA)>
+    <!ELEMENT titulo (#PCDATA)>
+]>
+<libro>
+    <titulo>Cien años de soledad</titulo>
+    <disponible tiempo="24" unidad="horas"></disponible>
+    <autor>Gabriel García Márquez</autor>
+    <formato>Rústica</formato>
+    <publicacion>1967</publicacion>
+    <precio cantidad="39.99" moneda="EUR"></precio>
+    <descuento cantidad="5"></descuento>
+    <enlacelibro href="https://example.com/libro"></enlacelibro>
+</libro>
+
+
+<!-- 11. Elabora el correspondiente DTD  -->
+<Libro id="L123">
+    <Titulo>Aventuras Asombrosas</Titulo>
+    <Contenido>
+        <Capitulo materia="Ciencia Ficción">
+            <Tema>El Planeta Misterioso</Tema>
+            <Seccion apartados="3" dificil="medio">Descubrimiento inicial</Seccion>
+            <Seccion apartados="5">Encuentro con los habitantes</Seccion>
+        </Capitulo>
+        <Separacion />
+        <Capitulo materia="Fantasía">
+            <Tema>El Dragón Durmiente</Tema>
+            <Seccion apartados="2">La leyenda</Seccion>
+            <Seccion apartados="4" dificil="alto">El despertar</Seccion>
+        </Capitulo>
+    </Contenido>
+    <Copyright>© 2025 Ejemplo Editorial</Copyright>
+</Libro>
+
+
+
+<!-- 12. ¿Qué líneas tengo que añadir en la parte de definición 
+del documento (DTD interno) para que el XML sea válido?-->
+<!ELEMENT lista_de_personas (persona*)>
+<!ELEMENT persona (nombre, fechanacimiento, telefono*, sexo?, numeroseguridadsocial?)>
+<!ATTLIST persona nacionalidad CDATA #IMPLIED>
+<!ATTLIST nombre id CDATA #IMPLIED>
+<!ELEMENT telefono (#PCDATA)>
+
+
+
+<!-- 13. Elabora el correspondiente XML. -->
+<bib>
+    <libro titulo="El Señor de los Anillos" editorial="Minotauro" autor="J.R.R. Tolkien" />
+    <revista titulo="National Geographic" editorial="National Geographic Society" numero="Mayo 2025" />
+    <libro titulo="Fundación" editorial="Debolsillo" autor="Isaac Asimov" />
+</bib>
+
+
+
+<!-- 14. Elabora en formato XML el fichero de texto que contiene datos pertenecientes 
+a un determinado dominio/problema. -->
+<BancoLorca>
+    <Sucursal codigo="SUC001">
+        <Cuenta codigo="CTA123">
+            <Cliente nif="CLI111" privilegios="consultar, retirar" />
+            <Cliente nif="CLI222" privilegios="consultar" />
+            <Domiciliacion referencia="DOM001" />
+        </Cuenta>
+        <Cuenta codigo="CTA456">
+            <Cliente nif="CLI222" privilegios="consultar, ingresar" />
+        </Cuenta>
+    </Sucursal>
+    <Sucursal codigo="SUC002">
+        <Cuenta codigo="CTA789">
+            <Cliente nif="CLI333" privilegios="consultar, retirar, ingresar" />
+            <Domiciliacion referencia="DOM002" />
+            <Domiciliacion referencia="DOM003" />
+        </Cuenta>
+    </Sucursal>
+    <Cliente nif="CLI111">
+        <Prestamo id="PRE001" />
+    </Cliente>
+    <Cliente nif="CLI222">
+        <Prestamo id="PRE002" />
+        <Prestamo id="PRE003" />
+    </Cliente>
+</BancoLorca>
+
+<!-- 15. Elabora para el banco_lorca.xml el correspondiente .dtd -->
+<!ELEMENT BancoLorca (Sucursal*, Cliente*)>
+<!ELEMENT Sucursal (Cuenta*)>
+<!ATTLIST Sucursal codigo CDATA #REQUIRED>
+<!ELEMENT Cuenta (Cliente*, Domiciliacion*)>
+<!ATTLIST Cuenta codigo CDATA #REQUIRED>
+<!ELEMENT Cliente EMPTY>
+<!ATTLIST Cliente nif ID #REQUIRED privilegios CDATA #IMPLIED>
+<!ELEMENT Domiciliacion EMPTY>
+<!ATTLIST Domiciliacion referencia CDATA #REQUIRED>
+<!ELEMENT Cliente (Prestamo*)>
+<!ATTLIST Cliente nif #REQUIRED>
+<!ELEMENT Prestamo EMPTY>
+<!ATTLIST Prestamo id #REQUIRED>
+
+<!-- 16. Elabora en formato XML el fichero de texto que contiene datos pertenecientes
+ a un determinado dominio/problema. -->
+<BuzonCorreos>
+    <Carta id="C001" remitente="Ana Pérez" destinatario="Juan López" fecha="2025-04-01">
+        <Asunto>Saludos</Asunto>
+    </Carta>
+    <Paquete id="P002" remitente="Tienda Online" destinatario="María Gómez" fecha="2025-04-03">
+        <Peso unidad="kg">1.5</Peso>
+    </Paquete>
+    <Carta id="C003" remitente="Carlos Ruiz" destinatario="Sofía Martín" fecha="2025-04-05">
+        <Asunto>Invitación</Asunto>
+    </Carta>
+</BuzonCorreos>
+
+<!-- 17. Elabora para el Buzon_correos.xml el correspondiente .dtd -->
+<!ELEMENT BuzonCorreos (Carta* | Paquete*)>
+<!ELEMENT Carta (Asunto)>
+<!ATTLIST Carta id CDATA #REQUIRED remitente CDATA #REQUIRED destinatario CDATA #REQUIRED fecha CDATA #REQUIRED>
+<!ELEMENT Paquete (Peso)>
+<!ATTLIST Paquete id CDATA #REQUIRED remitente CDATA #REQUIRED destinatario CDATA #REQUIRED fecha CDATA #REQUIRED>
+<!ELEMENT Asunto (#PCDATA)>
+<!ELEMENT Peso (#PCDATA)>
+<!ATTLIST Peso unidad CDATA #REQUIRED>
+
+<!-- 18. Elabora en formato XML el fichero de texto que 
+contiene datos pertenecientes a un determinado dominio/problema. -->
+<LibretaDirecciones>
+    <Contacto id="1">
+        <Nombre>Laura García</Nombre>
+        <Telefono>912345678</Telefono>
+        <Email>laura.garcia@example.com</Email>
+        <Direccion>Calle Mayor, 10</Direccion>
+    </Contacto>
+    <Contacto id="2">
+        <Nombre>Pedro Fernández</Nombre>
+        <Telefono>654321098</Telefono>
+        <Email>pedro.fernandez@example.org</Email>
+        <Direccion>Avenida del Sol, 25</Direccion>
+    </Contacto>
+    <Contacto id="3">
+        <Nombre>Sofía Ruiz</Nombre>
+        <Telefono>956123456</Telefono>
+        <Email>sofia.ruiz@example.net</Email>
+        <Direccion>Plaza Nueva, 5</Direccion>
+    </Contacto>
+</LibretaDirecciones>
+
+
+<!-- 19. Elabora para el libreta_de_direcciones.xml el correspondiente .dtd-->
+<!ELEMENT LibretaDirecciones (Contacto*)>
+<!ELEMENT Contacto (Nombre, Telefono*, Email?, Direccion?)>
+<!ATTLIST Contacto id CDATA #REQUIRED>
+<!ELEMENT Nombre (#PCDATA)>
+<!ELEMENT Telefono (#PCDATA)>
+<!ELEMENT Email (#PCDATA)>
+<!ELEMENT Direccion (#PCDATA)>
+
+<!-- 20. Elabora en formato XML el fichero de texto que contiene datos
+ pertenecientes a un determinado dominio/problema -->
+<MOTORSOL>
+    <Motor tipo="M1" seccion="SeccionA">
+        <Pieza nombre="BloqueMotor">
+            <Pieza nombre="Cilindro" />
+            <Pieza nombre="Piston" />
+        </Pieza>
+        <Pieza nombre="Culata" />
+        <Responsable empleado="EMP001" />
+        <Empleado ref="EMP001" />
+        <Empleado ref="EMP002" />
+    </Motor>
+    <Motor tipo="M2" seccion="SeccionB">
+        <Pieza nombre="Chasis" />
+        <Pieza nombre="Rueda" />
+        <Responsable empleado="EMP003" />
+        <Empleado ref="EMP003" />
+    </Motor>
+    <Empleado id="EMP001">
+        <Nombre>Luis Pérez</Nombre>
+        <Familiar nombre="Ana Pérez" />
+    </Empleado>
+    <Empleado id="EMP002">
+        <Nombre>Carmen López</Nombre>
+    </Empleado>
+    <Empleado id="EMP003">
+        <Nombre>Javier Ruiz</Nombre>
+        <Familiar nombre="Elena Ruiz" />
+        <Familiar nombre="Pablo Ruiz" />
+    </Empleado>
+</MOTORSOL>
+
+<!-- 21. Elabora para el MOTORSOL.xml el correspondiente .dtd -->
+<!ELEMENT MOTORSOL (Motor*, Empleado*)>
+<!ELEMENT Motor (Pieza+, Responsable, Empleado*)>
+<!ATTLIST Motor tipo CDATA #REQUIRED seccion CDATA #REQUIRED>
+<!ELEMENT Pieza (Pieza*)>
+<!ATTLIST Pieza nombre CDATA #REQUIRED>
+<!ELEMENT Responsable EMPTY>
+<!ATTLIST Responsable empleado CDATA #REQUIRED>
+<!ELEMENT Empleado (Nombre, Familiar*)>
+<!ATTLIST Empleado id CDATA #REQUIRED ref CDATA #IMPLIED>
+<!ELEMENT Nombre (#PCDATA)>
+<!ELEMENT Familiar EMPTY>
+<!ATTLIST Familiar nombre CDATA #REQUIRED>
+
+
+<!--
+ver diferencia entre id, idref implied, idrefs implied, y lo mismo requiered.
+-->
+    
